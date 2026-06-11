@@ -43,8 +43,24 @@ const I18N = {
 
     this._ready = true;
     this._resolveReady();
-    this._processDOM();
+    this._processDOM(document);
     document.documentElement.lang = this._locale;
+
+    // Watch for dynamically-rendered content and translate it automatically.
+    // Most of the Odysseus UI is built by JS after page load, so data-i18n
+    // attributes on the initial HTML skeleton are not enough.
+    if (!this._observer && typeof MutationObserver !== 'undefined') {
+      this._observer = new MutationObserver((mutations) => {
+        for (const m of mutations) {
+          for (const node of m.addedNodes) {
+            if (node.nodeType === 1) {  // Element node
+              this._processDOM(node);
+            }
+          }
+        }
+      });
+      this._observer.observe(document.body, { childList: true, subtree: true });
+    }
   },
 
   _detectLocale() {
