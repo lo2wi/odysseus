@@ -691,7 +691,7 @@ async function _fetchDependencies() {
     list.appendChild(_spin.element);
     const label = document.createElement('div');
     label.className = 'hwfit-loading';
-    label.textContent = __('cookbook.loading_packages', __('cookbook.loading_packages', 'Loading packages…'));
+    label.textContent = __('cookbook.loading_packages', 'Loading packages…');
     label.style.cssText = 'text-align:center;opacity:0.5;font-size:11px;margin-top:6px;';
     list.appendChild(label);
   } catch {
@@ -1165,7 +1165,7 @@ function _wireTabEvents(body) {
       if (!confirm(`Rebuild the llama.cpp engine on ${where}?\n\nThis clears the cached llama-server build so the next serve recompiles from source (with CUDA/HIP if a toolchain is present). It does not download or install anything.`)) return;
       const _label = rebuildBtn.textContent;
       rebuildBtn.disabled = true;
-      rebuildBtn.textContent = __('cookbook.clearing', __('cookbook.clearing', 'Clearing...'));
+      rebuildBtn.textContent = __('cookbook.clearing', 'Clearing...');
       try {
         const res = await fetch('/api/cookbook/rebuild-engine', {
           method: 'POST', credentials: 'same-origin',
@@ -1472,7 +1472,7 @@ function _wireTabEvents(body) {
         hfList.appendChild(_spin.element);
         const lbl = document.createElement('div');
         lbl.className = 'hwfit-loading';
-        lbl.textContent = __('cookbook.scanning', __('cookbook.scanning', 'Scanning models…'));
+        lbl.textContent = __('cookbook.scanning', 'Scanning models…');
         lbl.style.cssText = 'text-align:center;opacity:0.5;font-size:11px;margin-top:6px;';
         hfList.appendChild(lbl);
       } catch {
@@ -1671,7 +1671,7 @@ function _wireTabEvents(body) {
         if (!check) {
           check = document.createElement('span');
           check.className = 'hwfit-hf-check';
-          check.title = __('cookbook.token_stored', __('cookbook.token_stored', 'Token stored'));
+          check.title = __('cookbook.token_stored', 'Token stored');
           check.textContent = '✓';
           check.style.cssText = 'font-weight:800;color:var(--green,#50fa7b);font-size:15px;line-height:1;flex-shrink:0;position:relative;top:2px;';
           hfInput.parentNode.insertBefore(check, hfInput);

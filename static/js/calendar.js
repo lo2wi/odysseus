@@ -543,7 +543,7 @@ async function _createEventReminder(ev, dueDate) {
       try { Notification.requestPermission(); } catch {}
     }
   } catch (e) {
-    if (uiModule.showError) uiModule.showError(__('calendar.reminder_failed', __('calendar.reminder_failed', 'Failed to create reminder')));
+    if (uiModule.showError) uiModule.showError(__('calendar.reminder_failed', 'Failed to create reminder'));
   }
 }
 
@@ -1935,7 +1935,7 @@ function _wireAll(body) {
             _qaStatus.appendChild(_qaSpin.element);
           }, 250);
         } catch {
-          _qaSpinTimer = setTimeout(() => { if (_qaStatus) _qaStatus.textContent = __('calendar.parsing', __('calendar.parsing', 'parsing…')); }, 250);
+          _qaSpinTimer = setTimeout(() => { if (_qaStatus) _qaStatus.textContent = __('calendar.parsing', 'parsing…'); }, 250);
         }
       }
       try {
@@ -2382,7 +2382,7 @@ function _wireAll(body) {
       _pushCalUndo({ label: 'move', run: () => _updateEvent(undoSnap.uid, { dtstart: undoSnap.dtstart, dtend: undoSnap.dtend || undefined }).then(_render) });
       await _updateEvent(ev.uid, { dtstart: _shiftDT(ev.dtstart, diff), dtend: ev.dtend ? _shiftDT(ev.dtend, diff) : undefined });
       _render();
-      uiModule.showToast?.(__('calendar.moved', __('calendar.moved', 'Moved')), { duration: 4000, action: 'Undo', actionHint: 'Ctrl+Z', onAction: _popAndRunCalUndo });
+      uiModule.showToast?.(__('calendar.moved', 'Moved'), { duration: 4000, action: 'Undo', actionHint: 'Ctrl+Z', onAction: _popAndRunCalUndo });
     });
   });
 }
@@ -2981,7 +2981,7 @@ function _showEventForm(existing, defaultDate, defaultEndDate) {
   document.getElementById('cal-form-mobile-cancel')?.addEventListener('click', _cancelEventForm);
   document.getElementById('cal-f-save')?.addEventListener('click', async () => {
     const summary = document.getElementById('cal-f-sum').value.trim();
-    if (!summary) { uiModule.showToast(__('calendar.title_required', __('calendar.title_required', 'Title required'))); return; }
+    if (!summary) { uiModule.showToast(__('calendar.title_required', 'Title required')); return; }
     const dv = document.getElementById('cal-f-date').value;
     const dvEnd = document.getElementById('cal-f-date-end').value || dv;
     const isAD = document.getElementById('cal-f-allday').checked;

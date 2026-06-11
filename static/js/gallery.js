@@ -335,7 +335,7 @@ async function _handleGalleryDrop(e) {
   if (looksLikeFolderUri) {
     uiModule.showError(__('gallery.cant_read_folders', "Browsers can't read folders dropped from native file managers. Use the \"Upload album\" tile in the Albums tab instead."));
   } else if (entries.length || dtItems.length) {
-    uiModule.showToast(__('gallery.no_images_drop', __('gallery.no_images_drop', 'No images found in that drop')));
+    uiModule.showToast(__('gallery.no_images_drop', 'No images found in that drop'));
   }
 }
 
@@ -489,7 +489,7 @@ function _ensureAlbumsToolbar(container) {
   });
   container.querySelector('#gallery-albums-bulk-delete').addEventListener('click', (e) => {
     e.stopPropagation();
-    if (!_albumSelected.size) { uiModule.showToast(__('gallery.select_albums_first', __('gallery.select_albums_first', 'Select albums first'))); return; }
+    if (!_albumSelected.size) { uiModule.showToast(__('gallery.select_albums_first', 'Select albums first')); return; }
     _bulkDeleteAlbums([..._albumSelected]);
   });
 }
@@ -704,9 +704,9 @@ function _wireAlbumsEvents(scope) {
       if (r.ok) {
         await _fetchAlbums();
         _renderAlbumsTab();
-        if (uiModule) uiModule.showToast(__('gallery.album_renamed', __('gallery.album_renamed', 'Album renamed')));
+        if (uiModule) uiModule.showToast(__('gallery.album_renamed', 'Album renamed'));
       } else if (uiModule) {
-        uiModule.showError(__('gallery.rename_failed', __('gallery.rename_failed', 'Rename failed')));
+        uiModule.showError(__('gallery.rename_failed', 'Rename failed'));
       }
     });
     pop.querySelector('[data-action="delete"]')?.addEventListener('click', async (e) => {
@@ -726,9 +726,9 @@ function _wireAlbumsEvents(scope) {
         await _fetchAlbums();
         _renderAlbumsTab();
         _renderAlbums();
-        if (uiModule) uiModule.showToast(__('gallery.album_deleted', __('gallery.album_deleted', 'Album deleted')));
+        if (uiModule) uiModule.showToast(__('gallery.album_deleted', 'Album deleted'));
       } else if (uiModule) {
-        uiModule.showError(__('gallery.delete_failed', __('gallery.delete_failed', 'Delete failed')));
+        uiModule.showError(__('gallery.delete_failed', 'Delete failed'));
       }
     });
   });
@@ -759,7 +759,7 @@ function _wireAlbumsEvents(scope) {
       const images = all.filter(_isMediaFile);
       picker.remove();
       if (!images.length) {
-        if (uiModule) uiModule.showToast(__('gallery.no_images_folder', __('gallery.no_images_folder', 'No images or videos in that folder')));
+        if (uiModule) uiModule.showToast(__('gallery.no_images_folder', 'No images or videos in that folder'));
         return;
       }
       // Derive folder name from the first file's relative path (e.g.
@@ -784,7 +784,7 @@ function _wireAlbumsEvents(scope) {
         }
       }
       if (!album) {
-        if (uiModule) uiModule.showError(__('gallery.cant_create_album', __('gallery.cant_create_album', 'Could not create album')));
+        if (uiModule) uiModule.showError(__('gallery.cant_create_album', 'Could not create album'));
         return;
       }
       await _bulkUpload(images, album.id);

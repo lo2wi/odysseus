@@ -325,7 +325,7 @@ function createSessionItem(s) {
   // Favorite bookmark replaces session-icon when important
   if (s.is_important && !isOpenClaw) {
     icon.className = 'session-icon session-fav';
-    icon.title = __('sessions.unfavorite', __('sessions.unfavorite', 'Unfavorite'));
+    icon.title = __('sessions.unfavorite', 'Unfavorite');
     icon.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
     icon.addEventListener('click', async (e) => {
       e.stopPropagation();
@@ -704,7 +704,7 @@ function createSessionItem(s) {
       }
     } catch (error) {
       console.error('Error archiving session:', error);
-      uiModule.showError(__('sessions.archive_failed', __('sessions.archive_failed', 'Failed to archive session')));
+      uiModule.showError(__('sessions.archive_failed', 'Failed to archive session'));
     }
   });
 

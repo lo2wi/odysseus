@@ -725,7 +725,7 @@ function _renderList() {
     if (task.status !== 'completed') {
       const runBtn = document.createElement('button');
       runBtn.className = 'task-status-badge task-run-now-badge task-card-run-btn';
-      runBtn.title = __('tasks.run_now', __('tasks.run_now', 'Run now'));
+      runBtn.title = __('tasks.run_now', 'Run now');
       runBtn.style.cssText = 'position:relative;top:1px;margin-right:4px;';
       runBtn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span>Run</span>';
       runBtn.addEventListener('click', (e) => { e.stopPropagation(); _doRunNow(task.id); });
@@ -780,7 +780,7 @@ function _renderList() {
       const lr = document.createElement('div');
       lr.style.cssText = `font-size:11px;margin-bottom:6px;padding:4px 8px;border-left:2px solid ${color};background:color-mix(in srgb, ${color} 8%, transparent);border-radius:2px;line-height:1.4;cursor:pointer;`;
       lr.innerHTML = `<span style="font-weight:600;color:${color};">${isErr ? '✗' : '✓'}</span> <span style="opacity:0.9;">${_esc(prev) || (isErr ? 'Failed (no detail)' : 'Success (no output)')}</span>`;
-      lr.title = __('tasks.full_history', __('tasks.full_history', 'Open full history'));
+      lr.title = __('tasks.full_history', 'Open full history');
       lr.addEventListener('click', (e) => { e.stopPropagation(); _showRunHistory(task.id, task.name); });
       detail.appendChild(lr);
     }
@@ -1184,7 +1184,7 @@ function _showForm(existing, initTaskType, initTriggerType) {
         if (sched === 'weekly') {
           const label = document.createElement('label');
           label.className = 'task-form-label';
-          label.textContent = __('tasks.day_of_week', __('tasks.day_of_week', 'Day of week'));
+          label.textContent = __('tasks.day_of_week', 'Day of week');
           schedOpts.appendChild(label);
           const sel = document.createElement('select');
           sel.id = 'task-form-day';
@@ -1200,7 +1200,7 @@ function _showForm(existing, initTaskType, initTriggerType) {
         } else if (sched === 'monthly') {
           const label = document.createElement('label');
           label.className = 'task-form-label';
-          label.textContent = __('tasks.day_of_month', __('tasks.day_of_month', 'Day of month'));
+          label.textContent = __('tasks.day_of_month', 'Day of month');
           schedOpts.appendChild(label);
           const inp = document.createElement('input');
           inp.type = 'number';
@@ -1212,7 +1212,7 @@ function _showForm(existing, initTaskType, initTriggerType) {
         } else if (sched === 'once') {
           const label = document.createElement('label');
           label.className = 'task-form-label';
-          label.textContent = __('tasks.date', __('tasks.date', 'Date'));
+          label.textContent = __('tasks.date', 'Date');
           schedOpts.appendChild(label);
           const dateWrap = document.createElement('div');
           dateWrap.className = 'task-date-picker';
@@ -1222,7 +1222,7 @@ function _showForm(existing, initTaskType, initTriggerType) {
         } else if (sched === 'cron') {
           const label = document.createElement('label');
           label.className = 'task-form-label';
-          label.textContent = __('tasks.cron_expr', __('tasks.cron_expr', 'Cron expression'));
+          label.textContent = __('tasks.cron_expr', 'Cron expression');
           schedOpts.appendChild(label);
           const inp = document.createElement('input');
           inp.type = 'text';

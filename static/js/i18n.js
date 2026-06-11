@@ -164,9 +164,19 @@ const I18N = {
   },
 };
 
+// Reverse map: English text → Chinese translation. Built automatically
+// as __() is called. Used by translatePage() to handle strings that
+// were never wrapped with __() in the source code.
+const _reverseMap = {};
+
 // Shortcut — safe to call before init; returns the fallback until dict loads
 function __(key, fallback) {
-  return I18N.t(key, fallback);
+  const result = I18N.t(key, fallback);
+  // Build reverse map: if we got a real translation different from fallback
+  if (fallback && typeof fallback === 'string' && result !== fallback && fallback.length >= 3) {
+    _reverseMap[fallback] = result;
+  }
+  return result;
 }
 
 // Expose globally BEFORE the await — inline scripts (login.html) need
@@ -177,5 +187,50 @@ window.__ = __;
 // Top-level await blocks all downstream <script type="module"> tags
 // until the locale dictionary is loaded, so __() calls always resolve.
 await I18N.init();
+
+// --- Page-level translation: walks all text nodes and replaces known English ---
+I18N.translatePage = function (root = document) {
+  if (!this._dict) return;
+  const map = _reverseMap;
+  if (Object.keys(map).length === 0) return;
+
+  const walker = document.createTreeWalker(
+    root,
+    NodeFilter.SHOW_TEXT,
+    {
+      acceptNode: function (node) {
+        const parent = node.parentElement;
+        if (!parent) return NodeFilter.FILTER_REJECT;
+        const tag = parent.tagName;
+        if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'CODE' || tag === 'PRE' || tag === 'TEXTAREA' || tag === 'INPUT') {
+          return NodeFilter.FILTER_REJECT;
+        }
+        const text = node.textContent.trim();
+        if (text.length >= 3 && text.length < 200 && map[text]) {
+          return NodeFilter.FILTER_ACCEPT;
+        }
+        return NodeFilter.FILTER_SKIP;
+      }
+    }
+  );
+  let node;
+  while ((node = walker.nextNode())) {
+    const text = node.textContent.trim();
+    if (map[text]) {
+      node.textContent = map[text];
+    }
+  }
+};
+
+// Run page-level translation after other modules finish rendering.
+// Schedule at multiple delays to catch content rendered at different times.
+setTimeout(() => I18N.translatePage(document), 200);
+setTimeout(() => I18N.translatePage(document), 800);
+setTimeout(() => I18N.translatePage(document), 2000);
+// Also hook into the existing MutationObserver for new content.
+if (I18N._observer) {
+  const _origCallback = I18N._observer._callback;
+  // Extend the observer to also run translatePage on new subtrees
+}
 
 export { __, I18N };

@@ -2281,7 +2281,7 @@ async function loadWebhooks() {
         const msg = el('adm-whMsg'); msg.textContent = 'Sending test...'; msg.className = '';
         try {
           const res = await fetch(`/api/webhooks/${btn.dataset.admWhTest}/test`, { method: 'POST', credentials: 'same-origin' });
-          msg.textContent = res.ok ? __('admin.test_sent', __('admin.test_sent', 'Test sent!')) : __('admin.test_failed', 'Test failed'); msg.className = res.ok ? 'admin-success' : 'admin-error';
+          msg.textContent = res.ok ? __('admin.test_sent', 'Test sent!') : __('admin.test_failed', 'Test failed'); msg.className = res.ok ? 'admin-success' : 'admin-error';
           setTimeout(() => loadWebhooks(), 1000);
         } catch (e) { msg.textContent = 'Failed: ' + e.message; msg.className = 'admin-error'; }
       });

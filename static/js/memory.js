@@ -673,7 +673,7 @@ export function renderMemoryList() {
     if (memory.pinned) {
       const pinBadge = document.createElement('span');
       pinBadge.className = 'memory-cat-badge memory-cat-pinned';
-      pinBadge.textContent = __('memory.pinned', __('memory.pinned', 'pinned'));
+      pinBadge.textContent = __('memory.pinned', 'pinned');
       meta.appendChild(pinBadge);
     }
 

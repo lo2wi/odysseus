@@ -482,7 +482,7 @@ async function initDefaultChat() {
           default_model_fallbacks: clean
         })
       });
-      msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
       setTimeout(function() { msg.textContent = ''; }, 2000);
     } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
@@ -551,7 +551,7 @@ async function initUtilityModel() {
           utility_model: modelSel.value || ''
         })
       });
-      msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
       setTimeout(function() { msg.textContent = ''; }, 1500);
     } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
@@ -722,7 +722,7 @@ async function initImageSettings() {
     try {
       await fetch('/api/auth/settings', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image_gen_enabled: enabledToggle ? enabledToggle.checked : true, image_model: modelSel.value, image_quality: qualSel.value }) });
-      msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--fg)'; setTimeout(() => { msg.textContent = ''; }, 2000);
+      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)'; setTimeout(() => { msg.textContent = ''; }, 2000);
     } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
   modelSel.addEventListener('change', saveSettings);
@@ -795,7 +795,7 @@ async function initVisionSettings() {
     try {
       await fetch('/api/auth/settings', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ vision_enabled: enabledToggle ? enabledToggle.checked : true, vision_model: vlSel.value }) });
-      msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--fg)'; setTimeout(() => { msg.textContent = ''; }, 2000);
+      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)'; setTimeout(() => { msg.textContent = ''; }, 2000);
     } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
   vlSel.addEventListener('change', saveSettings);
@@ -877,7 +877,7 @@ async function initTtsSettings() {
     try {
       await fetch('/api/auth/settings', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tts_enabled: ttsEnabledToggle ? ttsEnabledToggle.checked : true, tts_provider: provSel.value, tts_model: getModel() || 'tts-1', tts_voice: getVoice() || 'alloy', tts_speed: speedSelect.value || '1' }) });
-      ttsMsg.textContent = __('settings.saved', __('settings.saved', 'Saved')); ttsMsg.style.color = 'var(--fg)'; setTimeout(() => { ttsMsg.textContent = ''; }, 2000);
+      ttsMsg.textContent = __('settings.saved', 'Saved'); ttsMsg.style.color = 'var(--fg)'; setTimeout(() => { ttsMsg.textContent = ''; }, 2000);
       if (window.aiTTSManager) window.aiTTSManager.checkAvailability();
     } catch (e) { ttsMsg.textContent = __('settings.save_failed', 'Failed to save'); ttsMsg.style.color = 'var(--red)'; }
   }
@@ -1040,7 +1040,7 @@ async function initSttSettings() {
       await fetch('/api/auth/settings', { method: 'POST', credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ stt_enabled: enabled, stt_provider: provSel.value, stt_model: getModel() || 'base', stt_language: langInput.value.trim() }) });
-      sttMsg.textContent = __('settings.saved', __('settings.saved', 'Saved')); sttMsg.style.color = 'var(--fg)'; setTimeout(() => { sttMsg.textContent = ''; }, 2000);
+      sttMsg.textContent = __('settings.saved', 'Saved'); sttMsg.style.color = 'var(--fg)'; setTimeout(() => { sttMsg.textContent = ''; }, 2000);
       // Notify voiceRecorder of effective provider and update send button icon
       if (window.voiceRecorderModule) window.voiceRecorderModule._sttProvider = effectiveProvider();
       if (window._updateSendBtnIcon) window._updateSendBtnIcon();
@@ -1196,7 +1196,7 @@ async function initSearchSettings() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
       setTimeout(refreshStatus, 2000);
       if (searchModule && searchModule.refresh) searchModule.refresh();
     } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
@@ -1334,7 +1334,7 @@ async function initSearchSettings() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ search_fallback_chain: chain }),
       });
-      msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
       setTimeout(refreshStatus, 2000);
     } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
     _renderFallbackChain();
@@ -1490,7 +1490,7 @@ async function initResearchSettings() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
       setTimeout(showStatus, 2000);
     } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
@@ -1548,7 +1548,7 @@ async function initResearchSearchSettings() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ research_search_provider: searchSel.value })
       });
-      msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
       setTimeout(function() { msg.textContent = ''; }, 2000);
     } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
@@ -4938,7 +4938,7 @@ async function initUnifiedIntegrations() {
     el('uf-codex-cancel')?.addEventListener('click', () => { formEl.style.display = 'none'; });
     el('uf-codex-save')?.addEventListener('click', () => {
       const msg = el('uf-codex-msg');
-      if (msg) { msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--green, #50fa7b)'; }
+      if (msg) { msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--green, #50fa7b)'; }
       setTimeout(() => { formEl.style.display = 'none'; }, 350);
     });
 
@@ -5122,7 +5122,7 @@ async function initUnifiedIntegrations() {
             });
             const d = await r.json().catch(() => ({}));
             if (!r.ok) throw new Error(d.detail || __('settings.failed', 'Failed'));
-            if (msg) { msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--green, #50fa7b)'; }
+            if (msg) { msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--green, #50fa7b)'; }
             await renderList();
           } catch (err) {
             cb.checked = !cb.checked;
