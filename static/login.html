@@ -296,10 +296,10 @@
 <footer class="version-label" id="version-label"></footer>
 
 <script type="module" src="/static/js/i18n.js"></script>
-<script nonce="{{CSP_NONCE}}">
+<script type="module" nonce="{{CSP_NONCE}}">
+// Wait for i18n dictionary to load before rendering login form
+await window.I18N._readyPromise;
 (async () => {
-  // Wait for i18n to be ready before setting dynamic text
-  if (window.I18N) await window.I18N._readyPromise;
   // Load version
   try {
     const vr = await fetch('/api/version');

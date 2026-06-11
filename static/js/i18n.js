@@ -153,13 +153,13 @@ function __(key, fallback) {
   return I18N.t(key, fallback);
 }
 
-// Auto-init on import — top-level await blocks all downstream modules
-// until the locale dictionary is loaded, so __() calls never return fallback
-// on a Chinese browser.
-await I18N.init();
-
-// Expose globally so inline scripts (login.html, etc.) can use them
+// Expose globally BEFORE the await — inline scripts (login.html) need
+// window.I18N to be available immediately so they can await _readyPromise.
 window.I18N = I18N;
 window.__ = __;
+
+// Top-level await blocks all downstream <script type="module"> tags
+// until the locale dictionary is loaded, so __() calls always resolve.
+await I18N.init();
 
 export { __, I18N };
