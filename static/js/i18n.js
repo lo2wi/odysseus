@@ -53,8 +53,8 @@ const I18N = {
     })();
     if (stored) return stored;
 
-    const nav = (navigator.language || navigator.languages?.[0] || 'en').toLowerCase();
-    // Map common Chinese variants to zh-CN
+    const nav = (navigator.language || navigator.languages?.[0] || 'zh-CN').toLowerCase();
+    // Map browser language to locale. Default to zh-CN (this is the Chinese fork).
     if (nav.startsWith('zh')) return 'zh-CN';
     if (nav.startsWith('ja')) return 'ja';
     if (nav.startsWith('ko')) return 'ko';
@@ -63,7 +63,8 @@ const I18N = {
     if (nav.startsWith('es')) return 'es';
     if (nav.startsWith('ru')) return 'ru';
     if (nav.startsWith('pt')) return 'pt-BR';
-    return 'en';
+    // Default to zh-CN for this fork — English users can switch to upstream
+    return 'zh-CN';
   },
 
   t(key, fallback) {
