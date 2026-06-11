@@ -179,6 +179,9 @@ function __(key, fallback) {
   return result;
 }
 
+// Expose reverse map for debugging
+I18N._reverseMap = _reverseMap;
+
 // Expose globally BEFORE the await — inline scripts (login.html) need
 // window.I18N to be available immediately so they can await _readyPromise.
 window.I18N = I18N;
