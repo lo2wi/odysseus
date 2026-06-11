@@ -691,7 +691,7 @@ async function _fetchDependencies() {
     list.appendChild(_spin.element);
     const label = document.createElement('div');
     label.className = 'hwfit-loading';
-    label.textContent = 'Loading packages…';
+    label.textContent = __('cookbook.loading_packages', 'Loading packages…');
     label.style.cssText = 'text-align:center;opacity:0.5;font-size:11px;margin-top:6px;';
     list.appendChild(label);
   } catch {
@@ -850,7 +850,7 @@ async function _fetchDependencies() {
           // FastAPI HTTPException returns {detail: …}; the route's own
           // path returns {ok:false, error:…}. Surface whichever we get.
           const reason = data.detail || data.error || `HTTP ${res.status}`;
-          uiModule.showToast('Install failed: ' + String(reason).slice(0, 200));
+          uiModule.showToast(__('cookbook.install_failed', 'Install failed') + ': ' + String(reason).slice(0, 200));
           return;
         }
         // _dep flags this as a pip dependency/driver install (not a servable
@@ -858,9 +858,9 @@ async function _fetchDependencies() {
         const payload = { repo_id: pipName, _cmd: cmd, remote_host: _envState.remoteHost || '', _dep: true, env_path: _envState.envPath || '' };
         _addTask(data.session_id, 'pip ' + pkgName, 'download', payload);
         if (statusEl) { statusEl.textContent = upgrade ? 'Updating...' : 'Installing...'; statusEl.disabled = true; }
-        uiModule.showToast(`${upgrade ? 'Updating' : 'Installing'} ${pkgName} on ${targetHost}...`);
+        uiModule.showToast((upgrade ? __('cookbook.updating', 'Updating') : __('cookbook.installing', 'Installing')) + ' ' + pkgName + ' ' + __('cookbook.on_host', 'on') + ' ' + targetHost + '...');
       } catch (err) {
-        uiModule.showToast('Install failed: ' + err.message);
+        uiModule.showToast(__('cookbook.install_failed', 'Install failed') + ': ' + err.message);
       }
     }
 
@@ -1165,7 +1165,7 @@ function _wireTabEvents(body) {
       if (!confirm(`Rebuild the llama.cpp engine on ${where}?\n\nThis clears the cached llama-server build so the next serve recompiles from source (with CUDA/HIP if a toolchain is present). It does not download or install anything.`)) return;
       const _label = rebuildBtn.textContent;
       rebuildBtn.disabled = true;
-      rebuildBtn.textContent = 'Clearing...';
+      rebuildBtn.textContent = __('cookbook.clearing', 'Clearing...');
       try {
         const res = await fetch('/api/cookbook/rebuild-engine', {
           method: 'POST', credentials: 'same-origin',
@@ -1179,12 +1179,12 @@ function _wireTabEvents(body) {
         const data = await res.json().catch(() => ({}));
         if (!res.ok || !data.ok) {
           const reason = data.detail || data.error || `HTTP ${res.status}`;
-          uiModule.showToast('Rebuild failed: ' + String(reason).slice(0, 200));
+          uiModule.showToast(__('cookbook.rebuild_failed', 'Rebuild failed') + ': ' + String(reason).slice(0, 200));
         } else {
           uiModule.showToast(`Cleared llama.cpp build on ${where}. Re-launch the serve task to rebuild with GPU support.`);
         }
       } catch (err) {
-        uiModule.showToast('Rebuild failed: ' + err.message);
+        uiModule.showToast(__('cookbook.rebuild_failed', 'Rebuild failed') + ': ' + err.message);
       } finally {
         rebuildBtn.disabled = false;
         rebuildBtn.textContent = _label;
@@ -1271,7 +1271,7 @@ function _wireTabEvents(body) {
 
     document.getElementById('serve-bulk-cancel')?.addEventListener('click', () => {
       selectBtn.classList.remove('active');
-      selectBtn.textContent = 'Select';  // reset label so the button doesn't stay reading "Cancel" after exit
+      selectBtn.textContent = __('common.select', 'Select');  // reset label so the button doesn't stay reading "Cancel" after exit
       bulkBar.classList.add('hidden');
       document.querySelectorAll('.serve-select-cb').forEach(dot => { dot.style.display = 'none'; dot.classList.remove('selected'); });
     });
@@ -1290,7 +1290,7 @@ function _wireTabEvents(body) {
         if (item) await _deleteCachedModel(repo, item, true);
       }
       selectBtn.classList.remove('active');
-      selectBtn.textContent = 'Select';  // same reset as bulk-cancel
+      selectBtn.textContent = __('common.select', 'Select');  // same reset as bulk-cancel
       bulkBar.classList.add('hidden');
       document.querySelectorAll('.serve-select-cb').forEach(dot => { dot.style.display = 'none'; dot.classList.remove('selected'); });
     });
@@ -1346,7 +1346,7 @@ function _wireTabEvents(body) {
       // Ollama names (single-segment with a tag) skip this check — they go
       // through `ollama pull` server-side, not snapshot_download.
       if (!ollamaName && !/^[^\s/]+\/[^\s/]+$/.test(repo)) {
-        uiModule.showToast('Enter a full HuggingFace repo ID like "org/model-name", or an Ollama name like "qwen2.5:14b".');
+        uiModule.showToast(__('cookbook.enter_repo_id', 'Enter a full HuggingFace repo ID like "org/model-name", or an Ollama name like "qwen2.5:14b".'));
         dlInput.focus();
         return;
       }
@@ -1472,7 +1472,7 @@ function _wireTabEvents(body) {
         hfList.appendChild(_spin.element);
         const lbl = document.createElement('div');
         lbl.className = 'hwfit-loading';
-        lbl.textContent = 'Scanning models…';
+        lbl.textContent = __('cookbook.scanning', 'Scanning models…');
         lbl.style.cssText = 'text-align:center;opacity:0.5;font-size:11px;margin-top:6px;';
         hfList.appendChild(lbl);
       } catch {
@@ -1671,13 +1671,13 @@ function _wireTabEvents(body) {
         if (!check) {
           check = document.createElement('span');
           check.className = 'hwfit-hf-check';
-          check.title = 'Token stored';
+          check.title = __('cookbook.token_stored', 'Token stored');
           check.textContent = '✓';
           check.style.cssText = 'font-weight:800;color:var(--green,#50fa7b);font-size:15px;line-height:1;flex-shrink:0;position:relative;top:2px;';
           hfInput.parentNode.insertBefore(check, hfInput);
         }
         const flash = document.createElement('span');
-        flash.textContent = 'Saved';
+        flash.textContent = __('settings.saved', 'Saved');
         flash.style.cssText = 'margin-left:8px;font-size:11px;color:var(--green,#50fa7b);opacity:0;transition:opacity 0.18s;flex-shrink:0;position:relative;top:1px;';
         hfInput.parentNode.appendChild(flash);
         requestAnimationFrame(() => { flash.style.opacity = '1'; });

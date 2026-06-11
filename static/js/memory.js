@@ -201,11 +201,11 @@ async function syncPrefSlider(elementId, prefKey, labelId, defaultVal) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ value: pref })
         });
-        if (!res.ok) { showError('Failed to save preference'); return; }
-        showToast(pref === 0 ? 'Skill confidence: All' : `Skill confidence ≥ ${Math.round(pref * 100)}%`);
+        if (!res.ok) { showError(__('memory.save_pref_failed', 'Failed to save preference')); return; }
+        showToast(pref === 0 ? __('memory.skill_confidence_all', 'Skill confidence: All') : __('memory.skill_confidence', 'Skill confidence') + ' ≥ ' + Math.round(pref * 100) + '%');
       } catch (e) {
         console.error(`Failed to save ${prefKey} pref:`, e);
-        showError('Failed to save preference');
+        showError(__('memory.save_pref_failed', 'Failed to save preference'));
       }
     });
   }
@@ -243,11 +243,11 @@ async function syncPrefNumber(elementId, prefKey, defaultVal) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ value: v })
         });
-        if (!res.ok) { showError('Failed to save preference'); return; }
-        showToast(v === 0 ? 'No skills injected' : `Max injected skills: ${v}`);
+        if (!res.ok) { showError(__('memory.save_pref_failed', 'Failed to save preference')); return; }
+        showToast(v === 0 ? __('memory.no_skills_injected', 'No skills injected') : __('memory.max_injected', 'Max injected skills') + ': ' + v);
       } catch (e) {
         console.error(`Failed to save ${prefKey} pref:`, e);
-        showError('Failed to save preference');
+        showError(__('memory.save_pref_failed', 'Failed to save preference'));
       }
     });
   }
@@ -280,7 +280,7 @@ async function syncPrefToggle(elementId, prefKey, onMsg, offMsg, dimBelow = true
           console.error(`PUT ${prefKey} returned ${res.status}`);
           toggle.checked = !toggle.checked; // revert
           if (dimBelow) syncToggleDim(toggle);
-          showError('Failed to save preference');
+          showError(__('memory.save_pref_failed', 'Failed to save preference'));
           return;
         }
         showToast(toggle.checked ? onMsg : offMsg);
@@ -288,7 +288,7 @@ async function syncPrefToggle(elementId, prefKey, onMsg, offMsg, dimBelow = true
         console.error(`Failed to save ${prefKey} pref:`, e);
         toggle.checked = !toggle.checked; // revert
         if (dimBelow) syncToggleDim(toggle);
-        showError('Failed to save preference');
+        showError(__('memory.save_pref_failed', 'Failed to save preference'));
       }
     });
   }
@@ -341,7 +341,7 @@ function enterSelectMode() {
   const bulkBar = document.getElementById('memory-bulk-bar');
   const selectBtn = document.getElementById('memory-select-btn');
   if (bulkBar) bulkBar.classList.remove('hidden');
-  if (selectBtn) { selectBtn.classList.add('active'); selectBtn.textContent = 'Cancel'; }
+  if (selectBtn) { selectBtn.classList.add('active'); selectBtn.textContent = __('common.cancel', 'Cancel'); }
   updateBulkCount();
   renderMemoryList();
 }
@@ -353,7 +353,7 @@ function exitSelectMode() {
   const selectBtn = document.getElementById('memory-select-btn');
   const selectAll = document.getElementById('memory-select-all');
   if (bulkBar) bulkBar.classList.add('hidden');
-  if (selectBtn) { selectBtn.classList.remove('active'); selectBtn.textContent = 'Select'; }
+  if (selectBtn) { selectBtn.classList.remove('active'); selectBtn.textContent = __('common.select', 'Select'); }
   if (selectAll) selectAll.checked = false;
   renderMemoryList();
 }
@@ -411,7 +411,7 @@ async function bulkDelete() {
   await animateMemoryRemoval(deletedIds);
   exitSelectMode();
   await loadMemories();
-  showToast(`Deleted ${deleted} ${deleted === 1 ? 'memory' : 'memories'}`);
+  showToast(deleted + ' ' + (deleted === 1 ? __('memory.deleted_one', 'memory') : __('memory.deleted_many', 'memories')) + ' ' + __('memory.deleted', 'Deleted'));
 }
 
 // ---- Tidy (audit) ----
@@ -451,7 +451,7 @@ export async function tidyMemories() {
     if ((data.removed || 0) === 0) {
       if (tidySpinner) tidySpinner.destroy();
       if (tidyBtn) { tidyBtn.disabled = false; tidyBtn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px;margin-right:2px;"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z"/></svg> Tidy'; }
-      showToast('Already clean');
+      showToast(__('memory.already_clean', 'Already clean'));
       return;
     }
 
@@ -486,7 +486,7 @@ export async function tidyMemories() {
     showToast(`Tidied: ${data.removed} removed (${data.before} \u2192 ${data.after})`);
   } catch (error) {
     console.error('Tidy failed:', error);
-    showError('Tidy failed — check console');
+    showError(__('memory.tidy_failed', 'Tidy failed — check console'));
   } finally {
     if (tidySpinner) tidySpinner.destroy();
     if (tidyBtn) {
@@ -673,7 +673,7 @@ export function renderMemoryList() {
     if (memory.pinned) {
       const pinBadge = document.createElement('span');
       pinBadge.className = 'memory-cat-badge memory-cat-pinned';
-      pinBadge.textContent = 'pinned';
+      pinBadge.textContent = __('memory.pinned', 'pinned');
       meta.appendChild(pinBadge);
     }
 
@@ -726,7 +726,7 @@ export function renderMemoryList() {
       const menuBtn = document.createElement('button');
       menuBtn.className = 'memory-menu-btn';
       menuBtn.innerHTML = '\u22EE';
-      menuBtn.title = 'Actions';
+      menuBtn.title = __('common.actions', 'Actions');
 
       const dropdown = document.createElement('div');
       dropdown.className = 'memory-item-dropdown';
@@ -918,12 +918,12 @@ function startInlineEdit(item, memory) {
 
   const saveBtn = document.createElement('button');
   saveBtn.className = 'memory-item-btn save';
-  saveBtn.textContent = 'save';
+  saveBtn.textContent = __('common.save', 'save');
   saveBtn.addEventListener('click', () => saveInlineEdit(memory.id, input.value, catSelect.value));
 
   const cancelBtn = document.createElement('button');
   cancelBtn.className = 'memory-item-btn';
-  cancelBtn.textContent = 'cancel';
+  cancelBtn.textContent = __('common.cancel', 'cancel');
   cancelBtn.addEventListener('click', () => renderMemoryList());
 
   actions.appendChild(saveBtn);
@@ -967,14 +967,14 @@ async function saveInlineEdit(id, newText, newCategory) {
 
     if (response.ok) {
       await loadMemories();
-      showToast('Memory updated');
+      showToast(__('memory.updated', 'Memory updated'));
     } else {
       const errorData = await response.json();
       throw new Error(errorData.detail || 'Failed to update memory');
     }
   } catch (error) {
     console.error('Error updating memory:', error);
-    showError('Failed to update memory');
+    showError(__('memory.update_failed', 'Failed to update memory'));
   }
 }
 
@@ -1008,7 +1008,7 @@ export async function addNewMemory() {
   const category = _readNewMemoryCategory();
 
   if (!text) {
-    showError('Memory text cannot be empty');
+    showError(__('memory.text_empty', 'Memory text cannot be empty'));
     return;
   }
 

@@ -394,7 +394,7 @@ function _undoArchive(note, prevIdx) {
     const i = _notes.findIndex(n => n.id === note.id);
     if (i >= 0) _notes.splice(i, 1);
     _renderNotes();
-    uiModule.showError('Undo failed');
+    uiModule.showError(__('notes.undo_failed', 'Undo failed'));
   });
 }
 
@@ -1405,7 +1405,7 @@ function _enterSelectMode() {
   const bar = document.getElementById('notes-bulk-bar');
   const btn = document.getElementById('notes-select-btn');
   if (bar) bar.classList.remove('hidden');
-  if (btn) { btn.classList.add('active'); btn.textContent = 'Cancel'; }
+  if (btn) { btn.classList.add('active'); btn.textContent = __('common.cancel', 'Cancel'); }
   _renderNotes();
   _updateBulkBar();
 }
@@ -1417,7 +1417,7 @@ function _exitSelectMode() {
   const btn = document.getElementById('notes-select-btn');
   const all = document.getElementById('notes-select-all');
   if (bar) bar.classList.add('hidden');
-  if (btn) { btn.classList.remove('active'); btn.textContent = 'Select'; }
+  if (btn) { btn.classList.remove('active'); btn.textContent = __('common.select', 'Select'); }
   if (all) all.checked = false;
   _renderNotes();
 }
@@ -1458,7 +1458,7 @@ function _isPastReminder(n) {
 async function _clearPastReminders() {
   const targets = _notes.filter(n => !n.archived && _isPastReminder(n));
   if (!targets.length) {
-    uiModule.showToast?.('No past reminders to clear');
+    uiModule.showToast?.(__('notes.no_past_reminders', 'No past reminders to clear'));
     return;
   }
   const ok = uiModule?.styledConfirm
@@ -1468,7 +1468,7 @@ async function _clearPastReminders() {
   await Promise.all(targets.map(n => _deleteNoteApi(n.id).catch(() => {})));
   await _fetchNotes();
   _renderNotes();
-  uiModule.showToast?.(`Cleared ${targets.length} past reminder${targets.length === 1 ? '' : 's'}`);
+  uiModule.showToast?.(__('notes.cleared_reminders', 'Cleared') + ' ' + targets.length + ' ' + (targets.length === 1 ? __('notes.reminder', 'past reminder') : __('notes.reminders', 'past reminders')));
 }
 
 function _renderLabels(root = document) {
@@ -2219,7 +2219,7 @@ function _bindCardEvents(body) {
         note.pinned = prevPinned;
         note.sort_order = prevSortOrder;
         _renderNotes();
-        uiModule.showError('Failed to pin');
+        uiModule.showError(__('notes.pin_failed', 'Failed to pin'));
       });
     });
   });
@@ -2235,7 +2235,7 @@ function _bindCardEvents(body) {
       d.style.background = _dotBg(d.dataset.color, newColor);
     });
     try { await _patchNote(id, { color: newColor || null }); const note = _notes.find(n => n.id === id); if (note) note.color = newColor; }
-    catch { uiModule.showError('Failed to update color'); }
+    catch { uiModule.showError(__('notes.color_failed', 'Failed to update color')); }
   };
   body.querySelectorAll('.note-card-color-dot').forEach(dot => {
     dot.addEventListener('click', (e) => {
@@ -2315,11 +2315,11 @@ function _bindCardEvents(body) {
       const finish = () => {
         _renderNotes();
         _patchNote(id, { archived: true }).then(() => {
-          uiModule.showToast('Archived', { duration: 6000, action: 'Undo', actionIcon: _undoIcon, onAction: undo, actionHint: 'Ctrl+Z' });
+          uiModule.showToast(__('notes.archived', 'Archived'), { duration: 6000, action: 'Undo', actionIcon: _undoIcon, onAction: undo, actionHint: 'Ctrl+Z' });
         }).catch(() => {
           _notes.splice(idx, 0, removed);
           _renderNotes();
-          uiModule.showError('Failed to archive');
+          uiModule.showError(__('notes.archive_failed', 'Failed to archive'));
         });
       };
       if (card) {
@@ -2342,10 +2342,10 @@ function _bindCardEvents(body) {
       if (idx < 0) return;
       const removed = _notes.splice(idx, 1)[0];
       _renderNotes();
-      _patchNote(id, { archived: false }).then(() => uiModule.showToast('Unarchived')).catch(() => {
+      _patchNote(id, { archived: false }).then(() => uiModule.showToast(__('notes.unarchived', 'Unarchived'))).catch(() => {
         _notes.splice(idx, 0, removed);
         _renderNotes();
-        uiModule.showError('Failed to unarchive');
+        uiModule.showError(__('notes.unarchive_failed', 'Failed to unarchive'));
       });
     });
   });
@@ -2358,10 +2358,10 @@ function _bindCardEvents(body) {
       if (idx < 0) return;
       const removed = _notes.splice(idx, 1)[0];
       _renderNotes();
-      _deleteNoteApi(id).then(() => uiModule.showToast('Deleted')).catch(() => {
+      _deleteNoteApi(id).then(() => uiModule.showToast(__('notes.deleted', 'Deleted'))).catch(() => {
         _notes.splice(idx, 0, removed);
         _renderNotes();
-        uiModule.showError('Failed to delete');
+        uiModule.showError(__('notes.delete_failed', 'Failed to delete'));
       });
     });
   });
@@ -2393,11 +2393,11 @@ function _bindCardEvents(body) {
         _pushUndo({ label: 'archive', run: undo });
         const _undoIcon = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 5 5v0a5 5 0 0 1-5 5H9"/></svg>';
         _patchNote(id, { archived: true }).then(() => {
-          uiModule.showToast('Archived', { duration: 6000, action: 'Undo', actionIcon: _undoIcon, onAction: undo, actionHint: 'Ctrl+Z' });
+          uiModule.showToast(__('notes.archived', 'Archived'), { duration: 6000, action: 'Undo', actionIcon: _undoIcon, onAction: undo, actionHint: 'Ctrl+Z' });
         }).catch(() => {
           _notes.splice(curIdx, 0, removed);
           _renderNotes();
-          uiModule.showError('Failed to archive');
+          uiModule.showError(__('notes.archive_failed', 'Failed to archive'));
         });
       };
       if (card) {
@@ -2418,10 +2418,10 @@ function _bindCardEvents(body) {
       if (idx < 0) return;
       const removed = _notes.splice(idx, 1)[0];
       _renderNotes();
-      _patchNote(id, { archived: false }).then(() => uiModule.showToast('Unarchived')).catch(() => {
+      _patchNote(id, { archived: false }).then(() => uiModule.showToast(__('notes.unarchived', 'Unarchived'))).catch(() => {
         _notes.splice(idx, 0, removed);
         _renderNotes();
-        uiModule.showError('Failed to unarchive');
+        uiModule.showError(__('notes.unarchive_failed', 'Failed to unarchive'));
       });
     });
   });
@@ -2437,7 +2437,7 @@ function _bindCardEvents(body) {
       _deleteNoteApi(id).catch(() => {
         _notes.splice(idx, 0, removed);
         _renderNotes();
-        uiModule.showError('Failed to delete');
+        uiModule.showError(__('notes.delete_failed', 'Failed to delete'));
       });
     });
   });
@@ -2469,8 +2469,8 @@ function _bindCardEvents(body) {
         ta.style.position = 'fixed'; ta.style.left = '-9999px';
         document.body.appendChild(ta);
         ta.select();
-        try { document.execCommand('copy'); uiModule.showToast?.('Copied'); }
-        catch { uiModule.showError?.('Copy failed'); }
+        try { document.execCommand('copy'); uiModule.showToast?.(__('common.copied', 'Copied')); }
+        catch { uiModule.showError?.(__('notes.copy_failed', 'Copy failed')); }
         ta.remove();
       }
     });
@@ -3636,11 +3636,11 @@ function _buildForm(note = null) {
     _pushUndo({ label: 'archive', run: undo });
     const _undoIcon = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;"><polyline points="9 14 4 9 9 4"/><path d="M4 9h11a5 5 0 0 1 5 5v0a5 5 0 0 1-5 5H9"/></svg>';
     _patchNote(id, { archived: true }).then(() => {
-      uiModule.showToast('Archived', { duration: 6000, action: 'Undo', actionIcon: _undoIcon, onAction: undo, actionHint: 'Ctrl+Z' });
+      uiModule.showToast(__('notes.archived', 'Archived'), { duration: 6000, action: 'Undo', actionIcon: _undoIcon, onAction: undo, actionHint: 'Ctrl+Z' });
     }).catch(() => {
       _notes.splice(idx, 0, removed);
       _renderNotes();
-      uiModule.showError('Failed to archive');
+      uiModule.showError(__('notes.archive_failed', 'Failed to archive'));
     });
   });
   form.querySelector('.note-form-delete-btn')?.addEventListener('click', async () => {
@@ -3656,8 +3656,8 @@ function _buildForm(note = null) {
     if (idx >= 0) _notes.splice(idx, 1);
     _editingId = null;
     _renderNotes();
-    _deleteNoteApi(id).then(() => uiModule.showToast('Deleted')).catch(() => {
-      uiModule.showError('Failed to delete');
+    _deleteNoteApi(id).then(() => uiModule.showToast(__('notes.deleted', 'Deleted'))).catch(() => {
+      uiModule.showError(__('notes.delete_failed', 'Failed to delete'));
       _fetchNotes().then(() => _renderNotes());
     });
   });
@@ -4416,9 +4416,9 @@ async function _copyNote(noteId, btnEl) {
         btnEl._copyFlashing = false;
       }, 1200);
     }
-    uiModule.showToast?.('Copied');
+    uiModule.showToast?.(__('common.copied', 'Copied'));
   } else {
-    uiModule.showError?.('Copy failed');
+    uiModule.showError?.(__('notes.copy_failed', 'Copy failed'));
   }
   return ok;
 }
@@ -4484,7 +4484,7 @@ async function _deleteNote(id) {
     ? await uiModule.styledConfirm('Delete this note?', { confirmText: 'Delete', danger: true })
     : confirm('Delete this note?');
   if (!ok) return;
-  try { await _deleteNoteApi(id); await _fetchNotes(); _renderNotes(); uiModule.showToast('Deleted'); }
+  try { await _deleteNoteApi(id); await _fetchNotes(); _renderNotes(); uiModule.showToast(__('notes.deleted', 'Deleted')); }
   catch (err) { uiModule.showError(err.message); }
 }
 

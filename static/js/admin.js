@@ -144,7 +144,7 @@ async function loadUsers() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ [key]: value }),
               });
-            } catch (e) { uiModule.showError('Failed to update privilege'); }
+            } catch (e) { uiModule.showError(__('admin.privilege_failed', 'Failed to update privilege')); }
           };
           if (input.type === 'checkbox') input.addEventListener('change', handler);
           else input.addEventListener('change', handler);
@@ -173,7 +173,7 @@ async function loadUsers() {
             });
             const data = await res.json().catch(() => ({}));
             if (!res.ok) {
-              uiModule.showError(data.detail || 'Failed to rename user');
+              uiModule.showError(data.detail || __('admin.rename_failed', 'Failed to rename user'));
               return;
             }
             if (data.renamed_self) {
@@ -182,7 +182,7 @@ async function loadUsers() {
             }
             loadUsers();
           } catch (err) {
-            uiModule.showError('Failed to rename user');
+            uiModule.showError(__('admin.rename_failed', 'Failed to rename user'));
           }
         });
       }
@@ -196,7 +196,7 @@ async function loadUsers() {
           if (!await uiModule.styledConfirm(`Remove user "${username}"?`, { confirmText: 'Remove', danger: true })) return;
           const res = await fetch('/api/auth/users', { method: 'DELETE', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username }) });
           if (res.ok) loadUsers();
-          else uiModule.showError('Failed to delete user');
+          else uiModule.showError(__('admin.delete_user_failed', 'Failed to delete user'));
         });
       }
 
@@ -313,15 +313,15 @@ function initAddUser() {
     const username = el('adm-newUsername').value.trim();
     const password = el('adm-newPassword').value;
     const is_admin = el('adm-newIsAdmin').checked;
-    if (!username) { msg.textContent = 'Username required'; msg.className = 'admin-error'; return; }
-    if (password.length < 8) { msg.textContent = 'Password must be at least 8 characters'; msg.className = 'admin-error'; return; }
+    if (!username) { msg.textContent = __('admin.username_required', 'Username required'); msg.className = 'admin-error'; return; }
+    if (password.length < 8) { msg.textContent = __('admin.password_short', 'Password must be at least 8 characters'); msg.className = 'admin-error'; return; }
     el('adm-addBtn').disabled = true;
     try {
       const res = await fetch('/api/auth/users', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password, is_admin }) });
       const data = await res.json();
-      if (res.ok) { msg.textContent = 'User created'; msg.className = 'admin-success'; el('adm-newUsername').value = ''; el('adm-newPassword').value = ''; el('adm-newIsAdmin').checked = false; loadUsers(); }
+      if (res.ok) { msg.textContent = __('admin.user_created', 'User created'); msg.className = 'admin-success'; el('adm-newUsername').value = ''; el('adm-newPassword').value = ''; el('adm-newIsAdmin').checked = false; loadUsers(); }
       else { msg.textContent = data.detail || 'Failed'; msg.className = 'admin-error'; }
-    } catch (e) { msg.textContent = 'Request failed'; msg.className = 'admin-error'; }
+    } catch (e) { msg.textContent = __('admin.request_failed', 'Request failed'); msg.className = 'admin-error'; }
     el('adm-addBtn').disabled = false;
   });
 }
@@ -757,7 +757,7 @@ function initEndpointForm() {
       }
       if (addBtn) {
         addBtn.disabled = false;
-        addBtn.textContent = 'Add';
+        addBtn.textContent = __('common.add', 'Add');
         addBtn.style.width = '55px';
         addBtn.style.display = '';
       }
@@ -780,7 +780,7 @@ function initEndpointForm() {
       }
       if (addBtn) {
         addBtn.disabled = false;
-        addBtn.textContent = 'Add';
+        addBtn.textContent = __('common.add', 'Add');
         addBtn.style.width = '55px';
         addBtn.style.display = '';
       }
@@ -905,7 +905,7 @@ function initEndpointForm() {
 
   function _renderEndpointTestResult(msg, res, d) {
     if (res.ok && d.status === 'empty') {
-      msg.textContent = 'Online — no models found';
+      msg.textContent = __('admin.online_no_models', 'Online — no models found');
       msg.className = 'admin-success';
       return;
     }
@@ -939,12 +939,12 @@ function initEndpointForm() {
       msg.textContent = ''; msg.className = '';
       const rawUrl = (urlInput.value || provider.value).trim();
       const apiKey = el('adm-epApiKey').value.trim();
-      if (!rawUrl) { msg.textContent = 'Select a provider or enter a base URL'; msg.className = 'admin-error'; return; }
-      if (provider.value && !apiKey) { msg.textContent = 'API key is required for cloud providers'; msg.className = 'admin-error'; return; }
+      if (!rawUrl) { msg.textContent = __('admin.select_provider_url', 'Select a provider or enter a base URL'); msg.className = 'admin-error'; return; }
+      if (provider.value && !apiKey) { msg.textContent = __('admin.api_key_required', 'API key is required for cloud providers'); msg.className = 'admin-error'; return; }
       const url = provider.value && rawUrl === provider.value ? rawUrl : _normalizeBaseUrl(rawUrl);
       apiTestController = new AbortController();
       apiTestBtn.disabled = true;
-      apiTestBtn.textContent = 'Testing...';
+      apiTestBtn.textContent = __('settings.testing', 'Testing...');
       if (apiCancelTestBtn) apiCancelTestBtn.classList.remove('hidden');
       try {
         const fd = new FormData();
@@ -962,16 +962,16 @@ function initEndpointForm() {
         _renderEndpointTestResult(msg, res, d);
       } catch (e) {
         if (e && e.name === 'AbortError') {
-          msg.textContent = 'Test canceled';
+          msg.textContent = __('admin.test_canceled', 'Test canceled');
           msg.className = '';
         } else {
-          msg.textContent = 'Test failed: ' + (e && e.message ? e.message : 'request failed');
+          msg.textContent = __('admin.test_failed', 'Test failed') + ': ' + (e && e.message ? e.message : 'request failed');
           msg.className = 'admin-error';
         }
       }
       apiTestController = null;
       apiTestBtn.disabled = false;
-      apiTestBtn.textContent = 'Test';
+      apiTestBtn.textContent = __('admin.test', 'Test');
       if (apiCancelTestBtn) apiCancelTestBtn.classList.add('hidden');
     });
   }
@@ -991,12 +991,12 @@ function initEndpointForm() {
     msg.textContent = ''; msg.className = '';
     const rawUrl = (urlInput.value || provider.value).trim();
     const apiKey = el('adm-epApiKey').value.trim();
-    if (!rawUrl) { msg.textContent = 'Select a provider or enter a base URL'; msg.className = 'admin-error'; return; }
-    if (provider.value && !apiKey) { msg.textContent = 'API key is required for cloud providers'; msg.className = 'admin-error'; return; }
+    if (!rawUrl) { msg.textContent = __('admin.select_provider_url', 'Select a provider or enter a base URL'); msg.className = 'admin-error'; return; }
+    if (provider.value && !apiKey) { msg.textContent = __('admin.api_key_required', 'API key is required for cloud providers'); msg.className = 'admin-error'; return; }
     // Normalize URL (fix typos, add /v1, strip wrong paths)
     const url = provider.value && rawUrl === provider.value ? rawUrl : _normalizeBaseUrl(rawUrl);
     const btn = el('adm-epAddBtn');
-    btn.disabled = true; btn.textContent = 'Adding...';
+    btn.disabled = true; btn.textContent = __('admin.adding', 'Adding...');
     try {
       const fd = new FormData();
       fd.append('base_url', url);
@@ -1034,7 +1034,7 @@ function initEndpointForm() {
           msg.className = 'admin-success';
         }
       } else { msg.textContent = d.detail || 'Failed'; msg.className = 'admin-error'; }
-    } catch (e) { msg.textContent = 'Request failed'; msg.className = 'admin-error'; }
+    } catch (e) { msg.textContent = __('admin.request_failed', 'Request failed'); msg.className = 'admin-error'; }
     btn.disabled = false; btn.textContent = 'Add';
   });
 
@@ -1310,7 +1310,7 @@ function initEndpointForm() {
         const d = await res.json();
         _renderEndpointTestResult(msg, res, d);
       } catch (e) {
-        msg.textContent = 'Test failed: ' + (e && e.message ? e.message : 'request failed');
+        msg.textContent = __('admin.test_failed', 'Test failed') + ': ' + (e && e.message ? e.message : 'request failed');
         msg.className = 'admin-error';
       }
       localTestBtn.disabled = false;
@@ -1353,7 +1353,7 @@ function initEndpointForm() {
             : 'Added (offline — will retry on next load)';
           msg.className = d.online ? 'admin-success' : 'admin-error';
         } else { msg.textContent = d.detail || 'Failed'; msg.className = 'admin-error'; }
-      } catch (e) { msg.textContent = 'Request failed'; msg.className = 'admin-error'; }
+      } catch (e) { msg.textContent = __('admin.request_failed', 'Request failed'); msg.className = 'admin-error'; }
       localAddBtn.disabled = false; localAddBtn.textContent = 'Add';
     });
   }
@@ -2235,7 +2235,7 @@ function initTokenForm() {
         loadTokens();
       }
       else { msg.textContent = data.detail || 'Failed'; msg.className = 'admin-error'; }
-    } catch (e) { msg.textContent = 'Request failed'; msg.className = 'admin-error'; }
+    } catch (e) { msg.textContent = __('admin.request_failed', 'Request failed'); msg.className = 'admin-error'; }
   });
   el('adm-tokenCopyBtn').addEventListener('click', () => {
     const val = el('adm-tokenValue').textContent;
@@ -2281,7 +2281,7 @@ async function loadWebhooks() {
         const msg = el('adm-whMsg'); msg.textContent = 'Sending test...'; msg.className = '';
         try {
           const res = await fetch(`/api/webhooks/${btn.dataset.admWhTest}/test`, { method: 'POST', credentials: 'same-origin' });
-          msg.textContent = res.ok ? 'Test sent!' : 'Test failed'; msg.className = res.ok ? 'admin-success' : 'admin-error';
+          msg.textContent = res.ok ? __('admin.test_sent', 'Test sent!') : __('admin.test_failed', 'Test failed'); msg.className = res.ok ? 'admin-success' : 'admin-error';
           setTimeout(() => loadWebhooks(), 1000);
         } catch (e) { msg.textContent = 'Failed: ' + e.message; msg.className = 'admin-error'; }
       });

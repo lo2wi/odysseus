@@ -151,14 +151,14 @@ function _wireRecipientChips(root) {
         const copied = await _copyTextToClipboard(email);
         if (!copied) throw new Error('copy failed');
         copyBtn.classList.add('copied');
-        copyBtn.title = 'Copied';
-        showToast?.('Email copied');
+        copyBtn.title = __('common.copied', 'Copied');
+        showToast?.(__('email.copied', 'Email copied'));
         setTimeout(() => {
           copyBtn.classList.remove('copied');
-          copyBtn.title = 'Copy email';
+          copyBtn.title = __('email.copy', 'Copy email');
         }, 900);
       } catch (_) {
-        showToast?.('Copy failed');
+        showToast?.(__('email.copy_failed', 'Copy failed'));
       }
       return;
     }
@@ -279,7 +279,7 @@ function _syncUnreadTabBadge(count) {
       chip.title = `Open ${label}`;
     } else {
       delete chip.dataset.emailUnreadLabel;
-      chip.title = 'Restore Email';
+      chip.title = __('email.restore', 'Restore Email');
     }
   });
 }
@@ -302,11 +302,11 @@ function _renderAccountsLoading() {
     wp.element.classList.add('email-accounts-loading-whirlpool');
     const label = document.createElement('span');
     label.className = 'email-accounts-loading-label';
-    label.textContent = 'Accounts';
+    label.textContent = __('email.accounts', 'Accounts');
     strip.appendChild(wp.element);
     strip.appendChild(label);
   } catch (_) {
-    strip.textContent = 'Accounts...';
+    strip.textContent = __('email.accounts_dot', 'Accounts...');
   }
 }
 
@@ -497,7 +497,7 @@ async function _deleteEmailAndAdvance(em, card, opts = {}) {
     await fetch(`${API_BASE}/api/email/delete/${em.uid}?folder=${encodeURIComponent(state._libFolder)}${_acct()}`, { method: 'DELETE' });
   } catch (err) {
     console.error('Failed to delete email:', err);
-    showToast('Failed to delete email');
+    showToast(__('email.delete_failed', 'Failed to delete email'));
     return;
   }
   await _animateEmailCardRemoval([em.uid]);
@@ -506,7 +506,7 @@ async function _deleteEmailAndAdvance(em, card, opts = {}) {
   _updateBulkBar();
   _renderGrid();
   _libCacheWriteBack();
-  showToast('Moved to Trash');
+  showToast(__('email.moved_to_trash', 'Moved to Trash'));
   if (!wasExpanded || !nextUid) return;
   const grid = document.getElementById('email-lib-grid');
   const nextCard = grid?.querySelector(`.doclib-card[data-uid="${CSS.escape(String(nextUid))}"]`);
@@ -634,7 +634,7 @@ function _resetEmailListForFreshLoad() {
   const grid = document.getElementById('email-lib-grid');
   if (grid) _renderEmailLoading(grid);
   const stats = document.getElementById('email-lib-stats');
-  if (stats) stats.textContent = 'Loading...';
+  if (stats) stats.textContent = __('common.loading', 'Loading...');
 }
 
 function _loadEmailsFresh() {

@@ -493,7 +493,7 @@ function _buildBuiltinCards() {
     const revertBtn = document.createElement('button');
     revertBtn.className = 'doclib-card-text-btn doclib-card-action-btn doclib-card-text-btn-danger';
     revertBtn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px;"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Revert';
-    revertBtn.title = 'Restore the original shipped instructions';
+    revertBtn.title = __('skills.restore_original', 'Restore the original shipped instructions');
     revertBtn.addEventListener('click', (e) => { e.stopPropagation(); _revertBuiltin(b.name); });
 
     const editBtn = document.createElement('button');
@@ -532,7 +532,7 @@ async function _expandBuiltinCard(card, name) {
   if (grid) grid.scrollTop = 0;
   const pre = card.querySelector('.skill-md-pre');
   if (pre && !card._loaded) {
-    pre.textContent = 'Loading…';
+    pre.textContent = __('common.loading', 'Loading…');
     try {
       const res = await fetch(`${API}/api/skills/builtin/${encodeURIComponent(name)}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -542,7 +542,7 @@ async function _expandBuiltinCard(card, name) {
       card._text = data.text || '';
       card._default = data.default || '';
     } catch (e) {
-      pre.textContent = 'Failed to load.';
+      pre.textContent = __('skills.load_failed', 'Failed to load.');
     }
   }
 }
@@ -574,10 +574,10 @@ async function _saveBuiltinEdit(card, name) {
       body: JSON.stringify({ text: ta.value }),
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    uiModule.showToast('Built-in capability updated');
+    uiModule.showToast(__('skills.capability_updated', 'Built-in capability updated'));
     builtinSkills = [];  // force reload of built-in list (refreshes "edited" badge)
     await loadSkills();
-  } catch (e) { uiModule.showError('Save failed: ' + e.message); }
+  } catch (e) { uiModule.showError(__('skills.save_failed', 'Save failed') + ': ' + e.message); }
 }
 
 async function _revertBuiltin(name) {
@@ -585,10 +585,10 @@ async function _revertBuiltin(name) {
   try {
     const res = await fetch(`${API}/api/skills/builtin/${encodeURIComponent(name)}`, { method: 'DELETE' });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    uiModule.showToast('Reverted to default');
+    uiModule.showToast(__('skills.reverted', 'Reverted to default'));
     builtinSkills = [];
     await loadSkills();
-  } catch (e) { uiModule.showError('Revert failed: ' + e.message); }
+  } catch (e) { uiModule.showError(__('skills.revert_failed', 'Revert failed') + ': ' + e.message); }
 }
 
 function _getFilteredSkills() {
@@ -731,11 +731,11 @@ function renderSkillsList() {
     pubBtn.className = 'doclib-card-text-btn doclib-card-action-btn';
     if (isPublished) {
       pubBtn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12l5 5L20 7"/></svg>Unpublish';
-      pubBtn.title = 'Move back to draft';
+      pubBtn.title = __('skills.move_to_draft', 'Move back to draft');
       pubBtn.addEventListener('click', (e) => { e.stopPropagation(); _setSkillStatus(name, 'draft'); });
     } else {
       pubBtn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Publish';
-      pubBtn.title = 'Publish — appears in the skills index';
+      pubBtn.title = __('skills.publish', 'Publish — appears in the skills index');
       pubBtn.style.color = 'var(--color-success, #4caf50)';
       pubBtn.addEventListener('click', (e) => { e.stopPropagation(); _setSkillStatus(name, 'published'); });
     }
@@ -745,7 +745,7 @@ function renderSkillsList() {
     const testBtn = document.createElement('button');
     testBtn.className = 'doclib-card-text-btn doclib-card-action-btn';
     testBtn.innerHTML = _svg(_ICON.test, { size: 11 }) + 'Test';
-    testBtn.title = 'Test this skill — run it + AI judge';
+    testBtn.title = __('skills.test', 'Test this skill — run it + AI judge');
     testBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       // Immediate visual feedback: previously the click looked like nothing
@@ -998,14 +998,14 @@ async function _expandSkillCard(card, name) {
       card._mdLoaded = true;
       card._md = md || '';
     } else {
-      pre.textContent = 'Loading…';
+      pre.textContent = __('common.loading', 'Loading…');
       try {
         const md = await _fetchSkillMarkdown(name);
         pre.textContent = md || '(empty)';
         card._mdLoaded = true;
         card._md = md;
       } catch (e) {
-        pre.textContent = 'Failed to load SKILL.md';
+        pre.textContent = __('skills.load_skill_failed', 'Failed to load SKILL.md');
       }
     }
   }
@@ -1049,10 +1049,10 @@ async function _saveSkillEdit(card, name) {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     // Refresh the cached markdown so the preload/expand show the new text.
     _mdCache.set(name, ta.value);
-    uiModule.showToast('Saved');
+    uiModule.showToast(__('settings.saved', 'Saved'));
     await loadSkills();  // re-render (frontmatter changes like name/status may have changed)
   } catch (e) {
-    uiModule.showError('Save failed: ' + e.message);
+    uiModule.showError(__('skills.save_failed', 'Save failed') + ': ' + e.message);
   }
 }
 
@@ -1076,8 +1076,8 @@ async function _deleteSkill(name, card = null) {
       setTimeout(() => { if (card.parentElement) card.remove(); }, 400);
     }
     await loadSkills();
-    uiModule.showToast('Skill deleted');
-  } catch (e) { uiModule.showError('Delete failed: ' + e.message); }
+    uiModule.showToast(__('skills.deleted', 'Skill deleted'));
+  } catch (e) { uiModule.showError(__('skills.delete_failed', 'Delete failed') + ': ' + e.message); }
 }
 
 async function _setSkillStatus(name, status) {
@@ -1088,8 +1088,8 @@ async function _setSkillStatus(name, status) {
       body: JSON.stringify({ status }),
     });
     await loadSkills();
-    uiModule.showToast(status === 'published' ? 'Skill approved' : 'Skill moved to draft');
-  } catch (e) { uiModule.showError('Update failed: ' + e.message); }
+    uiModule.showToast(status === 'published' ? __('skills.approved', 'Skill approved') : __('skills.moved_to_draft', 'Skill moved to draft'));
+  } catch (e) { uiModule.showError(__('skills.update_failed', 'Update failed') + ': ' + e.message); }
 }
 
 // ---- Test a skill (sandbox agent run + AI eval) ----
@@ -1419,7 +1419,7 @@ async function _auditAllSkills(opts = {}) {
       ? `${names.length} selected ${names.length === 1 ? 'skill' : 'skills'}`
       : `${names.length} visible ${names.length === 1 ? 'skill' : 'skills'}`;
     if (!names.length) {
-      uiModule.showToast(explicitNames ? 'No selected skills to audit' : 'No visible skills to audit');
+      uiModule.showToast(explicitNames ? __('skills.no_selected', 'No selected skills to audit') : __('skills.no_visible', 'No visible skills to audit'));
       return;
     }
     const confirmed = await _confirmAuditSkills(label);
@@ -1815,11 +1815,11 @@ async function _showSkillSource(name) {
         body: JSON.stringify({ markdown: ta.value }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      uiModule.showToast('Saved');
+      uiModule.showToast(__('settings.saved', 'Saved'));
       wrap.remove();
       await loadSkills();
     } catch (e) {
-      uiModule.showError('Save failed: ' + e.message);
+      uiModule.showError(__('skills.save_failed', 'Save failed') + ': ' + e.message);
     }
   });
 }

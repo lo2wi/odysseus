@@ -3,6 +3,7 @@
  * Follows the session list pattern: list items, click to open as document, archive, etc.
  */
 
+import { __ } from './i18n.js';
 import spinnerModule from './spinner.js';
 import sessionModule from './sessions.js';
 import { initEmailLibrary, openEmailLibrary, closeEmailLibrary, isOpen as isLibOpen, prewarmEmailLibrary } from './emailLibrary.js';
@@ -676,7 +677,7 @@ async function _openEmail(em, itemEl, preloadedData = null, mode = 'reply') {
       } else {
         let draftToastTimer = null;
         draftToastTimer = setTimeout(() => {
-          import('./ui.js').then(m => m.showToast && m.showToast('Drafting AI reply', { duration: 3000, leadingIcon: 'spinner' })).catch(() => {});
+          import('./ui.js').then(m => m.showToast && m.showToast(__('email.drafting_reply', 'Drafting AI reply'), { duration: 3000, leadingIcon: 'spinner' })).catch(() => {});
         }, 450);
         try {
           let currentModel = '';
@@ -707,13 +708,13 @@ async function _openEmail(em, itemEl, preloadedData = null, mode = 'reply') {
           } else {
             const _msg = result.error || 'AI reply could not be generated';
             console.error('AI reply generation failed:', _msg);
-            import('./ui.js').then(m => m.showError && m.showError('AI reply failed: ' + _msg)).catch(() => {});
+            import('./ui.js').then(m => m.showError && m.showError(__('email.reply_failed', 'AI reply failed') + ': ' + _msg)).catch(() => {});
             return;
           }
         } catch (e) {
           if (draftToastTimer) clearTimeout(draftToastTimer);
           console.error('AI reply generation failed:', e);
-          import('./ui.js').then(m => m.showError && m.showError('AI reply failed: ' + (e.message || e))).catch(() => {});
+          import('./ui.js').then(m => m.showError && m.showError(__('email.reply_failed', 'AI reply failed') + ': ' + (e.message || e))).catch(() => {});
           return;
         }
       }
@@ -882,7 +883,7 @@ async function _openEmail(em, itemEl, preloadedData = null, mode = 'reply') {
           // import pattern the rest of this file uses. (Previously this
           // referenced a bare `uiModule`, throwing a ReferenceError that
           // the outer catch swallowed → reply silently did nothing.)
-          import('./ui.js').then(m => m.showError && m.showError('Failed to create reply draft (' + docRes.status + ')')).catch(() => {});
+          import('./ui.js').then(m => m.showError && m.showError(__('email.draft_failed', 'Failed to create reply draft') + ' (' + docRes.status + ')')).catch(() => {});
           return;
         }
         const doc = await docRes.json();
@@ -908,7 +909,7 @@ async function _openEmail(em, itemEl, preloadedData = null, mode = 'reply') {
     // look like "nothing happened". Dynamic import — uiModule isn't a
     // static import in this file.
     const msg = e && e.message ? e.message : String(e);
-    import('./ui.js').then(m => m.showError && m.showError('Reply failed: ' + msg)).catch(() => {});
+    import('./ui.js').then(m => m.showError && m.showError(__('email.reply_failed', 'Reply failed') + ': ' + msg)).catch(() => {});
   } finally {
     if (spinner) { spinner.destroy(); spinner.element.remove(); }
     if (itemEl) {
@@ -1069,7 +1070,7 @@ async function _createReplyReminder(em, dueDate) {
     }
   } catch (e) {
     const { showError } = await import('./ui.js');
-    showError('Failed to create reminder');
+    showError(__('calendar.reminder_failed', 'Failed to create reminder'));
   }
 }
 
@@ -1193,7 +1194,7 @@ async function _composeNew() {
     }
     if (!sid) {
       console.error('compose: could not obtain a session_id');
-      import('./ui.js').then(m => m.showError && m.showError('Could not start a new email (no session).')).catch(() => {});
+      import('./ui.js').then(m => m.showError && m.showError(__('email.no_session', 'Could not start a new email (no session).'))).catch(() => {});
       return;
     }
     const res = await fetch(`${API_BASE}/api/document`, {
@@ -1208,7 +1209,7 @@ async function _composeNew() {
     });
     if (!res.ok) {
       console.error('compose POST failed', res.status, await res.text().catch(() => ''));
-      import('./ui.js').then(m => m.showError && m.showError('Failed to create new email (' + res.status + ')')).catch(() => {});
+      import('./ui.js').then(m => m.showError && m.showError(__('email.create_failed', 'Failed to create new email') + ' (' + res.status + ')')).catch(() => {});
       return;
     }
     const doc = await res.json();

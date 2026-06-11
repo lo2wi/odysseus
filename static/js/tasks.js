@@ -543,7 +543,7 @@ function _taskEnterSelect() {
   _taskSelectMode = true; _taskSelected.clear();
   document.getElementById('tasks-bulk-bar')?.classList.remove('hidden');
   const _sb = document.getElementById('tasks-select-btn');
-  if (_sb) { _sb.classList.add('active'); _sb.textContent = 'Cancel'; }
+  if (_sb) { _sb.classList.add('active'); _sb.textContent = __('common.cancel', 'Cancel'); }
   _taskUpdateBulkCount();
   _renderList();
 }
@@ -551,7 +551,7 @@ function _taskExitSelect() {
   _taskSelectMode = false; _taskSelected.clear();
   document.getElementById('tasks-bulk-bar')?.classList.add('hidden');
   const _sb = document.getElementById('tasks-select-btn');
-  if (_sb) { _sb.classList.remove('active'); _sb.textContent = 'Select'; }
+  if (_sb) { _sb.classList.remove('active'); _sb.textContent = __('common.select', 'Select'); }
   const sa = document.getElementById('tasks-select-all'); if (sa) sa.checked = false;
   _renderList();
 }
@@ -578,7 +578,7 @@ async function _taskBulkDelete() {
   const results = await Promise.allSettled(ids.map(id => _deleteTask(id)));
   const deletedIds = ids.filter((_, i) => results[i].status === 'fulfilled');
   await _animateTaskRemoval(deletedIds);
-  if (uiModule) uiModule.showToast(`Deleted ${deletedIds.length} task${deletedIds.length > 1 ? 's' : ''}`);
+  if (uiModule) uiModule.showToast(__('tasks.deleted_count', 'Deleted') + ' ' + deletedIds.length + ' ' + (deletedIds.length > 1 ? __('tasks.tasks', 'tasks') : __('tasks.task', 'task')));
   await _fetchTasks();
   _taskExitSelect();  // clears selection + re-renders the fresh list
 }
@@ -696,7 +696,7 @@ function _renderList() {
     actionsWrap.className = 'memory-item-actions';
     const menuBtn = document.createElement('button');
     menuBtn.className = 'memory-item-btn';
-    menuBtn.title = 'Actions';
+    menuBtn.title = __('common.actions', 'Actions');
     menuBtn.style.position = 'relative';
     menuBtn.style.top = '4px';
     menuBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>';
@@ -725,7 +725,7 @@ function _renderList() {
     if (task.status !== 'completed') {
       const runBtn = document.createElement('button');
       runBtn.className = 'task-status-badge task-run-now-badge task-card-run-btn';
-      runBtn.title = 'Run now';
+      runBtn.title = __('tasks.run_now', 'Run now');
       runBtn.style.cssText = 'position:relative;top:1px;margin-right:4px;';
       runBtn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span>Run</span>';
       runBtn.addEventListener('click', (e) => { e.stopPropagation(); _doRunNow(task.id); });
@@ -780,7 +780,7 @@ function _renderList() {
       const lr = document.createElement('div');
       lr.style.cssText = `font-size:11px;margin-bottom:6px;padding:4px 8px;border-left:2px solid ${color};background:color-mix(in srgb, ${color} 8%, transparent);border-radius:2px;line-height:1.4;cursor:pointer;`;
       lr.innerHTML = `<span style="font-weight:600;color:${color};">${isErr ? '✗' : '✓'}</span> <span style="opacity:0.9;">${_esc(prev) || (isErr ? 'Failed (no detail)' : 'Success (no output)')}</span>`;
-      lr.title = 'Open full history';
+      lr.title = __('tasks.full_history', 'Open full history');
       lr.addEventListener('click', (e) => { e.stopPropagation(); _showRunHistory(task.id, task.name); });
       detail.appendChild(lr);
     }
@@ -1184,7 +1184,7 @@ function _showForm(existing, initTaskType, initTriggerType) {
         if (sched === 'weekly') {
           const label = document.createElement('label');
           label.className = 'task-form-label';
-          label.textContent = 'Day of week';
+          label.textContent = __('tasks.day_of_week', 'Day of week');
           schedOpts.appendChild(label);
           const sel = document.createElement('select');
           sel.id = 'task-form-day';
@@ -1200,7 +1200,7 @@ function _showForm(existing, initTaskType, initTriggerType) {
         } else if (sched === 'monthly') {
           const label = document.createElement('label');
           label.className = 'task-form-label';
-          label.textContent = 'Day of month';
+          label.textContent = __('tasks.day_of_month', 'Day of month');
           schedOpts.appendChild(label);
           const inp = document.createElement('input');
           inp.type = 'number';
@@ -1212,7 +1212,7 @@ function _showForm(existing, initTaskType, initTriggerType) {
         } else if (sched === 'once') {
           const label = document.createElement('label');
           label.className = 'task-form-label';
-          label.textContent = 'Date';
+          label.textContent = __('tasks.date', 'Date');
           schedOpts.appendChild(label);
           const dateWrap = document.createElement('div');
           dateWrap.className = 'task-date-picker';
@@ -1222,7 +1222,7 @@ function _showForm(existing, initTaskType, initTriggerType) {
         } else if (sched === 'cron') {
           const label = document.createElement('label');
           label.className = 'task-form-label';
-          label.textContent = 'Cron expression';
+          label.textContent = __('tasks.cron_expr', 'Cron expression');
           schedOpts.appendChild(label);
           const inp = document.createElement('input');
           inp.type = 'text';
@@ -1233,7 +1233,7 @@ function _showForm(existing, initTaskType, initTriggerType) {
           schedOpts.appendChild(inp);
           const hint = document.createElement('div');
           hint.style.cssText = 'font-size:10px;opacity:0.4;margin-top:2px;';
-          hint.textContent = 'min hour day month weekday — e.g. "0 */2 * * *" = every 2 hours';
+          hint.textContent = __('tasks.cron_hint', 'min hour day month weekday — e.g. "0 */2 * * *" = every 2 hours');
           schedOpts.appendChild(hint);
         }
       }
@@ -1274,7 +1274,7 @@ function _showForm(existing, initTaskType, initTriggerType) {
         `;
         document.getElementById('task-form-webhook-copy')?.addEventListener('click', () => {
           navigator.clipboard.writeText(url);
-          if (uiModule) uiModule.showToast('Copied');
+          if (uiModule) uiModule.showToast(__('common.copied', 'Copied'));
         });
       } else {
         triggerOpts.innerHTML = '<div style="font-size:11px;opacity:0.5;margin-top:4px;">Webhook URL will be generated when the task is saved.</div>';
@@ -1434,14 +1434,14 @@ function _showForm(existing, initTaskType, initTriggerType) {
     if (taskType === 'llm' || taskType === 'research') {
       const prompt = document.getElementById('task-form-prompt')?.value?.trim();
       if (!prompt) {
-        if (uiModule) uiModule.showError('Prompt is required');
+        if (uiModule) uiModule.showError(__('tasks.prompt_required', 'Prompt is required'));
         return;
       }
       payload.prompt = prompt;
     } else {
       const action = document.getElementById('task-form-action')?.value;
       if (!action) {
-        if (uiModule) uiModule.showError('Select an action');
+        if (uiModule) uiModule.showError(__('tasks.select_action', 'Select an action'));
         return;
       }
       payload.action = action;
@@ -1450,7 +1450,7 @@ function _showForm(existing, initTaskType, initTriggerType) {
         try {
           await _saveUrgentEmailSettings(urgentPrompt);
         } catch (e) {
-          if (uiModule) uiModule.showError('Failed to save urgency rules');
+          if (uiModule) uiModule.showError(__('tasks.urgency_save_failed', 'Failed to save urgency rules'));
           return;
         }
       }
@@ -1464,7 +1464,7 @@ function _showForm(existing, initTaskType, initTriggerType) {
       if (payload.schedule === 'cron') {
         const cronVal = document.getElementById('task-form-cron')?.value?.trim();
         if (!cronVal) {
-          if (uiModule) uiModule.showError('Cron expression is required');
+          if (uiModule) uiModule.showError(__('tasks.cron_required', 'Cron expression is required'));
           return;
         }
         payload.cron_expression = cronVal;
@@ -1486,7 +1486,7 @@ function _showForm(existing, initTaskType, initTriggerType) {
       const evSel = document.getElementById('task-form-event');
       const countInput = document.getElementById('task-form-trigger-count');
       if (!evSel?.value) {
-        if (uiModule) uiModule.showError('Select an event');
+        if (uiModule) uiModule.showError(__('tasks.select_event', 'Select an event'));
         return;
       }
       payload.trigger_event = evSel.value;
@@ -1499,10 +1499,10 @@ function _showForm(existing, initTaskType, initTriggerType) {
       // object passed for AI pre-fill has no id → create via POST.
       if (existing && existing.id) {
         await _updateTask(existing.id, payload);
-        if (uiModule) uiModule.showToast('Task updated');
+        if (uiModule) uiModule.showToast(__('tasks.updated', 'Task updated'));
       } else {
         await _createTask(payload);
-        if (uiModule) uiModule.showToast('Task created');
+        if (uiModule) uiModule.showToast(__('tasks.created', 'Task created'));
       }
       await _fetchTasks();
       _switchTab('tasks');
@@ -1576,7 +1576,7 @@ async function _showRunHistory(taskId, taskName) {
 async function _doPause(id) {
   try {
     await _pauseTask(id);
-    if (uiModule) uiModule.showToast('Task paused');
+    if (uiModule) uiModule.showToast(__('tasks.paused', 'Task paused'));
     await _fetchTasks();
     _renderMainView();
   } catch (e) { if (uiModule) uiModule.showError(e.message); }
