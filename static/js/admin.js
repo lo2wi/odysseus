@@ -22,13 +22,13 @@ function esc(s) { return uiModule.esc(s); }
    USERS TAB
    ═══════════════════════════════════════════ */
 const PRIV_LABELS = {
-  can_use_agent: 'Agent mode',
-  can_use_browser: 'Browser automation',
-  can_use_bash: 'Shell / Python / Files',
-  can_use_documents: 'Document editor',
-  can_use_research: 'Deep research',
-  can_generate_images: 'Image generation',
-  can_manage_memory: 'Memory & skills',
+  can_use_agent: __('admin.agent_mode', 'Agent mode'),
+  can_use_browser: __('admin.browser_automation', 'Browser automation'),
+  can_use_bash: __('admin.shell_python_files', 'Shell / Python / Files'),
+  can_use_documents: __('admin.document_editor', 'Document editor'),
+  can_use_research: __('admin.deep_research', 'Deep research'),
+  can_generate_images: __('admin.image_generation', 'Image generation'),
+  can_manage_memory: __('admin.memory_skills', 'Memory & skills'),
 };
 
 async function loadUsers() {
@@ -103,7 +103,7 @@ async function loadUsers() {
               <a href="#" class="priv-models-none" data-user="${esc(u.username)}" style="font-size:10px;opacity:0.5;">None</a>
             </div>
           </div>
-          <div style="font-size:10px;opacity:0.4;margin-bottom:4px;">${blockAllModels ? 'No models allowed' : (!modelsRestricted ? 'All models allowed (no restrictions)' : (allowedSet.size === 0 ? 'No models allowed' : allowedSet.size + ' model(s) allowed'))}</div>
+          <div style="font-size:10px;opacity:0.4;margin-bottom:4px;">${blockAllModels ? __('admin.no_models_allowed', 'No models allowed') : (!modelsRestricted ? __('admin.all_models_allowed', 'All models allowed (no restrictions)') : (allowedSet.size === 0 ? __('admin.no_models_allowed', 'No models allowed') : allowedSet.size + ' model(s) allowed'))}</div>
           <div class="priv-models-list" data-user="${esc(u.username)}">
             <span style="opacity:0.4;font-size:11px;">Loading models...</span>
           </div>
@@ -159,7 +159,7 @@ async function loadUsers() {
           const oldUsername = renameBtn.dataset.admRenameUser;
           const next = await uiModule.styledPrompt(`Rename "${oldUsername}"`, {
             defaultValue: oldUsername,
-            placeholder: 'New username',
+            placeholder: __('admin.new_username', 'New username'),
             confirmText: 'Rename',
           });
           const username = (next || '').trim();
@@ -253,12 +253,12 @@ async function _loadModelsForUser(username, allowedSet, modelsRestricted, blockA
         restricted = false;
         blockAll = false;
         value = [];
-        hintText = 'All models allowed (no restrictions)';
+        hintText = __('admin.all_models_allowed', 'All models allowed (no restrictions)');
       } else if (checked.length === 0) {
         restricted = true;
         blockAll = true;
         value = [];
-        hintText = 'No models allowed';
+        hintText = __('admin.no_models_allowed', 'No models allowed');
       } else {
         restricted = true;
         blockAll = false;
@@ -459,7 +459,7 @@ async function loadEndpoints() {
               ${hasModels ? '<span style="font-size:10px;opacity:0.4;">Click to manage models</span>' : ''}
             </div>
             <div style="display:flex;gap:4px;align-items:center;">
-              <button class="admin-btn-sm" data-adm-toggle-ep="${ep.id}">${ep.is_enabled ? 'Disable' : 'Enable'}</button>
+              <button class="admin-btn-sm" data-adm-toggle-ep="${ep.id}">${ep.is_enabled ? __('admin.disable', 'Disable') : __('admin.enable', 'Enable')}</button>
               <button class="admin-btn-delete" data-adm-del-ep="${ep.id}" data-adm-ep-online="${ep.online ? '1' : '0'}">Delete</button>
               ${hasModels ? '<svg class="admin-user-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.3;transition:transform 0.2s,opacity 0.2s;"><polyline points="6 9 12 15 18 9"/></svg>' : ''}
             </div>
@@ -580,7 +580,7 @@ async function loadEndpoints() {
           let _modelsSpin = null;
           const _ld = document.createElement('span');
           _ld.style.cssText = 'opacity:0.55;font-size:11px;display:inline-flex;align-items:center;gap:8px;';
-          _ld.appendChild(document.createTextNode('Loading models…'));
+          _ld.appendChild(document.createTextNode(__('admin.loading_models', 'Loading models…')));
           try {
             const _sp = (await import('./spinner.js')).default;
             _modelsSpin = _sp.createWhirlpool(14);
@@ -596,7 +596,7 @@ async function loadEndpoints() {
             const attachRefresh = () => {
               panel.querySelector(`[data-ep-refresh-models="${epId}"]`)?.addEventListener('click', async (e) => {
                 e.preventDefault();
-                panel.innerHTML = _loadingHtml('Refreshing models...');
+                panel.innerHTML = _loadingHtml(__('admin.refreshing_models', 'Refreshing models...'));
                 try {
                   const res = await fetch(`/api/model-endpoints/${epId}/models?refresh=true&refresh_timeout=60`, { credentials: 'same-origin' });
                   const refreshWarning = res.headers.get('X-Model-Refresh-Warning') || '';
@@ -1758,7 +1758,7 @@ async function loadMcpServers() {
           <div style="display:flex;gap:4px;align-items:center;">
             ${s.needs_oauth ? `<a href="/api/mcp/oauth/authorize/${s.id}" target="_blank" class="admin-btn-sm" style="background:var(--red);color:#fff;text-decoration:none;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:600;">Authorize</a>` : ''}
             <button class="admin-btn-sm" data-adm-mcp-reconnect="${s.id}">Reconnect</button>
-            <button class="admin-btn-delete" style="border-color:${s.is_enabled ? 'color-mix(in srgb, var(--red) 30%, transparent)' : 'color-mix(in srgb, var(--fg) 30%, transparent)'};color:${s.is_enabled ? 'var(--red)' : 'var(--fg)'};" data-adm-mcp-toggle="${s.id}" data-adm-mcp-enable="${!s.is_enabled}">${s.is_enabled ? 'Disable' : 'Enable'}</button>
+            <button class="admin-btn-delete" style="border-color:${s.is_enabled ? 'color-mix(in srgb, var(--red) 30%, transparent)' : 'color-mix(in srgb, var(--fg) 30%, transparent)'};color:${s.is_enabled ? 'var(--red)' : 'var(--fg)'};" data-adm-mcp-toggle="${s.id}" data-adm-mcp-enable="${!s.is_enabled}">${s.is_enabled ? __('admin.disable', 'Disable') : __('admin.enable', 'Enable')}</button>
             <button class="admin-btn-delete" data-adm-mcp-delete="${s.id}">Delete</button>
             ${hasTools ? '<svg class="admin-user-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.3;transition:transform 0.2s,opacity 0.2s;"><polyline points="6 9 12 15 18 9"/></svg>' : ''}
           </div>
@@ -2271,7 +2271,7 @@ async function loadWebhooks() {
           </div>
           <div class="admin-ep-actions">
             <button class="admin-btn-sm" data-adm-wh-test="${w.id}">Test</button>
-            <button class="admin-btn-sm" data-adm-wh-toggle="${w.id}">${w.is_active ? 'Disable' : 'Enable'}</button>
+            <button class="admin-btn-sm" data-adm-wh-toggle="${w.id}">${w.is_active ? __('admin.disable', 'Disable') : __('admin.enable', 'Enable')}</button>
             <button class="admin-btn-delete" data-adm-wh-delete="${w.id}">Delete</button>
           </div>
         </div>`;
@@ -2281,7 +2281,7 @@ async function loadWebhooks() {
         const msg = el('adm-whMsg'); msg.textContent = 'Sending test...'; msg.className = '';
         try {
           const res = await fetch(`/api/webhooks/${btn.dataset.admWhTest}/test`, { method: 'POST', credentials: 'same-origin' });
-          msg.textContent = res.ok ? __('admin.test_sent', 'Test sent!') : __('admin.test_failed', 'Test failed'); msg.className = res.ok ? 'admin-success' : 'admin-error';
+          msg.textContent = res.ok ? __('admin.test_sent', __('admin.test_sent', 'Test sent!')) : __('admin.test_failed', 'Test failed'); msg.className = res.ok ? 'admin-success' : 'admin-error';
           setTimeout(() => loadWebhooks(), 1000);
         } catch (e) { msg.textContent = 'Failed: ' + e.message; msg.className = 'admin-error'; }
       });

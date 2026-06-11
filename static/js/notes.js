@@ -2058,16 +2058,16 @@ function _renderQuickAdd(body) {
   const seg = wrap.querySelector('.notes-quick-type-seg');
   let currentType = 'todo';
   const setType = (t) => {
-    if (t !== 'note' && t !== 'todo') return;
+    if (t !== __('notes.type_note', 'note') && t !== 'todo') return;
     currentType = t;
     seg.classList.toggle('is-todo', t === 'todo');
-    seg.classList.toggle('is-note', t === 'note');
+    seg.classList.toggle('is-note', t === __('notes.type_note', 'note'));
     seg.querySelectorAll('.notes-quick-type-pill').forEach(p => {
       const on = p.dataset.type === t;
       p.classList.toggle('active', on);
       p.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
-    input.placeholder = t === 'note' ? 'Add a note…' : 'Add a to-do…';
+    input.placeholder = t === __('notes.type_note', 'note') ? 'Add a note…' : 'Add a to-do…';
   };
   seg.querySelectorAll('.notes-quick-type-pill').forEach(p => {
     p.addEventListener('click', (e) => {
@@ -2076,7 +2076,7 @@ function _renderQuickAdd(body) {
     });
   });
   // Click input or type → expand to full form
-  const expandToForm = (initialType = 'note', initialText = '') => {
+  const expandToForm = (initialType = __('notes.type_note', 'note'), initialText = '') => {
     _editingId = '__new__';
     const form = _buildForm({ note_type: initialType });
     form.classList.add('note-form-new');
@@ -2737,7 +2737,7 @@ function _loadDraft(id) {
 function _clearDraft(id) { try { localStorage.removeItem(_draftKey(id)); } catch {} }
 function _collectFormDraft(form) {
   if (!form) return null;
-  const type = form.querySelector('.note-form-type-pill.active')?.dataset.type || 'note';
+  const type = form.querySelector('.note-form-type-pill.active')?.dataset.type || __('notes.type_note', 'note');
   const d = {
     _ts: Date.now(),
     note_type: type,
@@ -2746,7 +2746,7 @@ function _collectFormDraft(form) {
     due_date: form.querySelector('.note-form-due')?.value || null,
     repeat: form.querySelector('.note-form-repeat')?.value || 'none',
   };
-  if (type === 'note') d.content = form.querySelector('.note-form-content')?.value || '';
+  if (type === __('notes.type_note', 'note')) d.content = form.querySelector('.note-form-content')?.value || '';
   else if (type === 'goal') { d.content = form.querySelector('.note-form-goal-desc')?.value || ''; d.items = _collectItems(form); }
   else d.items = _collectItems(form);
   return d;
@@ -2796,7 +2796,7 @@ function _applyDraftToNote(note, id) {
 
 function _buildForm(note = null) {
   const isEdit = note && note.id;
-  const type = note?.note_type || 'note';
+  const type = note?.note_type || __('notes.type_note', 'note');
   const color = note?.color || '';
   const items = note?.items || [{ id: _uid(), text: '', done: false }];
 
@@ -2816,7 +2816,7 @@ function _buildForm(note = null) {
     </div>
     ${currentImageUrl && type !== 'draw' ? `<div class="note-form-image-wrap"><img class="note-form-image" src="${_esc(currentImageUrl)}" draggable="false" /><button class="note-form-image-rm" title="Remove">&times;</button></div>` : ''}
     <div class="note-form-body">
-      ${type === 'note'
+      ${type === __('notes.type_note', 'note')
         ? `<textarea class="note-form-content" placeholder="Take a note..." rows="4">${_esc(note?.content || '')}</textarea>`
         : type === 'draw'
         ? _buildDrawHtml()
@@ -2827,7 +2827,7 @@ function _buildForm(note = null) {
     <div class="note-form-reminder-tags"></div>
     <div class="note-form-meta">
       <div class="note-form-type-seg${type === 'todo' ? ' is-todo' : type === 'draw' ? ' is-draw' : ''}" role="group">
-        <button type="button" class="note-form-type-pill${type === 'note' ? ' active' : ''}" data-type="note">
+        <button type="button" class="note-form-type-pill${type === __('notes.type_note', 'note') ? ' active' : ''}" data-type="note">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="14" y2="18"/></svg>
           <span>Note</span>
         </button>
@@ -2874,7 +2874,7 @@ function _buildForm(note = null) {
   // user's hand-formatted text instead of a join of generated items. Same the
   // other way: if you started in todo, switch to note, switch back, items
   // come back unchanged.
-  let _stashedNoteText = (type === 'note') ? (note?.content || '') : null;
+  let _stashedNoteText = (type === __('notes.type_note', 'note')) ? (note?.content || '') : null;
   let _stashedTodoItems = (type === 'todo' && Array.isArray(note?.items)) ? note.items.slice() : null;
   // Goal mode kept its own pair of stashes (description + steps) so a
   // Todo→Goal→Todo round-trip wouldn't lose either side. The Goal pill in
@@ -2905,7 +2905,7 @@ function _buildForm(note = null) {
       const bodyEl = form.querySelector('.note-form-body');
       // Stash whatever the user has in the current mode before swapping it
       // out, so a subsequent flip back restores their work.
-      if (currentType === 'note') {
+      if (currentType === __('notes.type_note', 'note')) {
         _stashedNoteText = form.querySelector('.note-form-content')?.value || '';
       } else if (currentType === 'todo') {
         _stashedTodoItems = _collectItems(form);
@@ -2947,7 +2947,7 @@ function _buildForm(note = null) {
         bodyEl.innerHTML = `<textarea class="note-form-content" placeholder="Take a note..." rows="4">${_esc(text)}</textarea>`;
         _wireHashtag(bodyEl.querySelector('.note-form-content'));
       }
-      const focusEl = newType === 'note'
+      const focusEl = newType === __('notes.type_note', 'note')
         ? bodyEl.querySelector('.note-form-content')
         : newType === 'todo'
           ? bodyEl.querySelector('.note-cl-text')
@@ -3522,7 +3522,7 @@ function _buildForm(note = null) {
       repeat: form.querySelector('.note-form-repeat')?.value || 'none',
       image_url: currentImageUrl || null,
     };
-    if (currentType === 'note') {
+    if (currentType === __('notes.type_note', 'note')) {
       payload.content = form.querySelector('.note-form-content')?.value || '';
     } else if (currentType === 'draw') {
       // Upload the canvas PNG before saving so image_url points to a
@@ -4461,7 +4461,7 @@ function _editNote(id) {
   // (and likely a body to extend) loses momentum. Prefer the body textarea
   // for plain notes, the first checklist item for todos, fall back to title.
   const _focusBest = () => {
-    if (note.note_type === 'note' || !note.note_type) {
+    if (note.note_type === __('notes.type_note', 'note') || !note.note_type) {
       const ta = form.querySelector('.note-form-content');
       if (ta) { ta.focus(); try { ta.setSelectionRange(ta.value.length, ta.value.length); } catch {} return; }
     }

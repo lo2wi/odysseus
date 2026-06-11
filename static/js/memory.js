@@ -444,7 +444,7 @@ export async function tidyMemories() {
 
     if (!res.ok) {
       const err = await res.json().catch(() => ({}));
-      throw new Error(err.detail || 'Audit failed');
+      throw new Error(err.detail || __('memory.audit_failed', 'Audit failed'));
     }
 
     const data = await res.json();
@@ -472,7 +472,7 @@ export async function tidyMemories() {
       }
     }
 
-    if (tidySpinner) tidySpinner.updateMessage('Tidying memories');
+    if (tidySpinner) tidySpinner.updateMessage(__('memory.tidying', 'Tidying memories'));
 
     // Animate the diff on the currently rendered list
     await animateTidyDiff(removed, edited);
@@ -673,7 +673,7 @@ export function renderMemoryList() {
     if (memory.pinned) {
       const pinBadge = document.createElement('span');
       pinBadge.className = 'memory-cat-badge memory-cat-pinned';
-      pinBadge.textContent = __('memory.pinned', 'pinned');
+      pinBadge.textContent = __('memory.pinned', __('memory.pinned', 'pinned'));
       meta.appendChild(pinBadge);
     }
 
@@ -739,7 +739,7 @@ export function renderMemoryList() {
         : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${_bookmarkPath}</svg>`;
       const pinItem = document.createElement('div');
       pinItem.className = 'dropdown-item-compact';
-      pinItem.innerHTML = `<span class="dropdown-icon">${_pinSvg}</span><span>${memory.pinned ? 'Unpin' : 'Pin'}</span>`;
+      pinItem.innerHTML = `<span class="dropdown-icon">${_pinSvg}</span><span>${memory.pinned ? __('memory.unpin', 'Unpin') : __('memory.pin', 'Pin')}</span>`;
       pinItem.addEventListener('click', () => { dropdown.style.display = 'none'; togglePin(memory.id, !memory.pinned); });
 
       const editItem = document.createElement('div');
@@ -1027,15 +1027,15 @@ export async function addNewMemory() {
     if (response.ok) {
       input.value = '';
       await loadMemories();
-      showToast('Memory added');
+      showToast(__('memory.memory_added', 'Memory added'));
     } else {
       const errorData = await response.json();
       console.error('Server error details:', errorData);
-      throw new Error(errorData.detail || 'Failed to add memory');
+      throw new Error(errorData.detail || __('memory.add_failed', 'Failed to add memory'));
     }
   } catch (error) {
     console.error('Error adding memory:', error);
-    showError('Failed to add memory');
+    showError(__('memory.add_failed', 'Failed to add memory'));
   }
 }
 
@@ -1059,7 +1059,7 @@ async function togglePin(id, pinned) {
       const mem = memories.find(m => m.id === id);
       if (mem) mem.pinned = pinned;
       renderMemoryList();
-      showToast(pinned ? 'Pinned — always in context' : 'Unpinned — RAG only');
+      showToast(pinned ? __('memory.pinned_in_context', 'Pinned — always in context') : __('memory.unpinned_rag_only', 'Unpinned — RAG only'));
     }
   } catch (e) {
     console.error('Failed to toggle pin:', e);

@@ -290,7 +290,17 @@
     "export": "导出",
     "export_tooltip": "导出所有记忆为 JSON",
     "search_hint": "搜索记忆…",
-    "include_in_context": "将记忆包含在对话上下文中"
+    "include_in_context": "将记忆包含在对话上下文中",
+    "delete_confirm": "删除 {n} 条记忆？",
+    "audit_failed": "审核失败",
+    "tidying": "正在整理记忆",
+    "pin": "置顶",
+    "unpin": "取消置顶",
+    "memory_added": "记忆已添加",
+    "add_failed": "添加记忆失败",
+    "pinned_in_context": "已置顶 — 始终在上下文中",
+    "unpinned_rag_only": "已取消置顶 — 仅 RAG",
+    "enter_to_save": "按 Enter 保存"
   },
   "skills": {
     "restore_original": "恢复原始内置指令",
@@ -465,7 +475,9 @@
     "deleted": "已删除",
     "delete_failed": "删除失败",
     "copy_failed": "复制失败",
-    "title": "笔记"
+    "title": "笔记",
+    "archive_confirm": "归档 {n} 条笔记？",
+    "type_note": "笔记"
   },
   "calendar": {
     "create_failed": "创建事件失败",
@@ -544,7 +556,7 @@
     "api_key_required": "云服务提供商需要 API 密钥",
     "test_canceled": "测试已取消",
     "test_failed": "测试失败",
-    "test_sent": "测试已发送！",
+    "test_sent": "测试已发送",
     "test": "测试",
     "adding": "添加中…",
     "title": "管理",
@@ -576,7 +588,24 @@
     "agent_supervisor_ladder": "监督者阶梯",
     "agent_supervisor_ladder_desc": "开启后，每个声称完成的有效 Agent 步骤都会被验证；失败时阶梯上升：验证 → 不同方法 → 教师 → 带阻塞项停止，每个层级在对话中可见。教师层级需要设置 teacher_model。",
     "max_steps_per_message": "每条消息最大步数",
-    "data_backup": "数据备份"
+    "data_backup": "数据备份",
+    "agent_mode": "Agent 模式",
+    "browser_automation": "浏览器自动化",
+    "shell_python_files": "Shell / Python / 文件",
+    "document_editor": "文档编辑器",
+    "deep_research": "深度研究",
+    "image_generation": "图片生成",
+    "memory_skills": "记忆与技能",
+    "no_models_allowed": "无授权模型",
+    "all_models_allowed": "所有模型已授权（无限制）",
+    "models_allowed": "{n} 个模型已授权",
+    "loading_models": "正在加载模型…",
+    "refreshing_models": "正在刷新模型…",
+    "new_username": "新用户名",
+    "remove_user_confirm": "移除用户 \"{name}\"？",
+    "enable": "启用",
+    "disable": "禁用",
+    "delete_endpoint_confirm": "确定要删除此端点吗？"
   },
   "auth": {
     "login_title": "Odysseus — 登录",
