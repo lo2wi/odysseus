@@ -1,4 +1,108 @@
-# Odysseus
+# Odysseus · 奥德修斯
+
+> 自托管 AI 工作空间 — 支持中文界面 | Self-hosted AI workspace with Chinese localization
+>
+> 中文分支：[`zh-cn`](https://github.com/lo2wi/odysseus/tree/zh-cn) · 上游：[pewdiepie-archdaemon/odysseus](https://github.com/pewdiepie-archdaemon/odysseus)
+
+---
+
+## 📖 中文说明（Chinese README）
+
+### 这是什么？
+
+Odysseus（奥德修斯）是一个**自托管的 AI 工作空间**，相当于把 ChatGPT / Claude 的 UI 体验搬到你自己电脑上跑。数据完全本地、隐私优先、无需订阅。
+
+### 功能一览
+
+- **聊天** — 对接任何本地模型或 API，添加超简单<br>　<sub>vLLM · llama.cpp · Ollama · OpenRouter · OpenAI · GitHub Copilot</sub>
+- **Agent** — 给 AI 工具让它自主完成整个任务<br>　<sub>基于 opencode · MCP · 网页 · 文件 · Shell · 技能 · 记忆</sub>
+- **Cookbook** — 扫描你的硬件，推荐模型，一键下载和启动服务<br>　<sub>基于 llmfit · VRAM 感知 · GGUF / FP8 / AWQ · 适配评分 · vLLM / llama.cpp 服务</sub>
+- **深度研究** — 多步骤自动搜索、阅读、综合分析来源，生成可视化报告
+- **模型对比** — 盲测对比多个模型，消除偏见
+- **文档** — 多标签编辑器，AI 辅助你写作（Markdown / HTML / CSV）
+- **记忆 / 技能** — 持久记忆和技能系统，Agent 越用越懂你<br>　<sub>ChromaDB · fastembed (ONNX) · 向量 + 关键词检索 · 导入/导出</sub>
+- **邮件** — IMAP/SMTP 收件箱，AI 自动分类、摘要、回复草稿、垃圾过滤
+- **笔记 & 任务** — 快速笔记、提醒、待办清单、定时任务<br>　<sub>笔记提醒 · 清单 · cron 风格任务 · ntfy / 浏览器 / 邮件通知</sub>
+- **日历** — 本地优先日历，支持 CalDAV 同步（Radicale / Nextcloud / Apple / Fastmail）
+- **移动端适配** — 手机上也能用（响应式 PWA，支持触控手势）
+- **更多** — 图片编辑器 · 主题编辑器 · 文件上传（图片 + PDF）· 网页搜索 · 预设 · 会话 · 2FA
+
+### 快速开始
+
+#### Docker（推荐）
+
+```bash
+git clone https://github.com/lo2wi/odysseus.git
+cd odysseus
+git checkout zh-cn          # 切换到中文分支
+cp .env.example .env        # 可选，建议配置
+docker compose up -d --build
+```
+
+打开 `http://localhost:7000`，首次启动会在终端打印管理员密码。
+
+#### macOS (Apple Silicon)
+
+```bash
+git clone https://github.com/lo2wi/odysseus.git
+cd odysseus
+git checkout zh-cn
+./start-macos.sh
+```
+
+默认地址 `http://127.0.0.1:7860`（macOS 上 AirPlay 占用 7000 端口）。
+
+#### Linux 原生
+
+```bash
+git clone https://github.com/lo2wi/odysseus.git
+cd odysseus
+git checkout zh-cn
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+python setup.py
+python -m uvicorn app:app --host 127.0.0.1 --port 7000
+```
+
+要求 Python 3.11+。
+
+#### Windows
+
+```powershell
+git clone https://github.com/lo2wi/odysseus.git
+cd odysseus
+git checkout zh-cn
+powershell -ExecutionPolicy Bypass -File .\launch-windows.ps1
+```
+
+### 中文界面怎么生效？
+
+浏览器语言设为**中文**即可自动显示中文界面。英文浏览器不受影响。
+
+如果你的浏览器语言是英文但想看中文，可以在浏览器设置中把中文拖到首选语言位置，或者在 Odysseus 后续版本中通过设置切换语言。
+
+### 与上游同步
+
+```bash
+git fetch origin
+git merge origin/dev          # 合并上游最新开发分支
+# 解决冲突后
+git push myfork zh-cn
+```
+
+### 参与汉化
+
+欢迎提交 PR 改进中文翻译！主要文件：
+- `static/locale/zh-CN.json` — 翻译字典（前后端共享）
+- `static/js/i18n.js` — 前端 i18n 引擎
+- `src/i18n.py` — 后端 i18n 模块
+
+翻译规范：专业术语保留英文（如 CalDAV、ChromaDB、MCP、vLLM 等），用户操作界面全中文。
+
+---
+
+## 📖 English README（英文原文）
 
 > **Branch note:** `dev` is the default branch and contains the latest development changes, but it may be unstable. For the more stable curated branch, use [`main`](https://github.com/pewdiepie-archdaemon/odysseus/tree/main).
 
