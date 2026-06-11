@@ -482,7 +482,7 @@ async function initDefaultChat() {
           default_model_fallbacks: clean
         })
       });
-      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--fg)';
       setTimeout(function() { msg.textContent = ''; }, 2000);
     } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
@@ -551,7 +551,7 @@ async function initUtilityModel() {
           utility_model: modelSel.value || ''
         })
       });
-      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--fg)';
       setTimeout(function() { msg.textContent = ''; }, 1500);
     } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
@@ -646,7 +646,7 @@ async function initTeacherModel() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ teacher_enabled: enabled, teacher_model: spec })
       });
-      msg.textContent = enabled ? (spec ? 'Saved' : 'Pick an endpoint + model') : 'Disabled';
+      msg.textContent = enabled ? (spec ? __('settings.saved', 'Saved') : 'Pick an endpoint + model') : __('settings.search_disabled_name', 'Disabled');
       msg.style.color = enabled && !spec ? 'var(--red)' : 'var(--fg)';
       setTimeout(function() { msg.textContent = ''; }, 2000);
     } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
@@ -722,7 +722,7 @@ async function initImageSettings() {
     try {
       await fetch('/api/auth/settings', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image_gen_enabled: enabledToggle ? enabledToggle.checked : true, image_model: modelSel.value, image_quality: qualSel.value }) });
-      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)'; setTimeout(() => { msg.textContent = ''; }, 2000);
+      msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--fg)'; setTimeout(() => { msg.textContent = ''; }, 2000);
     } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
   modelSel.addEventListener('change', saveSettings);
@@ -795,7 +795,7 @@ async function initVisionSettings() {
     try {
       await fetch('/api/auth/settings', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ vision_enabled: enabledToggle ? enabledToggle.checked : true, vision_model: vlSel.value }) });
-      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)'; setTimeout(() => { msg.textContent = ''; }, 2000);
+      msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--fg)'; setTimeout(() => { msg.textContent = ''; }, 2000);
     } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
   vlSel.addEventListener('change', saveSettings);
@@ -877,7 +877,7 @@ async function initTtsSettings() {
     try {
       await fetch('/api/auth/settings', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tts_enabled: ttsEnabledToggle ? ttsEnabledToggle.checked : true, tts_provider: provSel.value, tts_model: getModel() || 'tts-1', tts_voice: getVoice() || 'alloy', tts_speed: speedSelect.value || '1' }) });
-      ttsMsg.textContent = __('settings.saved', 'Saved'); ttsMsg.style.color = 'var(--fg)'; setTimeout(() => { ttsMsg.textContent = ''; }, 2000);
+      ttsMsg.textContent = __('settings.saved', __('settings.saved', 'Saved')); ttsMsg.style.color = 'var(--fg)'; setTimeout(() => { ttsMsg.textContent = ''; }, 2000);
       if (window.aiTTSManager) window.aiTTSManager.checkAvailability();
     } catch (e) { ttsMsg.textContent = __('settings.save_failed', 'Failed to save'); ttsMsg.style.color = 'var(--red)'; }
   }
@@ -891,7 +891,7 @@ async function initTtsSettings() {
     var prov = provSel.value;
     if (prov === 'local') voiceInput.value = 'af_heart';
     else if (isEndpoint()) { voiceSelect.value = 'alloy'; modelSelect.value = 'tts-1'; }
-    else if (prov === 'browser') { voiceInput.value = ''; voiceInput.placeholder = 'OS default voice'; }
+    else if (prov === 'browser') { voiceInput.value = ''; voiceInput.placeholder = __('settings.os_default_voice', 'OS default voice'); }
     updateVisibility();
     saveTTS();
   });
@@ -924,7 +924,7 @@ async function initTtsSettings() {
       previewPlaying = true; previewBtn.textContent = __('settings.loading', 'Loading...');
       try {
         if (prov === 'browser') {
-          if (!('speechSynthesis' in window)) throw new Error('Browser TTS not supported');
+          if (!('speechSynthesis' in window)) throw new Error(__('settings.browser_tts_not_supported', 'Browser TTS not supported'));
           var utt = new SpeechSynthesisUtterance(testText);
           var voiceVal = getVoice();
           if (voiceVal) {
@@ -954,7 +954,7 @@ async function initTtsSettings() {
           previewBtn.textContent = __('settings.stop', 'Stop'); previewBtn.style.borderColor = 'var(--red, #e55)';
           await new Promise(function(resolve, reject) {
             previewAudio.onended = function() { URL.revokeObjectURL(url); previewAudio = null; resolve(); };
-            previewAudio.onerror = function() { URL.revokeObjectURL(url); previewAudio = null; reject(new Error('Playback failed')); };
+            previewAudio.onerror = function() { URL.revokeObjectURL(url); previewAudio = null; reject(new Error(__('settings.playback_failed', 'Playback failed'))); };
             previewAudio.play().catch(reject);
           });
         }
@@ -1040,7 +1040,7 @@ async function initSttSettings() {
       await fetch('/api/auth/settings', { method: 'POST', credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ stt_enabled: enabled, stt_provider: provSel.value, stt_model: getModel() || 'base', stt_language: langInput.value.trim() }) });
-      sttMsg.textContent = __('settings.saved', 'Saved'); sttMsg.style.color = 'var(--fg)'; setTimeout(() => { sttMsg.textContent = ''; }, 2000);
+      sttMsg.textContent = __('settings.saved', __('settings.saved', 'Saved')); sttMsg.style.color = 'var(--fg)'; setTimeout(() => { sttMsg.textContent = ''; }, 2000);
       // Notify voiceRecorder of effective provider and update send button icon
       if (window.voiceRecorderModule) window.voiceRecorderModule._sttProvider = effectiveProvider();
       if (window._updateSendBtnIcon) window._updateSendBtnIcon();
@@ -1059,18 +1059,18 @@ async function initSttSettings() {
    ═══════════════════════════════════════════ */
 
 var _searchProviderHints = {
-  searxng: 'Self-hosted SearXNG instance. Leave URL empty to use the SEARXNG_INSTANCE env var.',
-  duckduckgo: 'Free search — no API key required. Works out of the box.',
-  brave: 'Get your API key from brave.com/search/api',
-  google_pse: 'Requires a Google API key and a Programmable Search Engine ID (CX). Create one at programmablesearchengine.google.com',
+  searxng: __('settings.search_searxng_desc', 'Self-hosted SearXNG instance. Leave URL empty to use the SEARXNG_INSTANCE env var.'),
+  duckduckgo: __('settings.search_duckduckgo_desc', 'Free search — no API key required. Works out of the box.'),
+  brave: __('settings.search_brave_desc', 'Get your API key from brave.com/search/api'),
+  google_pse: __('settings.search_google_desc', 'Requires a Google API key and a Programmable Search Engine ID (CX). Create one at programmablesearchengine.google.com'),
   tavily: 'AI-optimized search. 1,000 free credits/month at tavily.com',
-  serper: 'Google results via API. 2,500 free queries at serper.dev',
-  disabled: 'Web search and deep research tools will be unavailable.',
+  serper: __('settings.search_serper_desc', 'Google results via API. 2,500 free queries at serper.dev'),
+  disabled: __('settings.search_disabled_desc', 'Web search and deep research tools will be unavailable.'),
 };
 var _searchNeedsKey = { brave: 1, google_pse: 1, tavily: 1, serper: 1 };
 var _searchLabels = {
-  searxng: 'SearXNG', duckduckgo: 'DuckDuckGo', brave: 'Brave Search',
-  google_pse: 'Google PSE', tavily: 'Tavily', serper: 'Serper', disabled: 'Disabled',
+  searxng: __('settings.search_searxng_name', 'SearXNG'), duckduckgo: __('settings.search_duckduckgo_name', 'DuckDuckGo'), brave: __('settings.search_brave_name', 'Brave Search'),
+  google_pse: __('settings.search_google_name', 'Google PSE'), tavily: __('settings.search_tavily_name', 'Tavily'), serper: __('settings.search_serper_name', 'Serper'), disabled: __('settings.search_disabled_name', 'Disabled'),
 };
 var _searchKeyFields = {
   brave: 'brave_api_key', google_pse: 'google_pse_key',
@@ -1104,11 +1104,11 @@ async function initSearchSettings() {
     keyRow.style.display = _searchNeedsKey[prov] ? 'flex' : 'none';
     cxRow.style.display = prov === 'google_pse' ? 'flex' : 'none';
     hint.textContent = _searchProviderHints[prov] || '';
-    if (prov === 'brave') keyInput.placeholder = 'Brave API key';
-    else if (prov === 'google_pse') keyInput.placeholder = 'Google API key';
-    else if (prov === 'tavily') keyInput.placeholder = 'Tavily API key';
-    else if (prov === 'serper') keyInput.placeholder = 'Serper API key';
-    else keyInput.placeholder = 'API key';
+    if (prov === 'brave') keyInput.placeholder = __('settings.brave_api_key', 'Brave API key');
+    else if (prov === 'google_pse') keyInput.placeholder = __('settings.google_api_key', 'Google API key');
+    else if (prov === 'tavily') keyInput.placeholder = __('settings.tavily_api_key', 'Tavily API key');
+    else if (prov === 'serper') keyInput.placeholder = __('settings.serper_api_key', 'Serper API key');
+    else keyInput.placeholder = __('settings.api_key_placeholder', 'API key');
     loadKeyForProvider(prov);
   }
 
@@ -1161,7 +1161,7 @@ async function initSearchSettings() {
         extra = ' (' + s.search_url + ')';
       }
       var count = s.search_result_count || 5;
-      msg.textContent = 'Active: ' + label + extra + ' \u00b7 ' + count + ' results';
+      msg.textContent = __('settings.active_search', 'Active') + ': ' + label + extra + ' · ' + count + ' ' + __('settings.results_label', 'results');
       msg.style.color = active === 'disabled' ? 'var(--red)' : (_searchNeedsKey[active] && !hasKey) ? 'var(--red)' : 'var(--fg)';
     } catch (e) { /* ignore */ }
   }
@@ -1196,7 +1196,7 @@ async function initSearchSettings() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--fg)';
       setTimeout(refreshStatus, 2000);
       if (searchModule && searchModule.refresh) searchModule.refresh();
     } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
@@ -1334,7 +1334,7 @@ async function initSearchSettings() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ search_fallback_chain: chain }),
       });
-      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--fg)';
       setTimeout(refreshStatus, 2000);
     } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
     _renderFallbackChain();
@@ -1461,7 +1461,7 @@ async function initResearchSettings() {
       msg.textContent = parts.join(' · ');
       msg.style.color = 'var(--fg)';
     } else {
-      msg.textContent = 'Using chat defaults';
+      msg.textContent = __('settings.using_chat_defaults', 'Using chat defaults');
       msg.style.color = 'var(--fg)';
     }
   }
@@ -1490,7 +1490,7 @@ async function initResearchSettings() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--fg)';
       setTimeout(showStatus, 2000);
     } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
@@ -1548,7 +1548,7 @@ async function initResearchSearchSettings() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ research_search_provider: searchSel.value })
       });
-      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--fg)';
       setTimeout(function() { msg.textContent = ''; }, 2000);
     } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
@@ -1624,7 +1624,7 @@ function initAppearance() {
       if (window.UI_VIS_ADMIN_ONLY && window.UI_VIS_ADMIN_ONLY.has(key) && !chk.checked && !window._isAdmin) {
         chk.checked = true;
         if (uiModule && uiModule.showToast) {
-          uiModule.showToast('Only admins can hide Settings.');
+          uiModule.showToast(__('settings.only_admins_hide', 'Only admins can hide Settings.'));
         }
         return;
       }
@@ -1637,17 +1637,17 @@ function initAppearance() {
         try {
           ok = await (uiModule && uiModule.styledConfirm
             ? uiModule.styledConfirm(
-                'Hide the Settings cog?\n\nYou can re-open this panel any time by typing /settings in the chat input.',
-                { confirmText: 'Hide', cancelText: 'Cancel' }
+                __('settings.hide_settings_cog', 'Hide the Settings cog?\n\nYou can re-open this panel any time by typing /settings in the chat input.'),
+                { confirmText: __('settings.hide', 'Hide'), cancelText: 'Cancel' }
               )
-            : Promise.resolve(window.confirm('Hide the Settings cog?\n\nYou can re-open this panel any time by typing /settings in the chat input.')));
+            : Promise.resolve(window.confirm(__('settings.hide_settings_cog', 'Hide the Settings cog?\n\nYou can re-open this panel any time by typing /settings in the chat input.'))));
         } catch (_) { ok = false; }
         if (!ok) {
           chk.checked = true;
           return;
         }
         if (uiModule && uiModule.showToast) {
-          uiModule.showToast('Settings cog hidden — type /settings to bring it back.', 5000);
+          uiModule.showToast(__('settings.settings_cog_hidden', 'Settings cog hidden — type /settings to bring it back.'), 5000);
         }
       }
 
@@ -1747,13 +1747,13 @@ const SHORTCUT_ICONS = {
 };
 
 const SHORTCUT_LABELS = {
-  search:         'Search conversations',
-  toggle_sidebar: 'Toggle sidebar',
-  new_session:    'New session',
-  fav_session:    'Favorite session',
-  delete_session: 'Delete session',
-  cancel:         'Cancel / close',
-  tts:            'Play/stop TTS',
+  search:         __('settings.search_conversations', 'Search conversations'),
+  toggle_sidebar: __('settings.toggle_sidebar', 'Toggle sidebar'),
+  new_session:    __('settings.new_session', 'New session'),
+  fav_session:    __('settings.favorite_session', 'Favorite session'),
+  delete_session: __('settings.delete_session', 'Delete session'),
+  cancel:         __('settings.cancel_close', 'Cancel / close'),
+  tts:            __('settings.play_stop_tts', 'Play/stop TTS'),
   incognito:      'Toggle incognito',
   settings:       'Toggle Window',
   focus_input:    'Focus chat input',
@@ -1862,7 +1862,7 @@ async function initShortcuts() {
           <div class="shortcut-controls">
             <span class="shortcut-hint" hidden></span>
             <button class="shortcut-key${combo ? '' : ' shortcut-key-unset'}" data-action="${action}" title="Click to rebind">${keyContent}</button>
-            <button class="shortcut-action-btn ${isCustom ? 'is-reset' : ''}" data-action="${action}" title="${isCustom ? 'Reset to default' : 'Confirm'}" style="${isCustom ? '' : 'visibility:hidden'}">
+            <button class="shortcut-action-btn ${isCustom ? 'is-reset' : ''}" data-action="${action}" title="${isCustom ? __('settings.reset_to_default', 'Reset to default') : __('settings.confirm', 'Confirm')}" style="${isCustom ? '' : 'visibility:hidden'}">
               ${isCustom ? '\u21A9' : '\u2713'}
             </button>
           </div>
@@ -1901,16 +1901,16 @@ async function initShortcuts() {
     });
 
     btn.classList.add('listening');
-    btn.textContent = 'Press keys...';
+    btn.textContent = __('settings.press_keys', 'Press keys...');
     // Show confirm button
     actionBtn.textContent = '\u2713';
     actionBtn.classList.remove('is-reset');
     actionBtn.style.visibility = 'visible';
-    actionBtn.title = 'Confirm';
+    actionBtn.title = __('settings.confirm', 'Confirm');
     // Hint: tell the user how to commit / cancel the rebind.
     if (hintEl) {
       hintEl.hidden = false;
-      hintEl.textContent = 'press a key';
+      hintEl.textContent = __('settings.press_a_key', 'press a key');
     }
 
     let pendingCombo = null;
@@ -1937,7 +1937,7 @@ async function initShortcuts() {
         if (isCustom) {
           actionBtn.textContent = '\u21A9';
           actionBtn.classList.add('is-reset');
-          actionBtn.title = 'Reset to default';
+          actionBtn.title = __('settings.reset_to_default', 'Reset to default');
         } else {
           actionBtn.style.visibility = 'hidden';
         }
@@ -2027,9 +2027,9 @@ function initAccount() {
       const nw = el('settings-pw-new').value;
       const conf = el('settings-pw-confirm').value;
       msgEl.style.color = '';
-      if (!cur || !nw) { msgEl.textContent = 'Fill in all fields'; msgEl.style.color = 'var(--red)'; return; }
-      if (nw.length < 8) { msgEl.textContent = 'Min 8 characters'; msgEl.style.color = 'var(--red)'; return; }
-      if (nw !== conf) { msgEl.textContent = 'Passwords don\'t match'; msgEl.style.color = 'var(--red)'; return; }
+      if (!cur || !nw) { msgEl.textContent = __('settings.fill_all_fields', 'Fill in all fields'); msgEl.style.color = 'var(--red)'; return; }
+      if (nw.length < 8) { msgEl.textContent = __('settings.min_8_chars', 'Min 8 characters'); msgEl.style.color = 'var(--red)'; return; }
+      if (nw !== conf) { msgEl.textContent = __('settings.passwords_dont_match', "Passwords don't match"); msgEl.style.color = 'var(--red)'; return; }
       saveBtn.disabled = true;
       try {
         const res = await fetch('/api/auth/change-password', {
@@ -2037,9 +2037,9 @@ function initAccount() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ current_password: cur, new_password: nw })
         });
-        if (!res.ok) { const d = await res.json(); throw new Error(d.detail || 'Failed'); }
+        if (!res.ok) { const d = await res.json(); throw new Error(d.detail || __('settings.failed', 'Failed')); }
         msgEl.style.color = 'var(--green)';
-        msgEl.textContent = 'Password updated';
+        msgEl.textContent = __('settings.password_updated', 'Password updated');
         el('settings-pw-current').value = '';
         el('settings-pw-new').value = '';
         el('settings-pw-confirm').value = '';
@@ -2074,14 +2074,14 @@ function initAccount() {
           el('tfa-disable-btn').addEventListener('click', async () => {
             const pw = el('tfa-disable-pw').value;
             const msg = el('tfa-msg');
-            if (!pw) { msg.textContent = 'Enter your password'; msg.style.color = 'var(--red)'; return; }
+            if (!pw) { msg.textContent = __('settings.enter_password', 'Enter your password'); msg.style.color = 'var(--red)'; return; }
             try {
               const r = await fetch('/api/auth/2fa/disable', {
                 method: 'POST', credentials: 'same-origin',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ password: pw })
               });
-              if (!r.ok) { const d = await r.json(); throw new Error(d.detail || 'Failed'); }
+              if (!r.ok) { const d = await r.json(); throw new Error(d.detail || __('settings.failed', 'Failed')); }
               render2FA();
             } catch (e) { msg.textContent = e.message; msg.style.color = 'var(--red)'; }
           });
@@ -2097,7 +2097,7 @@ function initAccount() {
             const msg = el('tfa-msg');
             try {
               const r = await fetch('/api/auth/2fa/setup', { method: 'POST', credentials: 'same-origin' });
-              if (!r.ok) { const d = await r.json(); throw new Error(d.detail || 'Failed'); }
+              if (!r.ok) { const d = await r.json(); throw new Error(d.detail || __('settings.failed', 'Failed')); }
               const setup = await r.json();
               const qrCode = safeRasterDataUrl(setup.qr_code);
               // Show QR code + manual secret + verify input
@@ -2120,7 +2120,7 @@ function initAccount() {
               el('tfa-verify-btn').addEventListener('click', async () => {
                 const code = el('tfa-verify-code').value.trim();
                 const vmsg = el('tfa-msg');
-                if (!code) { vmsg.textContent = 'Enter the code'; vmsg.style.color = 'var(--red)'; return; }
+                if (!code) { vmsg.textContent = __('settings.enter_code', 'Enter the code'); vmsg.style.color = 'var(--red)'; return; }
                 try {
                   const vr = await fetch('/api/auth/2fa/confirm', {
                     method: 'POST', credentials: 'same-origin',
@@ -2237,12 +2237,12 @@ async function initReminderSettings() {
             body: JSON.stringify({ app_public_url: val }),
           });
           if (pubUrlMsg) {
-            pubUrlMsg.textContent = val ? 'Saved' : 'Cleared (deep-links disabled)';
+            pubUrlMsg.textContent = val ? __('settings.saved', 'Saved') : 'Cleared (deep-links disabled)';
             pubUrlMsg.style.color = 'var(--green,#50fa7b)';
             setTimeout(() => { pubUrlMsg.textContent = ''; }, 2000);
           }
         } catch (_) {
-          if (pubUrlMsg) { pubUrlMsg.textContent = 'Save failed'; pubUrlMsg.style.color = 'var(--red)'; }
+          if (pubUrlMsg) { pubUrlMsg.textContent = __('settings.save_failed', 'Save failed'); pubUrlMsg.style.color = 'var(--red)'; }
         }
       }, 600);
     });
@@ -2285,7 +2285,7 @@ async function initReminderSettings() {
 
   if (!smtpConfigured && emailOpt) {
     emailOpt.disabled = true;
-    emailOpt.textContent = 'Email (add an account in Integrations)';
+    emailOpt.textContent = __('settings.email_option', 'Email (add an account in Integrations)');
   }
 
   // Detect whether ntfy integration exists — try admin endpoint, fall back to
@@ -2311,7 +2311,7 @@ async function initReminderSettings() {
 
   if (!ntfyConfigured && ntfyOpt) {
     ntfyOpt.disabled = true;
-    ntfyOpt.textContent = 'ntfy (add in Integrations first)';
+    ntfyOpt.textContent = __('settings.ntfy_option', 'ntfy (add in Integrations first)');
   }
 
   // Webhook: available whenever at least one integration with a base_url exists.
@@ -2328,7 +2328,7 @@ async function initReminderSettings() {
   } catch (_) {}
   if (!webhookConfigured && webhookOpt) {
     webhookOpt.disabled = true;
-    webhookOpt.textContent = 'Webhook (add an Integration first)';
+    webhookOpt.textContent = __('settings.webhook_option', 'Webhook (add an Integration first)');
   }
 
   const emailFromRow = el('set-reminder-email-from-row');
@@ -2362,15 +2362,15 @@ async function initReminderSettings() {
   function applyReminderChannelAvailability() {
     if (emailOpt) {
       emailOpt.disabled = !smtpConfigured;
-      emailOpt.textContent = smtpConfigured ? 'Email' : 'Email (add an account in Integrations)';
+      emailOpt.textContent = smtpConfigured ? 'Email' : __('settings.email_option', 'Email (add an account in Integrations)');
     }
     if (ntfyOpt) {
       ntfyOpt.disabled = !ntfyConfigured;
-      ntfyOpt.textContent = ntfyConfigured ? 'ntfy' : 'ntfy (add in Integrations first)';
+      ntfyOpt.textContent = ntfyConfigured ? 'ntfy' : __('settings.ntfy_option', 'ntfy (add in Integrations first)');
     }
     if (webhookOpt) {
       webhookOpt.disabled = !webhookConfigured;
-      webhookOpt.textContent = webhookConfigured ? 'Webhook' : 'Webhook (add an Integration first)';
+      webhookOpt.textContent = webhookConfigured ? 'Webhook' : __('settings.webhook_option', 'Webhook (add an Integration first)');
     }
   }
 
@@ -2568,7 +2568,7 @@ async function initReminderSettings() {
   if (testBtn) {
     testBtn.addEventListener('click', async () => {
       testBtn.disabled = true;
-      if (testMsg) { testMsg.textContent = 'Sending…'; testMsg.style.color = 'var(--fg)'; }
+      if (testMsg) { testMsg.textContent = __('settings.sending', 'Sending…'); testMsg.style.color = 'var(--fg)'; }
       // Whirlpool loader right next to the "Sending…" text while it sends.
       let _testSpin = null;
       try {
@@ -2623,7 +2623,7 @@ async function initReminderSettings() {
           } catch {}
         }
       } catch (e) {
-        if (testMsg) { testMsg.textContent = 'Failed: ' + e.message; testMsg.style.color = 'var(--red)'; }
+        if (testMsg) { testMsg.textContent = __('settings.failed', 'Failed') + ': ' + e.message; testMsg.style.color = 'var(--red)'; }
       } finally {
         _stopTestSpin();
         testBtn.disabled = false;
@@ -2845,7 +2845,7 @@ async function initEmailAccountsSettings() {
       // Name is optional — fall back to the From address so the list view
       // still has a label to render. Only refuse if both are blank.
       if (!body.name) body.name = body.from_address;
-      if (!body.name) { el('eaf-msg').textContent = 'Need at least a Name or Email'; el('eaf-msg').style.color = 'var(--red)'; return; }
+      if (!body.name) { el('eaf-msg').textContent = __('settings.need_name_or_email', 'Need at least a Name or Email'); el('eaf-msg').style.color = 'var(--red)'; return; }
 
       try {
         const url = isEdit ? `/api/email/accounts/${a.id}` : '/api/email/accounts';
@@ -2857,15 +2857,15 @@ async function initEmailAccountsSettings() {
         });
         const d = await r.json();
         if (d.ok || d.id) {
-          el('eaf-msg').textContent = 'Saved';
+          el('eaf-msg').textContent = __('settings.saved', 'Saved');
           el('eaf-msg').style.color = 'var(--green,#50fa7b)';
           setTimeout(() => { formEl.style.display = 'none'; renderList(); }, 400);
         } else {
-          el('eaf-msg').textContent = d.error || 'Save failed';
+          el('eaf-msg').textContent = d.error || __('settings.save_failed', 'Save failed');
           el('eaf-msg').style.color = 'var(--red)';
         }
       } catch (e) {
-        el('eaf-msg').textContent = 'Error: ' + e.message;
+        el('eaf-msg').textContent = __('settings.error_prefix', 'Error') + ': ' + e.message;
         el('eaf-msg').style.color = 'var(--red)';
       }
     });
@@ -2913,7 +2913,7 @@ async function initEmailSettings() {
   // Save email config
   el('set-email-save')?.addEventListener('click', async () => {
     const msg = el('set-email-msg');
-    if (msg) msg.textContent = 'Saving...';
+    if (msg) msg.textContent = __('settings.saving', 'Saving...');
     const data = {
       imap_host: el('set-email-imap-host').value,
       imap_port: parseInt(el('set-email-imap-port').value) || 0,
@@ -2934,17 +2934,17 @@ async function initEmailSettings() {
         body: JSON.stringify(data),
       });
       const result = await res.json();
-      if (msg) msg.textContent = result.success ? '✓ Saved' : (result.error || 'Failed');
+      if (msg) msg.textContent = result.success ? '✓ Saved' : (result.error || __('settings.failed', 'Failed'));
       setTimeout(() => { if (msg) msg.textContent = ''; }, 3000);
     } catch (e) {
-      if (msg) msg.textContent = 'Failed';
+      if (msg) msg.textContent = __('settings.failed', 'Failed');
     }
   });
 
   // Save CardDAV config
   el('set-carddav-save')?.addEventListener('click', async () => {
     const msg = el('set-carddav-msg');
-    if (msg) msg.textContent = 'Saving...';
+    if (msg) msg.textContent = __('settings.saving', 'Saving...');
     const data = {
       carddav_url: el('set-carddav-url').value,
       carddav_username: el('set-carddav-user').value,
@@ -2958,10 +2958,10 @@ async function initEmailSettings() {
         body: JSON.stringify(data),
       });
       const result = await res.json();
-      if (msg) msg.textContent = result.success ? '✓ Saved' : (result.error || 'Failed');
+      if (msg) msg.textContent = result.success ? '✓ Saved' : (result.error || __('settings.failed', 'Failed'));
       setTimeout(() => { if (msg) msg.textContent = ''; }, 3000);
     } catch (e) {
-      if (msg) msg.textContent = 'Failed';
+      if (msg) msg.textContent = __('settings.failed', 'Failed');
     }
   });
 
@@ -2984,12 +2984,12 @@ async function initEmailSettings() {
         wrap.style.cssText = 'display:inline-flex;align-items:center;';
         wrap.appendChild(wp.element);
         const txt = document.createElement('span');
-        txt.textContent = 'Analyzing your sent emails…';
+        txt.textContent = __('settings.analyzing_emails', 'Analyzing your sent emails…');
         txt.style.cssText = 'font-size:12px;opacity:0.7;';
         wrap.appendChild(txt);
         msg.appendChild(wrap);
       } catch (_) {
-        msg.textContent = 'Analyzing your sent emails…';
+        msg.textContent = __('settings.analyzing_emails', 'Analyzing your sent emails…');
       }
     }
     try {
@@ -3003,10 +3003,10 @@ async function initEmailSettings() {
         if (el('set-email-style')) el('set-email-style').value = data.style;
         if (msg) msg.textContent = '✓ Style extracted';
       } else {
-        if (msg) msg.textContent = data.error || 'Failed';
+        if (msg) msg.textContent = data.error || __('settings.failed', 'Failed');
       }
     } catch (e) {
-      if (msg) msg.textContent = 'Failed to extract';
+      if (msg) msg.textContent = __('settings.failed_to_extract', 'Failed to extract');
     } finally {
       if (wp && wp.destroy) { try { wp.destroy(); } catch (_) {} }
       btn.disabled = false;
@@ -3017,7 +3017,7 @@ async function initEmailSettings() {
   // Save writing style manually
   el('set-email-style-save')?.addEventListener('click', async () => {
     const msg = el('set-email-style-msg');
-    if (msg) msg.textContent = 'Saving...';
+    if (msg) msg.textContent = __('settings.saving', 'Saving...');
     try {
       const res = await fetch('/api/email/style', {
         method: 'PUT',
@@ -3025,10 +3025,10 @@ async function initEmailSettings() {
         body: JSON.stringify({ style: el('set-email-style').value }),
       });
       const result = await res.json();
-      if (msg) msg.textContent = result.success ? '✓ Saved' : 'Failed';
+      if (msg) msg.textContent = result.success ? '✓ Saved' : __('settings.failed', 'Failed');
       setTimeout(() => { if (msg) msg.textContent = ''; }, 3000);
     } catch (e) {
-      if (msg) msg.textContent = 'Failed';
+      if (msg) msg.textContent = __('settings.failed', 'Failed');
     }
   });
 }
@@ -3130,7 +3130,7 @@ async function initIntegrations() {
   // Start editing
   async function startEdit(id) {
     editingId = id;
-    formTitle.textContent = 'Edit Integration';
+    formTitle.textContent = __('settings.edit_integration', 'Edit Integration');
     // Fetch full data (with unmasked key from a dedicated edit fetch — we'll just load what we have)
     try {
       const res = await fetch('/api/auth/integrations', { credentials: 'same-origin' });
@@ -3153,7 +3153,7 @@ async function initIntegrations() {
   // Show add form
   addBtn.addEventListener('click', () => {
     editingId = null;
-    formTitle.textContent = 'Add Integration';
+    formTitle.textContent = __('settings.add_integration', 'Add Integration');
     presetSel.value = '';
     nameIn.value = '';
     urlIn.value = '';
@@ -3191,14 +3191,14 @@ async function initIntegrations() {
       const method = editingId ? 'PUT' : 'POST';
       const res = await fetch(url, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), credentials: 'same-origin' });
       if (res.ok) {
-        statusEl.textContent = 'Saved';
+        statusEl.textContent = __('settings.saved', 'Saved');
         statusEl.style.color = 'var(--green, #98c379)';
         formCard.style.display = 'none';
         await renderList();
         notifyIntegrationsChanged();
       } else {
         const err = await res.json().catch(() => ({}));
-        statusEl.textContent = err.detail || 'Save failed';
+        statusEl.textContent = err.detail || __('settings.save_failed', 'Save failed');
         statusEl.style.color = 'var(--red)';
       }
     } catch (e) {
@@ -3215,7 +3215,7 @@ async function initIntegrations() {
     try {
       const res = await fetch(`/api/auth/integrations/${editingId}/test`, { method: 'POST', credentials: 'same-origin' });
       const data = await res.json();
-      statusEl.textContent = data.message || (data.ok ? 'OK' : 'Failed');
+      statusEl.textContent = data.message || (data.ok ? 'OK' : __('settings.failed', 'Failed'));
       statusEl.style.color = data.ok ? 'var(--green, #98c379)' : 'var(--red)';
     } catch (e) {
       statusEl.textContent = 'Connection failed';
@@ -3659,10 +3659,10 @@ async function initUnifiedIntegrations() {
         // level would silently miss, leaving Test perpetually stuck on
         // "Save first" until the form was reopened.
         if (!_editId && saved) _editId = saved.integration?.id || saved.id;
-        el('uf-api-msg').textContent = 'Saved'; el('uf-api-msg').style.color = 'var(--green,#50fa7b)';
+        el('uf-api-msg').textContent = __('settings.saved', 'Saved'); el('uf-api-msg').style.color = 'var(--green,#50fa7b)';
         await renderList();
         notifyIntegrationsChanged();
-      } catch (_) { el('uf-api-msg').textContent = 'Failed'; el('uf-api-msg').style.color = 'var(--red)'; }
+      } catch (_) { el('uf-api-msg').textContent = __('settings.failed', 'Failed'); el('uf-api-msg').style.color = 'var(--red)'; }
     });
     el('uf-api-test').addEventListener('click', async () => {
       if (!_editId) { el('uf-api-msg').textContent = 'Save first'; return; }
@@ -3677,7 +3677,7 @@ async function initUnifiedIntegrations() {
           el('uf-api-msg').textContent = (d.message || d.error || d.detail || `HTTP ${r.status}`).slice(0, 360);
           el('uf-api-msg').style.color = 'var(--red)';
         }
-      } catch (e) { el('uf-api-msg').textContent = 'Error: ' + e.message; el('uf-api-msg').style.color = 'var(--red)'; }
+      } catch (e) { el('uf-api-msg').textContent = __('settings.error_prefix', 'Error') + ': ' + e.message; el('uf-api-msg').style.color = 'var(--red)'; }
     });
   }
 
@@ -3767,15 +3767,15 @@ async function initUnifiedIntegrations() {
         }
         if (!resp.ok) {
           const err = await resp.json().catch(() => ({}));
-          _setCalDavMsg(err.detail || 'Save failed', false);
+          _setCalDavMsg(err.detail || __('settings.save_failed', 'Save failed'), false);
           return;
         }
-        _setCalDavMsg('Saved', true);
+        _setCalDavMsg(__('settings.saved', 'Saved'), true);
         formEl.style.display = 'none';
         await renderList();
         notifyIntegrationsChanged();
       } catch (_) {
-        _setCalDavMsg('Save failed', false);
+        _setCalDavMsg(__('settings.save_failed', 'Save failed'), false);
       }
     });
 
@@ -3783,7 +3783,7 @@ async function initUnifiedIntegrations() {
       _setCalDavMsg('Testing…', true);
       el('uf-caldav-msg').style.color = '';
       const d = await _runCalDavTest();
-      _setCalDavMsg(d.ok ? 'Connected' : (d.error || 'Failed'), d.ok);
+      _setCalDavMsg(d.ok ? 'Connected' : (d.error || __('settings.failed', 'Failed')), d.ok);
     });
   }
 
@@ -3835,7 +3835,7 @@ async function initUnifiedIntegrations() {
       if (el('uf-carddav-pass').value) body.carddav_password = el('uf-carddav-pass').value;
       try {
         await fetch('/api/contacts/config', { method: 'PUT', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-        el('uf-carddav-msg').textContent = 'Saved';
+        el('uf-carddav-msg').textContent = __('settings.saved', 'Saved');
         el('uf-carddav-msg').style.color = 'var(--green, #50fa7b)';
         // Refresh both the sub-panel (contacts manager) AND the
         // outer integrations list so the CardDAV row appears
@@ -3844,7 +3844,7 @@ async function initUnifiedIntegrations() {
         await renderList();
         notifyIntegrationsChanged();
       } catch (_) {
-        el('uf-carddav-msg').textContent = 'Failed';
+        el('uf-carddav-msg').textContent = __('settings.failed', 'Failed');
         el('uf-carddav-msg').style.color = 'var(--red)';
       }
     });
@@ -4450,7 +4450,7 @@ async function initUnifiedIntegrations() {
       const body = _collectBody();
       // Name is optional — fall back to Email so the list still has a label.
       if (!body.name) body.name = body.from_address;
-      if (!body.name) { el('uf-email-msg').textContent = 'Need at least a Name or Email'; el('uf-email-msg').style.color = 'var(--red)'; return; }
+      if (!body.name) { el('uf-email-msg').textContent = __('settings.need_name_or_email', 'Need at least a Name or Email'); el('uf-email-msg').style.color = 'var(--red)'; return; }
       const saveBtn = el('uf-email-save');
       saveBtn.disabled = true;
       const saveIcoEl = saveBtn.querySelector('.uf-email-save-ico');
@@ -4469,18 +4469,18 @@ async function initUnifiedIntegrations() {
         });
         const d = await r.json();
         if (!(d.ok || d.id)) {
-          el('uf-email-msg').textContent = d.error || 'Failed';
+          el('uf-email-msg').textContent = d.error || __('settings.failed', 'Failed');
           el('uf-email-msg').style.color = 'var(--red)';
           return;
         }
-        el('uf-email-msg').textContent = 'Saved';
+        el('uf-email-msg').textContent = __('settings.saved', 'Saved');
         el('uf-email-msg').style.color = 'var(--green,#50fa7b)';
         integrationNotice = 'Email account saved. For more settings, go to Settings > Email.';
         formEl.style.display = 'none';
         await renderList();
         notifyIntegrationsChanged();
       } catch (e) {
-        el('uf-email-msg').textContent = 'Error: ' + e.message;
+        el('uf-email-msg').textContent = __('settings.error_prefix', 'Error') + ': ' + e.message;
         el('uf-email-msg').style.color = 'var(--red)';
       } finally {
         saveBtn.disabled = false;
@@ -4545,7 +4545,7 @@ async function initUnifiedIntegrations() {
     el('uf-vault-cancel').addEventListener('click', () => { formEl.style.display = 'none'; });
 
     el('uf-vault-save').addEventListener('click', async () => {
-      msg('Saving...');
+      msg(__('settings.saving', 'Saving...'));
       try {
         const r = await fetch('/api/vault/config', {
           method: 'POST', credentials: 'same-origin',
@@ -4553,9 +4553,9 @@ async function initUnifiedIntegrations() {
           body: JSON.stringify({ server_url: el('uf-vault-url').value, email: el('uf-vault-email').value }),
         });
         const d = await r.json();
-        if (d.ok) { msg('Saved', 'var(--green,#50fa7b)'); await refreshStatus(); await renderList(); }
-        else msg(d.error || 'Failed', 'var(--red)');
-      } catch (e) { msg('Error: ' + e.message, 'var(--red)'); }
+        if (d.ok) { msg(__('settings.saved', 'Saved'), 'var(--green,#50fa7b)'); await refreshStatus(); await renderList(); }
+        else msg(d.error || __('settings.failed', 'Failed'), 'var(--red)');
+      } catch (e) { msg(__('settings.error_prefix', 'Error') + ': ' + e.message, 'var(--red)'); }
     });
 
     el('uf-vault-login').addEventListener('click', async () => {
@@ -4575,7 +4575,7 @@ async function initUnifiedIntegrations() {
           el('uf-vault-pass').value = '';
           await refreshStatus(); await renderList();
         } else msg(d.error || 'Login failed', 'var(--red)');
-      } catch (e) { msg('Error: ' + e.message, 'var(--red)'); }
+      } catch (e) { msg(__('settings.error_prefix', 'Error') + ': ' + e.message, 'var(--red)'); }
     });
 
     el('uf-vault-unlock').addEventListener('click', async () => {
@@ -4594,7 +4594,7 @@ async function initUnifiedIntegrations() {
           el('uf-vault-pass').value = '';
           await refreshStatus(); await renderList();
         } else msg(d.error || 'Unlock failed', 'var(--red)');
-      } catch (e) { msg('Error: ' + e.message, 'var(--red)'); }
+      } catch (e) { msg(__('settings.error_prefix', 'Error') + ': ' + e.message, 'var(--red)'); }
     });
 
     el('uf-vault-lock').addEventListener('click', async () => {
@@ -4603,7 +4603,7 @@ async function initUnifiedIntegrations() {
         await fetch('/api/vault/lock', { method: 'POST', credentials: 'same-origin' });
         msg('Locked', 'var(--green,#50fa7b)');
         await refreshStatus(); await renderList();
-      } catch (e) { msg('Error: ' + e.message, 'var(--red)'); }
+      } catch (e) { msg(__('settings.error_prefix', 'Error') + ': ' + e.message, 'var(--red)'); }
     });
 
     el('uf-vault-logout').addEventListener('click', async () => {
@@ -4613,7 +4613,7 @@ async function initUnifiedIntegrations() {
         await fetch('/api/vault/logout', { method: 'POST', credentials: 'same-origin' });
         msg('Logged out', 'var(--green,#50fa7b)');
         await refreshStatus(); await renderList();
-      } catch (e) { msg('Error: ' + e.message, 'var(--red)'); }
+      } catch (e) { msg(__('settings.error_prefix', 'Error') + ': ' + e.message, 'var(--red)'); }
     });
   }
 
@@ -4718,7 +4718,7 @@ async function initUnifiedIntegrations() {
             msg.textContent = d.connected ? `Connected (${d.tool_count} tools)` : `Failed: ${d.error || 'unknown'}`;
             await renderList();
             showMcpForm(editId); // refresh this view
-          } catch (e) { msg.textContent = 'Failed'; }
+          } catch (e) { msg.textContent = __('settings.failed', 'Failed'); }
         });
         // Toggle enable/disable
         el('uf-mcp-toggle').addEventListener('click', async () => {
@@ -4807,11 +4807,11 @@ async function initUnifiedIntegrations() {
             el('uf-mcp-msg').textContent = `Connected (${data.tool_count || 0} tools)`;
             formEl.style.display = 'none'; await renderList();
           } else if (r.ok) {
-            el('uf-mcp-msg').textContent = 'Saved'; formEl.style.display = 'none'; await renderList();
+            el('uf-mcp-msg').textContent = __('settings.saved', 'Saved'); formEl.style.display = 'none'; await renderList();
           } else {
             el('uf-mcp-msg').textContent = `Failed (${r.status})`;
           }
-        } catch (_) { el('uf-mcp-msg').textContent = 'Failed'; }
+        } catch (_) { el('uf-mcp-msg').textContent = __('settings.failed', 'Failed'); }
         finally { _setBtnLoading(saveBtn, false, _origLabel); if (cancelBtn) cancelBtn.disabled = false; }
       });
     }
@@ -4938,7 +4938,7 @@ async function initUnifiedIntegrations() {
     el('uf-codex-cancel')?.addEventListener('click', () => { formEl.style.display = 'none'; });
     el('uf-codex-save')?.addEventListener('click', () => {
       const msg = el('uf-codex-msg');
-      if (msg) { msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--green, #50fa7b)'; }
+      if (msg) { msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--green, #50fa7b)'; }
       setTimeout(() => { formEl.style.display = 'none'; }, 350);
     });
 
@@ -4955,7 +4955,7 @@ async function initUnifiedIntegrations() {
       try {
         const r = await fetch('/api/tokens', { method: 'POST', credentials: 'same-origin', body: fd });
         const d = await r.json();
-        if (!r.ok) throw new Error(d.detail || 'Failed');
+        if (!r.ok) throw new Error(d.detail || __('settings.failed', 'Failed'));
         if (pending) pending.style.display = 'none';
         el('uf-codex-token').textContent = d.token || '';
         el('uf-codex-reveal').style.display = '';
@@ -4982,7 +4982,7 @@ async function initUnifiedIntegrations() {
       } catch (err) {
         if (pending) pending.style.display = 'none';
         if (msg) {
-          msg.textContent = err?.message || 'Failed';
+          msg.textContent = err?.message || __('settings.failed', 'Failed');
           msg.style.color = 'var(--red)';
         }
       }
@@ -5068,7 +5068,7 @@ async function initUnifiedIntegrations() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name }),
           });
-          if (!r.ok) throw new Error('Save failed');
+          if (!r.ok) throw new Error(__('settings.save_failed', 'Save failed'));
           input.style.borderColor = 'var(--green, #50fa7b)';
           setTimeout(() => { input.style.borderColor = 'transparent'; }, 800);
           await renderList();
@@ -5121,12 +5121,12 @@ async function initUnifiedIntegrations() {
               body: JSON.stringify({ scopes }),
             });
             const d = await r.json().catch(() => ({}));
-            if (!r.ok) throw new Error(d.detail || 'Failed');
-            if (msg) { msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--green, #50fa7b)'; }
+            if (!r.ok) throw new Error(d.detail || __('settings.failed', 'Failed'));
+            if (msg) { msg.textContent = __('settings.saved', __('settings.saved', 'Saved')); msg.style.color = 'var(--green, #50fa7b)'; }
             await renderList();
           } catch (err) {
             cb.checked = !cb.checked;
-            if (msg) { msg.textContent = err?.message || 'Failed'; msg.style.color = 'var(--red)'; }
+            if (msg) { msg.textContent = err?.message || __('settings.failed', 'Failed'); msg.style.color = 'var(--red)'; }
           }
         });
       });
