@@ -220,7 +220,7 @@ _initHoverCardSpaceToggle();
 export async function copyToClipboard(text) {
   try {
     await navigator.clipboard.writeText(text);
-    showToast('Copied');
+    showToast(__('common.copied', 'Copied'));
   }
   catch {
     const ta = document.createElement('textarea');
@@ -230,7 +230,7 @@ export async function copyToClipboard(text) {
     ta.select();
     document.execCommand('copy');
     document.body.removeChild(ta);
-    showToast('Copied');
+    showToast(__('common.copied', 'Copied'));
   }
 }
 
@@ -378,7 +378,7 @@ export function showToast(msg, durationOrOpts) {
     const closeBtn = document.createElement('button');
     closeBtn.type = 'button';
     closeBtn.setAttribute('aria-label', 'Dismiss');
-    closeBtn.title = 'Dismiss';
+    closeBtn.title = __('common.dismiss', 'Dismiss');
     closeBtn.textContent = '×';
     closeBtn.style.cssText = 'margin-left:8px;padding:0;width:20px;height:20px;line-height:1;border:none;background:none;color:var(--fg);opacity:0.55;cursor:pointer;font-size:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;pointer-events:auto;';
     closeBtn.addEventListener('mouseenter', () => { closeBtn.style.opacity = '1'; });

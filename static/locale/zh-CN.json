@@ -107,7 +107,21 @@
     "session_info": "会话信息",
     "restore": "恢复 {title}",
     "close": "关闭",
-    "minimize": "最小化"
+    "minimize": "最小化",
+    "move_to_folder": "移动到文件夹",
+    "no_folder": "(无文件夹)",
+    "new_folder": "新建文件夹",
+    "drag_reorder": "拖拽排序",
+    "unfavorite": "取消收藏",
+    "unfavorited": "已取消收藏",
+    "renamed": "已重命名",
+    "actions": "会话操作",
+    "no_messages": "没有消息可复制",
+    "chat_copied": "聊天内容已复制到剪贴板",
+    "copy_failed": "复制聊天内容失败",
+    "unfavorite_before_delete": "请先取消收藏再删除",
+    "archived": "会话已归档",
+    "archive_failed": "归档会话失败"
   },
 
   "settings": {
@@ -135,7 +149,19 @@
     "spacious": "宽敞",
     "monospace": "等宽",
     "sans_serif": "无衬线",
-    "serif": "衬线"
+    "serif": "衬线",
+    "saved": "已保存",
+    "save_failed": "保存失败",
+    "same_as_chat": "与对话相同",
+    "remove_fallback": "移除回退",
+    "preview": "预览",
+    "loading": "加载中…",
+    "select_provider_first": "请先选择提供商",
+    "preview_failed": "预览失败",
+    "pick_provider_first": "请先选择提供商",
+    "testing": "测试中…",
+    "active_provider": "当前",
+    "results": "条结果"
   },
 
   "model": {
@@ -382,9 +408,12 @@
     "delete": "删除",
     "edit": "编辑",
     "rename": "重命名",
+    "copied": "已复制",
     "copy": "复制",
     "paste": "粘贴",
     "cut": "剪切",
+    "dismiss": "关闭",
+    "send": "发送",
     "undo": "撤销",
     "redo": "重做",
     "search": "搜索",

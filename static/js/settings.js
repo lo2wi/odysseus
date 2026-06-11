@@ -338,7 +338,7 @@ function _bindFallbackWidget(opts) {
       var rm = document.createElement('button');
       rm.type = 'button';
       rm.className = 'settings-fallback-remove';
-      rm.title = 'Remove fallback';
+      rm.title = __('settings.remove_fallback', 'Remove fallback');
       rm.innerHTML = '&times;';
       rm.addEventListener('click', function() {
         current.splice(idx, 1);
@@ -442,7 +442,7 @@ async function initDefaultChat() {
       var rm = document.createElement('button');
       rm.type = 'button';
       rm.className = 'settings-fallback-remove';
-      rm.title = 'Remove fallback';
+      rm.title = __('settings.remove_fallback', 'Remove fallback');
       rm.innerHTML = '&times;';
       rm.addEventListener('click', function() {
         _fallbacks.splice(idx, 1);
@@ -482,9 +482,9 @@ async function initDefaultChat() {
           default_model_fallbacks: clean
         })
       });
-      msg.textContent = 'Saved'; msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
       setTimeout(function() { msg.textContent = ''; }, 2000);
-    } catch (e) { msg.textContent = 'Failed to save'; msg.style.color = 'var(--red)'; }
+    } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
 
   epSel.addEventListener('change', function() { refreshModels(''); saveDefault(); });
@@ -509,8 +509,8 @@ async function initUtilityModel() {
   var msg = el('set-utilityChatMsg');
   var _endpoints = [];
   var fallbackWidget = null;
-  if (epSel && epSel.options[0]) epSel.options[0].textContent = 'Same as chat';
-  if (modelSel && modelSel.options[0]) modelSel.options[0].textContent = 'Same as chat';
+  if (epSel && epSel.options[0]) epSel.options[0].textContent = __('settings.same_as_chat', 'Same as chat');
+  if (modelSel && modelSel.options[0]) modelSel.options[0].textContent = __('settings.same_as_chat', 'Same as chat');
 
   try {
     _endpoints = await _fetchModelEndpoints();
@@ -551,9 +551,9 @@ async function initUtilityModel() {
           utility_model: modelSel.value || ''
         })
       });
-      msg.textContent = 'Saved'; msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
       setTimeout(function() { msg.textContent = ''; }, 1500);
-    } catch (e) { msg.textContent = 'Failed to save'; msg.style.color = 'var(--red)'; }
+    } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
 
   epSel.addEventListener('change', function() { refreshModels(''); saveUtility(); });
@@ -649,7 +649,7 @@ async function initTeacherModel() {
       msg.textContent = enabled ? (spec ? 'Saved' : 'Pick an endpoint + model') : 'Disabled';
       msg.style.color = enabled && !spec ? 'var(--red)' : 'var(--fg)';
       setTimeout(function() { msg.textContent = ''; }, 2000);
-    } catch (e) { msg.textContent = 'Failed to save'; msg.style.color = 'var(--red)'; }
+    } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
 
   if (enabledToggle) {
@@ -722,8 +722,8 @@ async function initImageSettings() {
     try {
       await fetch('/api/auth/settings', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ image_gen_enabled: enabledToggle ? enabledToggle.checked : true, image_model: modelSel.value, image_quality: qualSel.value }) });
-      msg.textContent = 'Saved'; msg.style.color = 'var(--fg)'; setTimeout(() => { msg.textContent = ''; }, 2000);
-    } catch (e) { msg.textContent = 'Failed to save'; msg.style.color = 'var(--red)'; }
+      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)'; setTimeout(() => { msg.textContent = ''; }, 2000);
+    } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
   modelSel.addEventListener('change', saveSettings);
   qualSel.addEventListener('change', saveSettings);
@@ -795,8 +795,8 @@ async function initVisionSettings() {
     try {
       await fetch('/api/auth/settings', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ vision_enabled: enabledToggle ? enabledToggle.checked : true, vision_model: vlSel.value }) });
-      msg.textContent = 'Saved'; msg.style.color = 'var(--fg)'; setTimeout(() => { msg.textContent = ''; }, 2000);
-    } catch (e) { msg.textContent = 'Failed to save'; msg.style.color = 'var(--red)'; }
+      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)'; setTimeout(() => { msg.textContent = ''; }, 2000);
+    } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
   vlSel.addEventListener('change', saveSettings);
   if (enabledToggle) enabledToggle.addEventListener('change', function() { syncVisionDisabled(); saveSettings(); });
@@ -877,9 +877,9 @@ async function initTtsSettings() {
     try {
       await fetch('/api/auth/settings', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ tts_enabled: ttsEnabledToggle ? ttsEnabledToggle.checked : true, tts_provider: provSel.value, tts_model: getModel() || 'tts-1', tts_voice: getVoice() || 'alloy', tts_speed: speedSelect.value || '1' }) });
-      ttsMsg.textContent = 'Saved'; ttsMsg.style.color = 'var(--fg)'; setTimeout(() => { ttsMsg.textContent = ''; }, 2000);
+      ttsMsg.textContent = __('settings.saved', 'Saved'); ttsMsg.style.color = 'var(--fg)'; setTimeout(() => { ttsMsg.textContent = ''; }, 2000);
       if (window.aiTTSManager) window.aiTTSManager.checkAvailability();
-    } catch (e) { ttsMsg.textContent = 'Failed to save'; ttsMsg.style.color = 'var(--red)'; }
+    } catch (e) { ttsMsg.textContent = __('settings.save_failed', 'Failed to save'); ttsMsg.style.color = 'var(--red)'; }
   }
 
   async function saveAndClearCache() {
@@ -907,7 +907,7 @@ async function initTtsSettings() {
   if (previewBtn) {
     var previewAudio = null;
     var previewPlaying = false;
-    function resetPreview() { previewPlaying = false; previewBtn.textContent = 'Preview'; previewBtn.style.borderColor = ''; }
+    function resetPreview() { previewPlaying = false; previewBtn.textContent = __('settings.preview', 'Preview'); previewBtn.style.borderColor = ''; }
 
     previewBtn.addEventListener('click', async function() {
       if (previewPlaying) {
@@ -917,11 +917,11 @@ async function initTtsSettings() {
       }
       var prov = provSel.value;
       if (prov === 'disabled') {
-        ttsMsg.textContent = 'Select a provider first'; ttsMsg.style.color = 'var(--red, #e55)';
+        ttsMsg.textContent = __('settings.select_provider_first', 'Select a provider first'); ttsMsg.style.color = 'var(--red, #e55)';
         setTimeout(function() { ttsMsg.textContent = ''; }, 2000); return;
       }
       var testText = 'Hello, this is a test of text to speech.';
-      previewPlaying = true; previewBtn.textContent = 'Loading...';
+      previewPlaying = true; previewBtn.textContent = __('settings.loading', 'Loading...');
       try {
         if (prov === 'browser') {
           if (!('speechSynthesis' in window)) throw new Error('Browser TTS not supported');
@@ -935,7 +935,7 @@ async function initTtsSettings() {
             if (match) utt.voice = match;
           }
           utt.rate = parseFloat(speedSelect.value) || 1;
-          previewBtn.textContent = 'Stop'; previewBtn.style.borderColor = 'var(--red, #e55)';
+          previewBtn.textContent = __('settings.stop', 'Stop'); previewBtn.style.borderColor = 'var(--red, #e55)';
           await new Promise(function(resolve, reject) {
             utt.onend = resolve;
             utt.onerror = function(e) { reject(new Error('Browser TTS: ' + e.error)); };
@@ -951,7 +951,7 @@ async function initTtsSettings() {
           var blob = await res.blob();
           var url = URL.createObjectURL(blob);
           previewAudio = new Audio(url);
-          previewBtn.textContent = 'Stop'; previewBtn.style.borderColor = 'var(--red, #e55)';
+          previewBtn.textContent = __('settings.stop', 'Stop'); previewBtn.style.borderColor = 'var(--red, #e55)';
           await new Promise(function(resolve, reject) {
             previewAudio.onended = function() { URL.revokeObjectURL(url); previewAudio = null; resolve(); };
             previewAudio.onerror = function() { URL.revokeObjectURL(url); previewAudio = null; reject(new Error('Playback failed')); };
@@ -959,7 +959,7 @@ async function initTtsSettings() {
           });
         }
       } catch (e) {
-        ttsMsg.textContent = 'Preview failed: ' + e.message; ttsMsg.style.color = 'var(--red, #e55)';
+        ttsMsg.textContent = __('settings.preview_failed', 'Preview failed') + ': ' + e.message; ttsMsg.style.color = 'var(--red, #e55)';
         setTimeout(function() { ttsMsg.textContent = ''; }, 3000);
       } finally {
         resetPreview();
@@ -1040,11 +1040,11 @@ async function initSttSettings() {
       await fetch('/api/auth/settings', { method: 'POST', credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ stt_enabled: enabled, stt_provider: provSel.value, stt_model: getModel() || 'base', stt_language: langInput.value.trim() }) });
-      sttMsg.textContent = 'Saved'; sttMsg.style.color = 'var(--fg)'; setTimeout(() => { sttMsg.textContent = ''; }, 2000);
+      sttMsg.textContent = __('settings.saved', 'Saved'); sttMsg.style.color = 'var(--fg)'; setTimeout(() => { sttMsg.textContent = ''; }, 2000);
       // Notify voiceRecorder of effective provider and update send button icon
       if (window.voiceRecorderModule) window.voiceRecorderModule._sttProvider = effectiveProvider();
       if (window._updateSendBtnIcon) window._updateSendBtnIcon();
-    } catch (e) { sttMsg.textContent = 'Failed to save'; sttMsg.style.color = 'var(--red)'; }
+    } catch (e) { sttMsg.textContent = __('settings.save_failed', 'Failed to save'); sttMsg.style.color = 'var(--red)'; }
   }
 
   provSel.addEventListener('change', function() { updateVisibility(); saveSTT(); });
@@ -1196,10 +1196,10 @@ async function initSearchSettings() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      msg.textContent = 'Saved'; msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
       setTimeout(refreshStatus, 2000);
       if (searchModule && searchModule.refresh) searchModule.refresh();
-    } catch (e) { msg.textContent = 'Failed to save'; msg.style.color = 'var(--red)'; }
+    } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
 
   provSel.addEventListener('change', function() { updateVisibility(); saveSearch(); _syncSearchPicker(); });
@@ -1334,9 +1334,9 @@ async function initSearchSettings() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ search_fallback_chain: chain }),
       });
-      msg.textContent = 'Saved'; msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
       setTimeout(refreshStatus, 2000);
-    } catch (e) { msg.textContent = 'Failed to save'; msg.style.color = 'var(--red)'; }
+    } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
     _renderFallbackChain();
   }
   _renderFallbackChain();
@@ -1349,7 +1349,7 @@ async function initSearchSettings() {
     testBtn.addEventListener('click', async function() {
       var prov = provSel.value;
       if (!prov || prov === 'disabled') {
-        msg.textContent = 'Pick a provider first';
+        msg.textContent = __('settings.pick_provider_first', 'Pick a provider first');
         msg.style.color = 'var(--red)';
         return;
       }
@@ -1357,7 +1357,7 @@ async function initSearchSettings() {
       await saveSearch();
       testBtn.disabled = true;
       var orig = testBtn.textContent;
-      testBtn.textContent = 'Testing...';
+      testBtn.textContent = __('settings.testing', 'Testing...');
       msg.textContent = '';
       var t0 = performance.now();
       try {
@@ -1490,9 +1490,9 @@ async function initResearchSettings() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      msg.textContent = 'Saved'; msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
       setTimeout(showStatus, 2000);
-    } catch (e) { msg.textContent = 'Failed to save'; msg.style.color = 'var(--red)'; }
+    } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
 
   epSel.addEventListener('change', async function() {
@@ -1548,9 +1548,9 @@ async function initResearchSearchSettings() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ research_search_provider: searchSel.value })
       });
-      msg.textContent = 'Saved'; msg.style.color = 'var(--fg)';
+      msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--fg)';
       setTimeout(function() { msg.textContent = ''; }, 2000);
-    } catch (e) { msg.textContent = 'Failed to save'; msg.style.color = 'var(--red)'; }
+    } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
 
   searchSel.addEventListener('change', saveResearchSearch);
@@ -1597,7 +1597,7 @@ async function initAgentSettings() {
         (rounds != null ? ' · ' + rounds + ' steps/message' : '') +
         (supInput && supInput.checked ? ' · supervisor on' : '');
       msg.style.color = 'var(--fg)';
-    } catch (e) { msg.textContent = 'Failed to save'; msg.style.color = 'var(--red)'; }
+    } catch (e) { msg.textContent = __('settings.save_failed', 'Failed to save'); msg.style.color = 'var(--red)'; }
   }
 
   toolsInput.addEventListener('change', save);
@@ -4938,7 +4938,7 @@ async function initUnifiedIntegrations() {
     el('uf-codex-cancel')?.addEventListener('click', () => { formEl.style.display = 'none'; });
     el('uf-codex-save')?.addEventListener('click', () => {
       const msg = el('uf-codex-msg');
-      if (msg) { msg.textContent = 'Saved'; msg.style.color = 'var(--green, #50fa7b)'; }
+      if (msg) { msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--green, #50fa7b)'; }
       setTimeout(() => { formEl.style.display = 'none'; }, 350);
     });
 
@@ -5122,7 +5122,7 @@ async function initUnifiedIntegrations() {
             });
             const d = await r.json().catch(() => ({}));
             if (!r.ok) throw new Error(d.detail || 'Failed');
-            if (msg) { msg.textContent = 'Saved'; msg.style.color = 'var(--green, #50fa7b)'; }
+            if (msg) { msg.textContent = __('settings.saved', 'Saved'); msg.style.color = 'var(--green, #50fa7b)'; }
             await renderList();
           } catch (err) {
             cb.checked = !cb.checked;

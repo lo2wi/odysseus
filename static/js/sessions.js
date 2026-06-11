@@ -63,7 +63,7 @@ function _deselectCurrentSession(sid) {
   if (currentSessionId !== sid) return;
   currentSessionId = null;
   uiModule.el('chat-history').innerHTML = '';
-  uiModule.el('current-meta').textContent = 'Odysseus Chat';
+  uiModule.el('current-meta').textContent = __('app.title', 'Odysseus Chat');
   Storage.remove('lastSessionId');
   history.replaceState(null, '', window.location.pathname);
   if (window.chatModule && window.chatModule.showWelcomeScreen) {
@@ -161,7 +161,7 @@ function buildFolderSubmenu(sessionId, currentFolder, dropdown) {
   moveItem.className = 'dropdown-item-compact';
   moveItem.style.position = 'relative';
   const _folderIcon = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>';
-  moveItem.innerHTML = '<span class="dropdown-icon">' + _folderIcon + '</span><span>Move to folder</span>';
+  moveItem.innerHTML = '<span class="dropdown-icon">' + _folderIcon + '</span><span>' + __('sessions.move_to_folder', 'Move to folder') + '</span>';
 
   const sub = document.createElement('div');
   sub.className = 'dropdown session-folder-submenu';
@@ -170,7 +170,7 @@ function buildFolderSubmenu(sessionId, currentFolder, dropdown) {
   const noneOpt = document.createElement('div');
   noneOpt.className = 'dropdown-item-compact';
   if (!currentFolder) noneOpt.style.opacity = '0.5';
-  noneOpt.textContent = '(No folder)';
+  noneOpt.textContent = __('sessions.no_folder', '(No folder)');
   noneOpt.addEventListener('click', async (e) => {
     e.stopPropagation();
     await moveToFolder(sessionId, '');
@@ -201,7 +201,7 @@ function buildFolderSubmenu(sessionId, currentFolder, dropdown) {
   const newOpt = document.createElement('div');
   newOpt.className = 'dropdown-item-compact';
   newOpt.style.color = 'var(--accent-primary)';
-  newOpt.textContent = '+ New Folder';
+  newOpt.textContent = '+' + __('sessions.new_folder', 'New Folder');
   newOpt.addEventListener('click', async (e) => {
     e.stopPropagation();
     const name = await styledPrompt('Name this folder:', {
@@ -284,7 +284,7 @@ function createSessionItem(s) {
   const handle = document.createElement('span');
   handle.className = 'item-drag-handle';
   handle.textContent = '\u22EE\u22EE';
-  handle.title = 'Drag to reorder';
+  handle.title = __('sessions.drag_reorder', 'Drag to reorder');
   div.appendChild(handle);
 
   // Provider dot indicator
@@ -325,7 +325,7 @@ function createSessionItem(s) {
   // Favorite bookmark replaces session-icon when important
   if (s.is_important && !isOpenClaw) {
     icon.className = 'session-icon session-fav';
-    icon.title = 'Unfavorite';
+    icon.title = __('sessions.unfavorite', 'Unfavorite');
     icon.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
     icon.addEventListener('click', async (e) => {
       e.stopPropagation();
@@ -333,7 +333,7 @@ function createSessionItem(s) {
       fd.append('important', false);
       await fetch(`${API_BASE}/api/session/${s.id}/important`, { method: 'POST', body: fd });
       s.is_important = false;
-      uiModule.showToast('Unfavorited');
+      uiModule.showToast(__('sessions.unfavorited', 'Unfavorited'));
       renderSessionList();
     });
   }
@@ -371,7 +371,7 @@ function createSessionItem(s) {
           fd.append('name', newName);
           await fetch(`${API_BASE}/api/session/${s.id}`, { method: 'PATCH', body: fd });
           s.name = newName;
-          uiModule.showToast('Renamed');
+          uiModule.showToast(__('sessions.renamed', 'Renamed'));
         }
         _forceSidebarOpen();
         renderSessionList();
@@ -445,7 +445,7 @@ function createSessionItem(s) {
   // Create a dropdown menu button
   const menuBtn = document.createElement('button');
   menuBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
-  menuBtn.title = 'Session actions';
+  menuBtn.title = __('sessions.actions', 'Session actions');
   menuBtn.className = 'hamburger session-menu-btn';
 
   // Create dropdown menu
@@ -506,7 +506,7 @@ function createSessionItem(s) {
       const res = await fetch(`${API_BASE}/api/history/${s.id}`);
       const data = await res.json();
       const msgs = data.history || [];
-      if (!msgs.length) { uiModule.showToast('No messages to copy'); return; }
+      if (!msgs.length) { uiModule.showToast(__('sessions.no_messages', 'No messages to copy')); return; }
       const lines = msgs
         .filter(m => m.role === 'user' || m.role === 'assistant')
         .map(m => {
@@ -527,10 +527,10 @@ function createSessionItem(s) {
         document.execCommand('copy');
         ta.remove();
       }
-      uiModule.showToast('Chat copied to clipboard');
+      uiModule.showToast(__('sessions.chat_copied', 'Chat copied to clipboard'));
     } catch (e) {
       console.error('Copy chat failed:', e);
-      uiModule.showError('Failed to copy chat');
+      uiModule.showError(__('sessions.copy_failed', 'Failed to copy chat'));
     }
   });
 
@@ -633,7 +633,7 @@ function createSessionItem(s) {
         fd.append('name', newName);
         await fetch(`${API_BASE}/api/session/${s.id}`, { method: 'PATCH', body: fd });
         s.name = newName;
-        uiModule.showToast('Renamed');
+        uiModule.showToast(__('sessions.renamed', 'Renamed'));
       }
       _forceSidebarOpen();
       renderSessionList();
@@ -648,7 +648,7 @@ function createSessionItem(s) {
 
   deleteItem.addEventListener('click', async () => {
     if (s.is_important) {
-      uiModule.showToast('Unfavorite before deleting');
+      uiModule.showToast(__('sessions.unfavorite_before_delete', 'Unfavorite before deleting'));
       dropdown.style.display = 'none';
       return;
     }
@@ -698,13 +698,13 @@ function createSessionItem(s) {
         _forceSidebarOpen();
         await loadSessions();
         dropdown.style.display = 'none';
-        uiModule.showToast('Session archived');
+        uiModule.showToast(__('sessions.archived', 'Session archived'));
       } else {
         throw new Error('Failed to archive session');
       }
     } catch (error) {
       console.error('Error archiving session:', error);
-      uiModule.showError('Failed to archive session');
+      uiModule.showError(__('sessions.archive_failed', 'Failed to archive session'));
     }
   });
 
@@ -1944,7 +1944,7 @@ async function _onSessionListKeydown(e) {
     const s = sessions.find(x => x.id === sid);
     if (!s) return;
     if (s.is_important) {
-      uiModule.showToast('Unfavorite before deleting');
+      uiModule.showToast(__('sessions.unfavorite_before_delete', 'Unfavorite before deleting'));
       return;
     }
     const ok = await uiModule.styledConfirm('Delete this session?', { confirmText: 'Delete', danger: true });
