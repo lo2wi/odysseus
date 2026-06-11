@@ -91,6 +91,35 @@ git merge origin/dev          # 合并上游最新开发分支
 git push myfork zh-cn
 ```
 
+### 更新中文分支
+
+如果你之前已经部署过，只需拉取最新中文翻译并重启：
+
+**Docker 部署：**
+```bash
+cd ~/odysseus
+git pull https://github.com/lo2wi/odysseus.git zh-cn
+docker compose down
+docker compose up -d --build
+```
+
+**原生部署（Linux / macOS）：**
+```bash
+cd ~/odysseus
+git pull https://github.com/lo2wi/odysseus.git zh-cn
+# 重启 uvicorn（Ctrl+C 停掉旧进程，然后重新启动）
+python -m uvicorn app:app --host 127.0.0.1 --port 7000
+```
+
+**macOS 一键脚本：**
+```bash
+cd ~/odysseus
+git pull https://github.com/lo2wi/odysseus.git zh-cn
+./start-macos.sh
+```
+
+> 翻译是纯前端 + 静态文件，拉取重启即生效，不需要重新配置。浏览器语言设为中文自动显示中文界面。
+
 ### 参与汉化
 
 欢迎提交 PR 改进中文翻译！主要文件：
