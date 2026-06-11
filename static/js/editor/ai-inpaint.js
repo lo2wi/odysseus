@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * AI inpaint subsystem — Generate, Remove, and Outpaint variants
  * all share a single `runInpaint` core; only the prompt, strength,

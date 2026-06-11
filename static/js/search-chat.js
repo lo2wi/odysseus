@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // Search Chat Module — Ctrl+K command palette for searching conversations
 
 import uiModule from './ui.js';

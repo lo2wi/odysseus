@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Editor keyboard shortcuts — bound to `document` so shortcuts work
  * without first clicking into the canvas. Gated by `state.editorOpen`

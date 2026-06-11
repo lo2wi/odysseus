@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Topbar dropdown menus — Image, Filter, and Resize.
  *

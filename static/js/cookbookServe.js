@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // ============================================
 // COOKBOOK SERVE SUB-MODULE
 // Serve tab: cached model list, serve panel building,

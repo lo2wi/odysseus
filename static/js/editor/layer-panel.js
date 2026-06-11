@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Layer panel renderer — rebuilds the right-side layer list from
  * `state.layers` every time it's called. The full row tree per layer:

@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Lasso + Magic Wand panel controls — sliders, mode toggles, and the
  * panel action buttons (Invert / Clear / Delete / Copy / To Mask /

@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 // static/js/emailLibrary/signatureFold.js
 //
 // Heuristics that turn raw HTML email bodies into folded structures —

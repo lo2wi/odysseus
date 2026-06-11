@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // Personal Assistant — sidebar entry, settings modal, and chat-header extras.
 //
 // The Assistant is just a specially-flagged CrewMember whose pinned Session

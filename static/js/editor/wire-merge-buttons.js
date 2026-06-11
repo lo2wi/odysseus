@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Layer merge / flatten buttons in the layer-panel footer:
  *

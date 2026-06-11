@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 // compare/state.js — shared mutable state for compare modules
 const state = {
   API_BASE: '',

@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Paste + drag-and-drop import handlers. Both add an image to the
  * editor as a new layer:

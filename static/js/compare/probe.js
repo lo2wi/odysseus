@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 // compare/probe.js — model probe/check system
 import state from './state.js';
 import { WAVE_FRAMES } from './icons.js';

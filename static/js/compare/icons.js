@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 // compare/icons.js — SVG icons, prompt templates, and constants
 
 // ── SVG Icons ──

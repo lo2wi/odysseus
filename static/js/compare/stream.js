@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 // compare/stream.js — SSE streaming to panes
 import state from './state.js';
 import { addFinishBadge } from './vote.js';

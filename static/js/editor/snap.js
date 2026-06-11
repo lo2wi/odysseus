@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Snap-while-dragging: when the move tool drags a layer near another
  * layer's edge or the canvas centre/edges, gently lock the proposed

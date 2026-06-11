@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // static/js/chatStream.js
 // SSE event handlers extracted from chat.js handleChatSubmit
 // Handles: ui_control events, background stream management

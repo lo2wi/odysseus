@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 // compare/models.js — model classification, fetching, display names, persistence
 import Storage from '../storage.js';
 import state from './state.js';

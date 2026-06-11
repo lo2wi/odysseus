@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Editor state store — a single mutable object that the gallery editor
  * and its tool modules read and write directly.

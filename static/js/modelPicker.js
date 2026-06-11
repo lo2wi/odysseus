@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // Model Picker — chatbox model selector dropdown
 // Extracted from sessions.js
 

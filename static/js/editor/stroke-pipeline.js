@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Stroke pipeline — paints one segment (last-position → current
  * position) onto the active layer (or its active mask sub-layer).

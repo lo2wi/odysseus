@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Per-tool stroke-modifier sliders (Opacity / Flow / Softness) for
  * Eraser, Brush, and Clone. The three sections share identical UX:

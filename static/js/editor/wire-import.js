@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Image-import wiring — covers all four entry points that drop an
  * image as a new layer:

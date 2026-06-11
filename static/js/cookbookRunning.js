@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // ============================================
 // COOKBOOK RUNNING SUB-MODULE
 // Running tasks tab: task cards, status monitoring,

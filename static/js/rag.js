@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // static/js/rag.js
 
 /**

@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 // compare/panes.js — pane lifecycle, actions, layout
 import state from './state.js';
 import { _persistSelections } from './models.js';

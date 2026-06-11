@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Canvas event wiring — mouse, touch (including pinch-zoom on two
  * fingers), and the canvas-area pan handler.

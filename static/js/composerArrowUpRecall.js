@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 /**
  * ArrowUp on an empty composer recalls the last user message (chat-app convention).
  */

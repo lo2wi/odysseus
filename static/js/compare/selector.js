@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 // compare/selector.js — model selection modal
 import state from './state.js';
 import Storage from '../storage.js';

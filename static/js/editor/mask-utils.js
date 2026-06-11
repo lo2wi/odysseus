@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Mask-canvas helpers used by the inpaint pipeline.
  *

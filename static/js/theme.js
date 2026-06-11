@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // Theme system — preset themes + custom color editing, stored in localStorage
 // ES6 module
 

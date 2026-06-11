@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 /**
  * emojiPicker.js — Monochrome icon picker (no colored emojis).
  * Curated set of common icons as inline SVGs. The PICKER shows monochrome SVGs,

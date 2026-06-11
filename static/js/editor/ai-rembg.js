@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Background Remove (rembg) + Sharpen wiring + the live edge-cleanup
  * tuner that runs on the most-recent rembg cutout.

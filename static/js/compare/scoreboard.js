@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 // compare/scoreboard.js — vote history display
 import Storage from '../storage.js';
 import state from './state.js';

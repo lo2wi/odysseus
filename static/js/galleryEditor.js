@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 /**
  * Gallery Editor — canvas-based image editor with layers, brush, eraser, text, crop, inpaint mask.
  */

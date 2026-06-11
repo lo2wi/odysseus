@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Whole-document transforms: rotate by 90/180/270° or flip horizontal/
  * vertical. These mutate every layer's canvas + the offset map + the

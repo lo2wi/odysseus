@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Topbar wiring — undo/redo/history, Save dropdown, zoom buttons,
  * Save/Export/Download/Project, Edge popup, and the cross-dropdown

@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 // static/js/emailLibrary/state.js
 //
 // Shared mutable state for the email-library popup. Keeping these on a

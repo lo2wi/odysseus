@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // ============================================
 // COOKBOOK DOWNLOAD SUB-MODULE
 // Download tab: SSE streaming, model download,

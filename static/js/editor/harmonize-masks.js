@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Mask builders used by the AI Harmonize pipeline.
  *

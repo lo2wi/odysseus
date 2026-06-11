@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 // compare/index.js — orchestrator module (public API)
 /**
  * Model A/B Comparison module.

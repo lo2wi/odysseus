@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * AI model dropdown loader — fetches available model endpoints from
  * the backend and populates the editor's three model-select surfaces:

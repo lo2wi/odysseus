@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Slider-UX wiring shared across the editor:
  *

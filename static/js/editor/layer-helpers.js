@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Pure helpers + constants for layers and adjustment sub-layers.
  *

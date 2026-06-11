@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Shared AI-tool runner. Used by Sharpen / Harmonize / Upscale / Style /
  * Bg-Remove / etc. — every tool that flattens the document, POSTs the

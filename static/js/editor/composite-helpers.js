@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Pure composite helpers — flatten a layer list into a single canvas
  * for thumbnails / merged-mask use.

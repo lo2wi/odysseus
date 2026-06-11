@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // static/js/group.js
 // Group Chat — multi-model conversations (parallel or round-robin)
 
@@ -260,7 +261,7 @@ function _initGroupTab() {
         // Long-press / right-click to delete
         chip.addEventListener('contextmenu', async (e) => {
           e.preventDefault();
-          if (await window.styledConfirm('Delete preset "' + (g.name || 'Group') + '"?', { confirmText: 'Delete', danger: true })) {
+          if (await window.styledConfirm('Delete preset "' + (g.name || __('group.label', 'Group')) + '"?', { confirmText: 'Delete', danger: true })) {
             groups.splice(idx, 1);
             fetch(API_BASE + '/api/presets/groups', {
               method: 'POST', credentials: 'same-origin',

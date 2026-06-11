@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Inpaint panel controls — the non-AI side-panel UI for the inpaint
  * tool (the AI Generate/Remove/Outpaint buttons live in

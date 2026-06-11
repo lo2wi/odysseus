@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // static/js/tts-ai.js
 // AI Text-to-Speech Module — supports server TTS and browser Web Speech API
 
@@ -57,7 +58,7 @@ class AITTSManager {
             } else if (this.available) {
                 this.useBrowserTTS = false;
             } else {
-                console.warn('TTS: not available');
+                console.warn(console.log(__('tts.not_available', 'TTS: not available')));
             }
         } catch (error) {
             console.error('Failed to check TTS availability:', error);

@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Convert a pointer event's client coordinates into the canvas's
  * internal pixel coordinates, accounting for current display scale.

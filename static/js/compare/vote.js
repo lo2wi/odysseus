@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 // compare/vote.js — voting, revealing, confetti
 import Storage from '../storage.js';
 import state from './state.js';

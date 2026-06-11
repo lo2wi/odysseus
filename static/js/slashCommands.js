@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // static/js/slashCommands.js
 // Slash command handlers and dispatcher, extracted from chat.js
 
@@ -5654,7 +5655,7 @@ async function _cmdHelp(args, ctx) {
       categories[cat].push(`  ${usage.padEnd(21)}${desc}`);
     }
   }
-  const order = ['Getting started', 'Tours', 'Chats', 'Settings', 'Memory', 'Productivity', 'AI Tools'];
+  const order = [__('slash.getting_started', 'Getting started'), __('slash.tours', 'Tours'), __('slash.chats', 'Chats'), __('slash.settings_cat', 'Settings'), __('slash.memory_cat', 'Memory'), __('slash.productivity', 'Productivity'), __('slash.ai_tools', 'AI Tools')];
   let lines = [];
   for (const cat of order) {
     if (categories[cat] && categories[cat].length) {
@@ -5697,7 +5698,7 @@ async function _cmdHelp(args, ctx) {
 const COMMANDS = {
   chats: {
     alias: ['chat', 'session', 'sessions', 's'],
-    category: 'Chats',
+    category: __('slash.chats', 'Chats'),
     help: 'Manage chat sessions',
     default: 'info',
     subs: {
@@ -5733,7 +5734,7 @@ const COMMANDS = {
   },
   memory: {
     alias: ['m'],
-    category: 'Memory',
+    category: __('slash.memory_cat', 'Memory'),
     help: 'Manage persistent memories',
     default: 'list',
     subs: {
@@ -5745,14 +5746,14 @@ const COMMANDS = {
   },
   skills: {
     alias: ['skill'],
-    category: 'Memory',
+    category: __('slash.memory_cat', 'Memory'),
     help: 'List, search, inspect, or run skills',
     handler: _cmdSkills,
     usage: '/skills list | search query | view name | use name request',
   },
   'reload-skills': {
     alias: ['reload_skills'],
-    category: 'Memory',
+    category: __('slash.memory_cat', 'Memory'),
     help: 'Refresh the slash skill catalog',
     handler: _cmdReloadSkills,
     usage: '/reload-skills',
@@ -5771,7 +5772,7 @@ const COMMANDS = {
   },
   todo: {
     alias: ['td'],
-    category: 'Productivity',
+    category: __('slash.productivity', 'Productivity'),
     help: 'Add or list todos',
     handler: _cmdTodo,
     noUserBubble: true,
@@ -5779,7 +5780,7 @@ const COMMANDS = {
   },
   event: {
     alias: ['ev'],
-    category: 'Productivity',
+    category: __('slash.productivity', 'Productivity'),
     help: 'Create a calendar event',
     handler: _cmdEvent,
     noUserBubble: true,
@@ -5787,7 +5788,7 @@ const COMMANDS = {
   },
   setup: {
     alias: ['su', 'seutp'],
-    category: 'Getting started',
+    category: __('slash.getting_started', 'Getting started'),
     help: 'Add local or API model endpoints',
     handler: _cmdSetup,
     usage: '/setup local URL  ·  /setup groq KEY  ·  /setup copilot  ·  /setup chatgpt-subscription',
@@ -5819,98 +5820,98 @@ const COMMANDS = {
   },
   demo: {
     alias: ['tour'],
-    category: 'Tours',
+    category: __('slash.tours', 'Tours'),
     help: 'Full guided product tour',
     handler: _cmdDemo,
     usage: '/demo'
   },
   'tour-compare': {
     alias: ['compare-tour'],
-    category: 'Tours',
+    category: __('slash.tours', 'Tours'),
     help: 'Model comparison tour',
     handler: _cmdTourCompare,
     usage: '/tour-compare'
   },
   'tour-cookbook': {
     alias: ['cookbook-tour'],
-    category: 'Tours',
+    category: __('slash.tours', 'Tours'),
     help: 'Cookbook tour: hardware, downloads, serving',
     handler: _cmdTourCookbook,
     usage: '/tour-cookbook'
   },
   'tour-research': {
     alias: ['research-tour'],
-    category: 'Tours',
+    category: __('slash.tours', 'Tours'),
     help: 'Deep Research tour',
     handler: _cmdTourResearch,
     usage: '/tour-research'
   },
   'tour-library': {
     alias: ['library-tour', 'tour-doc', 'tour-document', 'doc-tour', 'document-tour'],
-    category: 'Tours',
+    category: __('slash.tours', 'Tours'),
     help: 'Library and document editor tour',
     handler: _cmdTourLibrary,
     usage: '/tour-library'
   },
   'tour-theme': {
     alias: ['theme-tour'],
-    category: 'Tours',
+    category: __('slash.tours', 'Tours'),
     help: 'Theme editor tour',
     handler: _cmdTourTheme,
     usage: '/tour-theme'
   },
   'tour-settings': {
     alias: ['tour-setting', 'settings-tour'],
-    category: 'Tours',
+    category: __('slash.tours', 'Tours'),
     help: 'Settings tour: models, integrations, appearance',
     handler: _cmdTourSettings,
     usage: '/tour-settings'
   },
   'tour-gallery': {
     alias: ['gallery-tour'],
-    category: 'Tours',
+    category: __('slash.tours', 'Tours'),
     help: 'Gallery tour: photos, albums, editor',
     handler: _cmdTourGallery,
     usage: '/tour-gallery'
   },
   'tour-brain': {
     alias: ['brain-tour', 'tour-memory', 'memory-tour'],
-    category: 'Tours',
+    category: __('slash.tours', 'Tours'),
     help: 'Brain tour: memories, tidy, skills, settings',
     handler: _cmdTourBrain,
     usage: '/tour-brain'
   },
   'tour-task-1': {
     alias: ['tour-task', 'tour-tasks', 'tour-tasks-1', 'tasks-tour', 'tasks-tour-1'],
-    category: 'Tours',
+    category: __('slash.tours', 'Tours'),
     help: 'Tasks tour: built-ins, runs, pause controls',
     handler: _cmdTourTask1,
     usage: '/tour-task-1'
   },
   'tour-task-2': {
     alias: ['tour-tasks-2', 'tasks-tour-2'],
-    category: 'Tours',
+    category: __('slash.tours', 'Tours'),
     help: 'Tasks tour: adding and managing tasks',
     handler: _cmdTourTask2,
     usage: '/tour-task-2'
   },
   prompt: {
     alias: [],
-    category: 'Getting started',
+    category: __('slash.getting_started', 'Getting started'),
     help: 'Send a random starter prompt',
     handler: _cmdPrompt,
     usage: '/prompt'
   },
   theme: {
     alias: [],
-    category: 'Settings',
+    category: __('slash.settings_cat', 'Settings'),
     help: 'Change color theme',
     handler: _cmdTheme,
     usage: '/theme name'
   },
   settings: {
     alias: ['cfg', 'preferences', 'config'],
-    category: 'Settings',
+    category: __('slash.settings_cat', 'Settings'),
     help: 'Open the Settings panel',
     handler: _cmdSettings,
     usage: '/settings [tab]'
@@ -5995,14 +5996,14 @@ const COMMANDS = {
   },
   model: {
     alias: [],
-    category: 'Settings',
+    category: __('slash.settings_cat', 'Settings'),
     help: 'Show current chat model',
     handler: _cmdModel,
     usage: '/model  ·  /model list'
   },
   models: {
     alias: [],
-    category: 'Settings',
+    category: __('slash.settings_cat', 'Settings'),
     help: 'List available models',
     handler: _cmdModels,
     usage: '/models'
@@ -6072,7 +6073,7 @@ const COMMANDS = {
   },
   note: {
     alias: ['n'],
-    category: 'Memory',
+    category: __('slash.memory_cat', 'Memory'),
     help: 'Quick-save a note',
     handler: _cmdNote,
     usage: '/note text'

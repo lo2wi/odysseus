@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Topbar overflow handler — keeps lightweight labels updated and hides
  * only low-priority AI model controls when the editor window gets narrow.

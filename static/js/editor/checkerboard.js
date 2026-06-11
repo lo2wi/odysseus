@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * Paint a transparency-checkerboard pattern across the given canvas
  * context. The editor uses this beneath every layer pass so empty

@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // static/js/presets.js
 
 /**
@@ -507,7 +508,7 @@ export async function loadPresets(showError) {
     if (custom && custom.enabled === undefined) {
       const legacyPrompt = "You are a helpful, balanced assistant. Match your response style to the user's needs.";
       if (
-        custom.name === 'Custom'
+        custom.name === __('presets.custom', 'Custom')
         && !custom.character_name
         && custom.system_prompt === legacyPrompt
       ) {

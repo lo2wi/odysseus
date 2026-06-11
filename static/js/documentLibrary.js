@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // static/js/documentLibrary.js
 /**
  * Document Library — modal with Chats / Documents / Research / Archive tabs.

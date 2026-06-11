@@ -1,3 +1,4 @@
+import { __ } from '../i18n.js';
 /**
  * History-panel subsystem — the floating frosted list of labeled
  * undo/redo entries that hangs off the topbar History button.
