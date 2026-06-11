@@ -5,10 +5,10 @@
 
 export const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-export const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'];
+export const MONTHS = [__('calendar.january', 'January'), __('calendar.february', 'February'), __('calendar.march', 'March'), __('calendar.april', 'April'), __('calendar.may', 'May'), __('calendar.june', 'June'),
+  __('calendar.july', 'July'), __('calendar.august', 'August'), __('calendar.september', 'September'), __('calendar.october', 'October'), __('calendar.november', 'November'), __('calendar.december', 'December')];
 
-export const MON_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+export const MON_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', __('calendar.may', 'May'), 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 export const CAL_PALETTE = [
   'var(--accent)', '#5b8abf', '#bf6b5b', '#5bbf7a', '#bf9a5b',

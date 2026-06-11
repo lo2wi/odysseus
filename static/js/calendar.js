@@ -38,7 +38,7 @@ function _pickCalBgImage() {
         const res = await fetch(`${API_BASE}/api/upload`, { method: 'POST', body: fd, credentials: 'same-origin' });
         const data = await res.json();
         const fileId = data.files?.[0]?.id;
-        if (!fileId) throw new Error('Upload failed');
+        if (!fileId) throw new Error(__('calendar.upload_failed', 'Upload failed'));
         finish(`${API_BASE}/api/upload/${fileId}`);
       } catch { finish(null); }
     });
@@ -84,7 +84,7 @@ function _showCalUndoToast(label, undoFn) {
   _pushCalUndo({ label, run: undoFn });
   const isMac = /Mac|iPhone|iPad/.test(navigator.platform || '') || /Mac/.test(navigator.userAgent || '');
   uiModule.showToast(label, {
-    action: 'Undo',
+    action: __('calendar.undo', 'Undo'),
     actionHint: isMac ? '⌘Z' : 'Ctrl+Z',
     duration: 6000,
     onAction: _popAndRunCalUndo,
@@ -187,7 +187,7 @@ async function _fetchCalendars() {
     _calendars.forEach((c, i) => {
       if (!c.color || c.color.startsWith('<')) c.color = CAL_PALETTE[i % CAL_PALETTE.length];
     });
-  } catch (e) { _calendars = []; _calendarsError = e.message || 'Connection failed'; }
+  } catch (e) { _calendars = []; _calendarsError = e.message || __('calendar.connection_failed', 'Connection failed'); }
 
   // First open: fire a background CalDAV pull. We don't await — the
   // initial render uses whatever's already cached locally, and the
@@ -218,7 +218,7 @@ async function _syncCaldav(interactive) {
       _render();
     }
   } catch (e) {
-    if (interactive) return { errors: [e.message || 'Sync failed'] };
+    if (interactive) return { errors: [e.message || __('calendar.sync_failed', 'Sync failed')] };
   }
 }
 
@@ -481,15 +481,15 @@ function _showEventMoreMenu(ev, anchor) {
 
   const _editIcon = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
 
-  dropdown.appendChild(_item(_editIcon, 'Edit', () => {
+  dropdown.appendChild(_item(_editIcon, __('calendar.edit_event', 'Edit'), () => {
     closeMenu();
     _showEventForm(ev);
   }));
 
-  dropdown.appendChild(_item(_trashIcon, 'Delete', async () => {
+  dropdown.appendChild(_item(_trashIcon, __('calendar.delete_event', 'Delete'), async () => {
     closeMenu();
     const name = ev.summary ? `"${ev.summary}"` : 'this event';
-    const ok = await uiModule.styledConfirm(`Delete ${name}?`, { confirmText: 'Delete', danger: true });
+    const ok = await uiModule.styledConfirm(`Delete ${name}?`, { confirmText: __('calendar.delete_event', 'Delete'), danger: true });
     if (!ok) return;
     try { await _deleteEvent(ev.uid); setTimeout(() => _render(), 100); } catch (_) {}
   }, true));
@@ -535,7 +535,7 @@ async function _createEventReminder(ev, dueDate) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
-    if (!res.ok) throw new Error('Failed');
+    if (!res.ok) throw new Error(__('calendar.failed', 'Failed'));
     const fmt = dueDate.toLocaleString([], { month:'short', day:'numeric', hour:'numeric', minute:'2-digit' });
     if (uiModule.showToast) uiModule.showToast(`Reminder set for ${fmt}`);
     try { window.notesModule?.refreshDueBadge?.({ force: true }); } catch {}
@@ -748,7 +748,7 @@ function _renderEmpty() {
         <line x1="8" y1="2" x2="8" y2="6"/>
         <line x1="3" y1="10" x2="21" y2="10"/>
       </svg>
-      <div class="cal-empty-title">${hasError ? 'Calendar unavailable' : 'No calendars yet'}</div>
+      <div class="cal-empty-title">${hasError ? __('calendar.unavailable', 'Calendar unavailable') : __('calendar.no_calendars', 'No calendars yet')}</div>
       <div class="cal-empty-msg">${hasError ? _e(_calendarsError) : 'Create a local calendar, import an .ics file, or sync via CalDAV.'}</div>
       ${hasError ? `
         <button class="cal-btn cal-btn-primary" id="cal-goto-settings">Open Settings</button>
@@ -822,7 +822,7 @@ function _headerHTML() {
     <div class="cal-toolbar-nav">
       <button class="cal-nav" id="cal-prev">&larr;</button>
       <button class="cal-nav cal-today-btn" id="cal-today">Today</button>
-      <span class="cal-title">${_view === 'agenda' ? 'Upcoming' : MONTHS[_currentDate.getMonth()] + ' ' + _currentDate.getFullYear()}${weekSuffix}</span>
+      <span class="cal-title">${_view === 'agenda' ? __('calendar.upcoming', 'Upcoming') : MONTHS[_currentDate.getMonth()] + ' ' + _currentDate.getFullYear()}${weekSuffix}</span>
       <button class="cal-nav" id="cal-next">&rarr;</button>
     </div>
     <div class="cal-toolbar-right">
@@ -886,7 +886,7 @@ function _filtersToggleHTML() {
   // Inline toolbar button only. The chip row renders separately below.
   const { calFilters, typeFilters } = _filtersData();
   if (!calFilters && !typeFilters) return '';
-  return `<button class="cal-filter-toggle" id="cal-filter-toggle" title="${_filtersCollapsed ? 'Show filters' : 'Hide filters'}">${_filtersCollapsed ? '+ tags' : '− tags'}</button>`;
+  return `<button class="cal-filter-toggle" id="cal-filter-toggle" title="${_filtersCollapsed ? __('calendar.show_filters', 'Show filters') : __('calendar.hide_filters', 'Hide filters')}">${_filtersCollapsed ? __('calendar.tags_show', '+ tags') : __('calendar.tags_hide', '− tags')}</button>`;
 }
 
 function _filtersRowHTML() {
@@ -1383,7 +1383,7 @@ async function _renderWeek() {
         try {
           await _updateEvent(uid, { dtstart: newDtstart, dtend: newDtend });
           _render();
-          _showCalUndoToast('Moved event', async () => {
+          _showCalUndoToast(__('calendar.moved_event', 'Moved event'), async () => {
             try {
               await _updateEvent(uid, { dtstart: prevDtstart, dtend: prevDtend });
               _render();
@@ -1445,7 +1445,7 @@ async function _renderWeek() {
         try {
           await _updateEvent(uid, { dtend: newDtend });
           _render();
-          _showCalUndoToast('Resized event', async () => {
+          _showCalUndoToast(__('calendar.resized_event', 'Resized event'), async () => {
             try {
               await _updateEvent(uid, { dtend: prevDtend });
               _render();
@@ -2142,7 +2142,7 @@ function _wireAll(body) {
         window._calSyncDone = false;
         if (_open) _render();
       }, 900);
-      if (uiModule?.showToast) uiModule.showToast('Calendar refreshed');
+      if (uiModule?.showToast) uiModule.showToast(__('calendar.refreshed', 'Calendar refreshed'));
     }
   });
   // Brief spin on the "+" glyph before the new-event form opens. The
@@ -2382,7 +2382,7 @@ function _wireAll(body) {
       _pushCalUndo({ label: 'move', run: () => _updateEvent(undoSnap.uid, { dtstart: undoSnap.dtstart, dtend: undoSnap.dtend || undefined }).then(_render) });
       await _updateEvent(ev.uid, { dtstart: _shiftDT(ev.dtstart, diff), dtend: ev.dtend ? _shiftDT(ev.dtend, diff) : undefined });
       _render();
-      uiModule.showToast?.(__('calendar.moved', 'Moved'), { duration: 4000, action: 'Undo', actionHint: 'Ctrl+Z', onAction: _popAndRunCalUndo });
+      uiModule.showToast?.(__('calendar.moved', 'Moved'), { duration: 4000, action: __('calendar.undo', 'Undo'), actionHint: 'Ctrl+Z', onAction: _popAndRunCalUndo });
     });
   });
 }
@@ -2504,7 +2504,7 @@ async function _showCalSettings() {
     try {
       const r = await fetch(`${API_BASE}/api/calendar/calendars?name=${encodeURIComponent('New calendar')}&color=${encodeURIComponent(color)}`, { method: 'POST', credentials: 'same-origin' });
       const d = await r.json().catch(() => ({}));
-      if (!r.ok || !d.ok) throw new Error(d.error || 'Failed to create calendar');
+      if (!r.ok || !d.ok) throw new Error(d.error || __('calendar.calendar_create_failed', 'Failed to create calendar'));
       _calendars.push({ name: d.name, href: d.id, color: d.color });
       _allEvents = {}; _fetchedRanges = []; localStorage.removeItem(LS_KEY);
       _render();
@@ -2519,7 +2519,7 @@ async function _showCalSettings() {
       }, 30);
     } catch (err) {
       btn.disabled = false;
-      if (window.showError) window.showError(err.message || __('calendar.calendar_create_failed', 'Failed to create calendar'));
+      if (window.showError) window.showError(err.message || __('calendar.calendar_create_failed', __('calendar.calendar_create_failed', 'Failed to create calendar')));
       else console.error(err);
     }
   });
@@ -2559,7 +2559,7 @@ async function _showCalSettings() {
 
     delBtn.addEventListener('click', async () => {
       const name = nameInput.value;
-      if (!await window.styledConfirm(`Delete calendar "${name}" and all its events?`, { confirmText: 'Delete', danger: true })) return;
+      if (!await window.styledConfirm(`Delete calendar "${name}" and all its events?`, { confirmText: __('calendar.delete_event', 'Delete'), danger: true })) return;
       await fetch(`${API_BASE}/api/calendar/calendars/${id}`, { method: 'DELETE' });
       row.remove();
       _allEvents = {}; _fetchedRanges = []; localStorage.removeItem(LS_KEY);
@@ -3042,7 +3042,7 @@ function _showEventForm(existing, defaultDate, defaultEndDate) {
   });
   document.getElementById('cal-f-del')?.addEventListener('click', async () => {
     const name = existing && existing.summary ? `"${existing.summary}"` : 'this event';
-    const ok = await uiModule.styledConfirm(`Delete ${name}?`, { confirmText: 'Delete', danger: true });
+    const ok = await uiModule.styledConfirm(`Delete ${name}?`, { confirmText: __('calendar.delete_event', 'Delete'), danger: true });
     if (!ok) return;
     try { await _deleteEvent(existing.uid); _render(); }
     catch (e) { uiModule.showToast(__('calendar.delete_failed', 'Failed to delete')); }

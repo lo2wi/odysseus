@@ -80,18 +80,18 @@ async function _pollReminders() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           note_id: note.id,
-          title: note.title || 'Calendar Reminder',
+          title: note.title || __('calendar.calendar_reminder', 'Calendar Reminder'),
           body,
         }),
       }).catch(() => {});
       if ('Notification' in window && Notification.permission === 'granted') {
-        new Notification(note.title || 'Calendar Reminder', {
+        new Notification(note.title || __('calendar.calendar_reminder', 'Calendar Reminder'), {
           body,
           icon: '/static/favicon.png',
           tag: `cal-remind-${note.id}`,
         });
       }
-      if (uiModule.showToast) uiModule.showToast((note.title || 'Calendar Reminder') + (body ? ' — ' + body : ''));
+      if (uiModule.showToast) uiModule.showToast((note.title || __('calendar.calendar_reminder', 'Calendar Reminder')) + (body ? ' — ' + body : ''));
     }
     // Persist fired set (keep last 200)
     const arr = [..._notifFired].slice(-200);
