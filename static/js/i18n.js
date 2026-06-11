@@ -41,6 +41,12 @@ const I18N = {
       this._locale = 'en';
     }
 
+    // Load pre-built reverse map (English→Chinese) from the dictionary
+    if (this._dict._reverse) {
+      Object.assign(_reverseMap, this._dict._reverse);
+      delete this._dict._reverse;  // clean up, not a real translation section
+    }
+
     this._ready = true;
     this._resolveReady();
     this._processDOM(document);
