@@ -427,7 +427,7 @@
     "ai_nothing": "AI 未找到需要填写的内容"
   },
   "gallery": {
-    "cant_read_folders": "浏览器无法读取从原生文件管理器拖放的文件夹。请使用 Albums 标签中的 \"上传相册\"。",
+    "cant_read_folders": "浏览器无法读取从原生文件管理器拖放的文件夹。请使用相册标签中的\"上传相册\"功能。",
     "no_images_drop": "拖放内容中未找到图片",
     "select_albums_first": "请先选择相册",
     "album_renamed": "相册已重命名",
@@ -551,7 +551,13 @@
     "archive": "归档",
     "spam": "垃圾邮件",
     "sent": "已发送",
-    "drafts": "草稿"
+    "drafts": "草稿",
+    "copy_email": "复制邮件",
+    "loading": "加载中…",
+    "open_new_tab": "在新标签页打开",
+    "save_sender": "保存发件人到通讯录",
+    "remind_reply": "提醒回复",
+    "move_to_spam": "移到垃圾邮件"
   },
   "admin": {
     "privilege_failed": "更新权限失败",

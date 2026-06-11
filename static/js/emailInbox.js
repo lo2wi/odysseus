@@ -677,7 +677,7 @@ async function _openEmail(em, itemEl, preloadedData = null, mode = 'reply') {
       } else {
         let draftToastTimer = null;
         draftToastTimer = setTimeout(() => {
-          import('./ui.js').then(m => m.showToast && m.showToast(__('email.drafting_reply', 'Drafting AI reply'), { duration: 3000, leadingIcon: 'spinner' })).catch(() => {});
+          import('./ui.js').then(m => m.showToast && m.showToast(__('email.drafting_reply', __('email.drafting_reply', 'Drafting AI reply')), { duration: 3000, leadingIcon: 'spinner' })).catch(() => {});
         }, 450);
         try {
           let currentModel = '';
@@ -1194,7 +1194,7 @@ async function _composeNew() {
     }
     if (!sid) {
       console.error('compose: could not obtain a session_id');
-      import('./ui.js').then(m => m.showError && m.showError(__('email.no_session', 'Could not start a new email (no session).'))).catch(() => {});
+      import('./ui.js').then(m => m.showError && m.showError(__('email.no_session', __('email.no_session', 'Could not start a new email (no session).')))).catch(() => {});
       return;
     }
     const res = await fetch(`${API_BASE}/api/document`, {

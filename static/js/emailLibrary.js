@@ -152,13 +152,13 @@ function _wireRecipientChips(root) {
         if (!copied) throw new Error('copy failed');
         copyBtn.classList.add('copied');
         copyBtn.title = __('common.copied', 'Copied');
-        showToast?.(__('email.copied', 'Email copied'));
+        showToast?.(__('email.copied', __('email.copied', 'Email copied')));
         setTimeout(() => {
           copyBtn.classList.remove('copied');
-          copyBtn.title = __('email.copy', 'Copy email');
+          copyBtn.title = __('email.copy', __('email.copy_email', 'Copy email'));
         }, 900);
       } catch (_) {
-        showToast?.(__('email.copy_failed', 'Copy failed'));
+        showToast?.(__('email.copy_failed', __('email.copy_failed', 'Copy failed')));
       }
       return;
     }
@@ -279,7 +279,7 @@ function _syncUnreadTabBadge(count) {
       chip.title = `Open ${label}`;
     } else {
       delete chip.dataset.emailUnreadLabel;
-      chip.title = __('email.restore', 'Restore Email');
+      chip.title = __('email.restore', __('email.restore', 'Restore Email'));
     }
   });
 }
@@ -302,7 +302,7 @@ function _renderAccountsLoading() {
     wp.element.classList.add('email-accounts-loading-whirlpool');
     const label = document.createElement('span');
     label.className = 'email-accounts-loading-label';
-    label.textContent = __('email.accounts', 'Accounts');
+    label.textContent = __('email.accounts', __('email.accounts', 'Accounts'));
     strip.appendChild(wp.element);
     strip.appendChild(label);
   } catch (_) {
@@ -497,7 +497,7 @@ async function _deleteEmailAndAdvance(em, card, opts = {}) {
     await fetch(`${API_BASE}/api/email/delete/${em.uid}?folder=${encodeURIComponent(state._libFolder)}${_acct()}`, { method: 'DELETE' });
   } catch (err) {
     console.error('Failed to delete email:', err);
-    showToast(__('email.delete_failed', 'Failed to delete email'));
+    showToast(__('email.delete_failed', __('email.delete_failed', 'Failed to delete email')));
     return;
   }
   await _animateEmailCardRemoval([em.uid]);
@@ -506,7 +506,7 @@ async function _deleteEmailAndAdvance(em, card, opts = {}) {
   _updateBulkBar();
   _renderGrid();
   _libCacheWriteBack();
-  showToast(__('email.moved_to_trash', 'Moved to Trash'));
+  showToast(__('email.moved_to_trash', __('email.moved_to_trash', 'Moved to Trash')));
   if (!wasExpanded || !nextUid) return;
   const grid = document.getElementById('email-lib-grid');
   const nextCard = grid?.querySelector(`.doclib-card[data-uid="${CSS.escape(String(nextUid))}"]`);
@@ -634,7 +634,7 @@ function _resetEmailListForFreshLoad() {
   const grid = document.getElementById('email-lib-grid');
   if (grid) _renderEmailLoading(grid);
   const stats = document.getElementById('email-lib-stats');
-  if (stats) stats.textContent = __('common.loading', 'Loading...');
+  if (stats) stats.textContent = __('common.loading', __('email.loading', 'Loading...'));
 }
 
 function _loadEmailsFresh() {
@@ -1520,7 +1520,7 @@ function _crossFolderCandidates() {
   const candidates = [
     pick(['INBOX'], 'INBOX'),
     pick(['[Gmail]/Sent Mail', 'Sent Mail', 'Sent Items', 'INBOX.Sent', 'Sent'], '[Gmail]/Sent Mail'),
-    pick(['Archive', '[Gmail]/All Mail', 'All Mail'], '[Gmail]/All Mail'),
+    pick([__('email.archive', 'Archive'), '[Gmail]/All Mail', 'All Mail'], '[Gmail]/All Mail'),
   ];
   return Array.from(new Set(candidates.filter(Boolean)));
 }
@@ -4485,7 +4485,7 @@ function _showReaderMoreMenu(em, card, reader, anchor) {
   const _contactIcon = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>';
   const actions = [
     {
-      label: 'Open in new tab',
+      label: __('email.open_new_tab', 'Open in new tab'),
       icon: _newTabIcon,
       action: async () => {
         const folder = state._libFolder || 'INBOX';
@@ -4495,7 +4495,7 @@ function _showReaderMoreMenu(em, card, reader, anchor) {
     {
       // Save the sender to CardDAV contacts. Pulls name + address off the
       // list-item (em); falls back to splitting the local-part for a name.
-      label: 'Save sender to contacts',
+      label: __('email.save_sender', 'Save sender to contacts'),
       icon: _contactIcon,
       action: async () => {
         const email = (em.from_address || em.from || '').trim();
@@ -4560,7 +4560,7 @@ function _showReaderMoreMenu(em, card, reader, anchor) {
       },
     },
     {
-      label: 'Archive',
+      label: __('email.archive', 'Archive'),
       icon: _archIcon,
       action: async () => {
         try {
@@ -4570,12 +4570,12 @@ function _showReaderMoreMenu(em, card, reader, anchor) {
       },
     },
     {
-      label: 'Remind to reply',
+      label: __('email.remind_reply', 'Remind to reply'),
       icon: _bellIcon,
       submenu: 'remind',
     },
     {
-      label: 'Move to Spam',
+      label: __('email.move_to_spam', 'Move to Spam'),
       icon: _spamIcon,
       action: async () => {
         try {
@@ -4682,14 +4682,14 @@ function _showCardMenu(em, anchor) {
         await _toggleCardPreview(card, em);
       }
     }},
-    { label: 'Open in new tab', icon: _newTabIcon, action: async () => {
+    { label: __('email.open_new_tab', 'Open in new tab'), icon: _newTabIcon, action: async () => {
       // Open this email as its own in-app modal that registers a dock
       // chip — multiple emails can be opened simultaneously, each gets
       // its own chip in the minimized dock.
       const folder = state._libFolder || 'INBOX';
       await _openEmailAsTab(em, folder);
     }},
-    { label: 'Remind to reply', icon: _cardBellIcon, submenu: 'remind' },
+    { label: __('email.remind_reply', 'Remind to reply'), icon: _cardBellIcon, submenu: 'remind' },
   ];
 
   if (!isSentFolder) {
@@ -4724,7 +4724,7 @@ function _showCardMenu(em, anchor) {
       },
     });
     actions.push({
-      label: 'Archive',
+      label: __('email.archive', 'Archive'),
       icon: _archIcon,
       action: async () => {
         await fetch(`${API_BASE}/api/email/archive/${em.uid}?folder=${encodeURIComponent(state._libFolder)}${_acct()}`, { method: 'POST' });
@@ -4736,7 +4736,7 @@ function _showCardMenu(em, anchor) {
     });
   } else {
     actions.push({
-      label: 'Archive',
+      label: __('email.archive', 'Archive'),
       icon: _archIcon,
       action: async () => {
         await fetch(`${API_BASE}/api/email/archive/${em.uid}?folder=${encodeURIComponent(state._libFolder)}${_acct()}`, { method: 'POST' });
