@@ -162,8 +162,8 @@ function buildAttachCards(attachments) {
           const ocrBtn = document.createElement('button');
           ocrBtn.type = 'button';
           ocrBtn.className = 'attach-ocr-btn';
-          ocrBtn.title = 'View / edit OCR text';
-          ocrBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg><span class="attach-ocr-label">Caption</span>';
+          ocrBtn.title = __('chat.ocr_view_edit', 'View / edit OCR text');
+          ocrBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg><span class="attach-ocr-label">' + __('chat.caption', 'Caption') + '</span>';
           ocrBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             _openVisionEditor(att, ocrBtn.closest('.msg'));
@@ -175,7 +175,7 @@ function buildAttachCards(attachments) {
       if (att.vision_model) {
         const visionLabel = document.createElement('div');
         visionLabel.className = 'attach-vision-model';
-        visionLabel.textContent = 'Vision: ' + String(att.vision_model).split('/').pop();
+        visionLabel.textContent = __('chat.vision_label', 'Vision') + ': ' + String(att.vision_model).split('/').pop();
         imgWrap.appendChild(visionLabel);
       }
       if (att.name) {
@@ -250,7 +250,7 @@ function _openImageLightbox(att) {
   full.addEventListener('error', () => {
     const err = document.createElement('div');
     err.className = 'attach-lightbox-err';
-    err.textContent = 'Failed to load full-resolution image.';
+    err.textContent = __('chat.image_load_failed', 'Failed to load full-resolution image.');
     overlay.appendChild(err);
   });
   full.src = `/api/upload/${att.id}`;
@@ -302,11 +302,11 @@ function _openVisionEditor(att, userMsgEl) {
   title.className = 'vision-editor-title';
   // Eye icon matches the one in Settings → Vision so users recognise where
   // this text originates.
-  title.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.7;flex-shrink:0"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>Vision text</span>';
+  title.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.7;flex-shrink:0"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span>' + __('chat.vision_text', 'Vision text') + '</span>';
   panel.appendChild(title);
   const desc = document.createElement('div');
   desc.className = 'vision-editor-desc';
-  desc.textContent = 'Edit text and save, new chats will have the new context. Regenerate or continue from there.';
+  desc.textContent = __('chat.vision_edit_desc', 'Edit text and save, new chats will have the new context. Regenerate or continue from there.');
   panel.appendChild(desc);
   const ta = document.createElement('textarea');
   ta.className = 'vision-editor-text';
@@ -319,7 +319,7 @@ function _openVisionEditor(att, userMsgEl) {
   const closeBtn = document.createElement('button');
   closeBtn.type = 'button';
   closeBtn.className = 'vision-editor-btn';
-  closeBtn.innerHTML = '<span class="vision-btn-label">Close</span>';
+  closeBtn.innerHTML = '<span class="vision-btn-label">' + __('common.close', 'Close') + '</span>';
   closeBtn.addEventListener('click', _closeVisionEditor);
   const _saveVisionText = async () => {
     const res = await fetch(`/api/upload/${att.id}/vision`, {
@@ -333,18 +333,18 @@ function _openVisionEditor(att, userMsgEl) {
   const saveBtn = document.createElement('button');
   saveBtn.type = 'button';
   saveBtn.className = 'vision-editor-btn vision-editor-btn-primary';
-  saveBtn.innerHTML = '<span class="vision-btn-label">Save</span>';
+  saveBtn.innerHTML = '<span class="vision-btn-label">' + __('common.save', 'Save') + '</span>';
   saveBtn.disabled = true;
   saveBtn.addEventListener('click', async () => {
     saveBtn.disabled = true;
-    saveBtn.innerHTML = '<span class="vision-btn-label">Saving…</span>';
+    saveBtn.innerHTML = '<span class="vision-btn-label">' + __('chat.saving', 'Saving…') + '</span>';
     try {
       await _saveVisionText();
       if (uiModule?.showToast) uiModule.showToast('Saved');
       _closeVisionEditor();
     } catch (e) {
       saveBtn.disabled = false;
-      saveBtn.innerHTML = '<span class="vision-btn-label">Save</span>';
+      saveBtn.innerHTML = '<span class="vision-btn-label">' + __('common.save', 'Save') + '</span>';
       if (uiModule?.showError) uiModule.showError('Failed to save OCR text');
     }
   });
@@ -353,8 +353,8 @@ function _openVisionEditor(att, userMsgEl) {
   const regenBtn = document.createElement('button');
   regenBtn.type = 'button';
   regenBtn.className = 'vision-editor-btn vision-editor-btn-primary';
-  regenBtn.title = 'Save and regenerate the message';
-  regenBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.74 9.74 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span class="vision-btn-label">Regenerate message</span>';
+  regenBtn.title = __('chat.save_regen', 'Save and regenerate the message');
+  regenBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.74 9.74 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span class="vision-btn-label">' + __('chat.regenerate_message', 'Regenerate message') + '</span>';
   regenBtn.disabled = true;
   regenBtn.addEventListener('click', async () => {
     regenBtn.disabled = true;
@@ -1161,7 +1161,7 @@ export function buildImageBubble(imageUrl, prompt, model, size, quality, imageId
 
   const safeImageUrl = safeDisplayImageSrc(imageUrl);
   if (!safeImageUrl) {
-    body.textContent = '[Image unavailable]';
+    body.textContent = __('chat.image_unavailable', '[Image unavailable]');
     wrap.appendChild(body);
     return wrap;
   }
@@ -1192,7 +1192,7 @@ export function buildImageBubble(imageUrl, prompt, model, size, quality, imageId
   const copyBtn = document.createElement('button');
   copyBtn.className = 'footer-copy-btn';
   copyBtn.type = 'button';
-  copyBtn.title = 'Copy prompt';
+  copyBtn.title = __('chat.copy_prompt', 'Copy prompt');
   copyBtn.innerHTML = COPY_ICON;
   copyBtn.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -1205,7 +1205,7 @@ export function buildImageBubble(imageUrl, prompt, model, size, quality, imageId
   const dlBtn = document.createElement('button');
   dlBtn.className = 'footer-copy-btn';
   dlBtn.type = 'button';
-  dlBtn.title = 'Download image';
+  dlBtn.title = __('chat.download_image', 'Download image');
   dlBtn.textContent = '\u2913';
   dlBtn.addEventListener('click', async (e) => {
     e.stopPropagation();
@@ -1228,7 +1228,7 @@ export function buildImageBubble(imageUrl, prompt, model, size, quality, imageId
   const editBtn = document.createElement('button');
   editBtn.className = 'footer-copy-btn';
   editBtn.type = 'button';
-  editBtn.title = 'Edit in image editor';
+  editBtn.title = __('chat.edit_in_editor', 'Edit in image editor');
   editBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.83 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>';
   editBtn.addEventListener('click', async (e) => {
     e.stopPropagation();
@@ -1262,7 +1262,7 @@ export function buildImageBubble(imageUrl, prompt, model, size, quality, imageId
   const delBtn = document.createElement('button');
   delBtn.className = 'footer-copy-btn footer-delete-btn';
   delBtn.type = 'button';
-  delBtn.title = 'Delete image';
+  delBtn.title = __('chat.delete_image', 'Delete image');
   delBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/></svg>';
   delBtn.addEventListener('click', async (e) => {
     e.stopPropagation();
@@ -1452,7 +1452,7 @@ export function createMsgFooter(msgElement) {
     const moreBtn = document.createElement('button');
     moreBtn.className = 'msg-action-btn msg-more-btn';
     moreBtn.type = 'button';
-    moreBtn.title = 'More actions';
+    moreBtn.title = __('chat.more_actions', 'More actions');
     moreBtn.textContent = '\u00B7\u00B7\u00B7';
     moreBtn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -1527,7 +1527,7 @@ export function createMsgFooter(msgElement) {
         const row = document.createElement('div');
         row.className = 'memory-used-row';
         row.style.cursor = 'pointer';
-        row.title = 'Click to open memory manager';
+        row.title = __('chat.open_memory', 'Click to open memory manager');
         const badge = document.createElement('span');
         badge.className = 'memory-used-badge ' + (m.type === 'pinned' ? 'pinned' : 'recalled');
         badge.textContent = m.type === 'pinned' ? '\u25CF' : '\u21BB';
@@ -1643,7 +1643,7 @@ export function createUserMsgFooter(msgElement) {
     const moreBtn = document.createElement('button');
     moreBtn.className = 'msg-action-btn msg-more-btn';
     moreBtn.type = 'button';
-    moreBtn.title = 'More actions';
+    moreBtn.title = __('chat.more_actions', 'More actions');
     moreBtn.textContent = '\u00B7\u00B7\u00B7';
     moreBtn.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -1735,7 +1735,7 @@ export function displayMetrics(messageElement, metrics) {
   if (!metricsLabel) return;
   metricsContainer.textContent = metricsLabel;
   metricsContainer.style.cursor = 'pointer';
-  metricsContainer.title = 'Click for details';
+  metricsContainer.title = __('chat.click_details', 'Click for details');
   const metricsDivider = document.createElement('span');
   metricsDivider.textContent = ' | ';
   metricsDivider.style.color = 'var(--color-muted-alt)';
@@ -1878,7 +1878,7 @@ export function displayMetrics(messageElement, metrics) {
           compactRole.textContent = 'Odysseus';
           const compactBody = document.createElement('div');
           compactBody.className = 'body';
-          compactBody.innerHTML = 'Compacting context <span class="compact-wave">▁▂▃▅▂▁</span>';
+          compactBody.innerHTML = __('chat.compacting_context', 'Compacting context') + ' <span class="compact-wave">▁▂▃▅▂▁</span>';
           compactMsg.appendChild(compactRole);
           compactMsg.appendChild(compactBody);
           chatBox.appendChild(compactMsg);
@@ -1925,7 +1925,7 @@ export function displayMetrics(messageElement, metrics) {
           } catch (err) {
             clearInterval(waveInterval);
             console.warn('compact failed:', err);
-            compactBody.innerHTML = '<span style="color:var(--red);">Compaction failed: ' + err.message + '</span>';
+            compactBody.innerHTML = '<span style="color:var(--red);">' + __('chat.compaction_failed', 'Compaction failed') + ': ' + err.message + '</span>';
           }
         });
       }
@@ -2258,7 +2258,7 @@ export function addMessage(role, content, modelName, metadata) {
       // Match compact format: [Doc edit: line X] instruction
       b.innerHTML = b.innerHTML.replace(
         /\[Doc edit: (lines? [\d–\-]+)\]\s*/,
-        '<span class="doc-edit-tag">Doc edit: $1</span> '
+        '<span class="doc-edit-tag">' + __('chat.doc_edit', 'Doc edit') + ': $1</span> '
       );
       // Match raw format: "In the document, edit this specific text (line X):\n```\n...\n```\n\nInstruction: ..."
       // After markdown processing this becomes a <p> + <pre><code> block + <p>Instruction: text</p>
@@ -2268,7 +2268,7 @@ export function addMessage(role, content, modelName, metadata) {
         // Extract instruction text (after "Instruction: ")
         const instrMatch = b.textContent.match(/Instruction:\s*([\s\S]*)$/);
         const instrText = instrMatch ? instrMatch[1].trim() : '';
-        b.innerHTML = '<span class="doc-edit-tag">Doc edit: ' + lineRef + '</span> ' + markdownModule.processWithThinking(instrText);
+        b.innerHTML = '<span class="doc-edit-tag">' + __('chat.doc_edit', 'Doc edit') + ': ' + lineRef + '</span> ' + markdownModule.processWithThinking(instrText);
       }
 
       // Render attachment cards
@@ -2296,7 +2296,7 @@ export function addMessage(role, content, modelName, metadata) {
       if (!metadata.cancelled) {
         const continueBtn = document.createElement('button');
         continueBtn.className = 'continue-btn';
-        continueBtn.title = 'Continue';
+        continueBtn.title = __('chat.continue', 'Continue');
         continueBtn.textContent = '\u25B8';
         continueBtn.addEventListener('click', () => {
           stoppedIndicator.remove();
@@ -2321,7 +2321,7 @@ export function addMessage(role, content, modelName, metadata) {
     if (metadata?.edited) {
       const editedIndicator = document.createElement('div');
       editedIndicator.className = 'edited-indicator';
-      editedIndicator.textContent = '[Message edited]';
+      editedIndicator.textContent = __('chat.message_edited', '[Message edited]');
       b.appendChild(editedIndicator);
     }
 

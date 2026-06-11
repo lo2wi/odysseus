@@ -239,7 +239,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
         submitBtn.classList.add('anim-land');
         submitBtn.addEventListener('animationend', () => submitBtn.classList.remove('anim-land'), { once: true });
       }, 300);
-      submitBtn.title = 'Stop generation';
+      submitBtn.title = __('chat.stop_gen', 'Stop generation');
       submitBtn.dataset.mode = 'streaming';
       submitBtn.dataset.phase = 'processing';
       isStreaming = true;
@@ -256,7 +256,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
       } else {
         var icons = window._odysseusBtnIcons;
         submitBtn.innerHTML = icons ? icons.send : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
-        submitBtn.title = 'Send message';
+        submitBtn.title = __('chat.send', 'Send message');
         submitBtn.classList.remove('mic-mode', 'newchat-mode');
       }
     }
@@ -318,7 +318,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
           if (header) {
             const s = document.createElement('span');
             s.className = 'agent-thread-status';
-            s.textContent = 'stopped';
+            s.textContent = __('chat.stopped', 'stopped');
             header.appendChild(s);
           }
         }
@@ -367,11 +367,11 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
         const stoppedIndicator = document.createElement('div');
         stoppedIndicator.className = 'stopped-indicator';
         const stoppedLabel = document.createElement('span');
-        stoppedLabel.textContent = '[Message interrupted]';
+        stoppedLabel.textContent = __('chat.message_interrupted', '[Message interrupted]');
         stoppedIndicator.appendChild(stoppedLabel);
         const continueBtn = document.createElement('button');
         continueBtn.className = 'continue-btn';
-        continueBtn.title = 'Continue';
+        continueBtn.title = __('chat.continue', 'Continue');
         continueBtn.textContent = '\u25B8';
         const _stoppedHolder = currentHolder; // capture before it gets cleared
         continueBtn.addEventListener('click', () => {
@@ -714,10 +714,10 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
         textEl.textContent = label;
         banner.appendChild(textEl);
         const importBtn = document.createElement('button');
-        importBtn.textContent = 'Import';
+        importBtn.textContent = __('chat.import', 'Import');
         importBtn.addEventListener('click', async () => {
           importBtn.disabled = true;
-          importBtn.textContent = 'Importing…';
+          importBtn.textContent = __('chat.importing', 'Importing…');
           const EXT_LANG = {'.py':'python','.js':'javascript','.ts':'typescript','.html':'html','.css':'css','.md':'markdown','.json':'json','.yml':'yaml','.yaml':'yaml','.sh':'bash','.sql':'sql','.rs':'rust','.go':'go','.java':'java','.c':'c','.cpp':'cpp','.rb':'ruby','.php':'php','.xml':'xml','.jsx':'javascript','.tsx':'typescript'};
           let imported = 0;
           for (const { info, file } of _importableFiles) {
@@ -742,7 +742,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
         dismissBtn.textContent = '\u00d7';
         dismissBtn.className = 'import-prompt-dismiss';
         dismissBtn.setAttribute('aria-label', 'Dismiss');
-        dismissBtn.title = 'Dismiss';
+        dismissBtn.title = __('chat.dismiss', 'Dismiss');
         dismissBtn.addEventListener('click', () => banner.remove());
         banner.appendChild(dismissBtn);
         const chatBar = document.querySelector('.chat-input-bar');
@@ -1338,7 +1338,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                   accumulated = accumulated.replace(/<think>/i, '<think time="' + _elapsedDone + '">');
                   roundText = roundText.replace(/<think>/i, '<think time="' + _elapsedDone + '">');
                 }
-                if (_liveThinkHeader) _liveThinkHeader.textContent = 'View thinking process';
+                if (_liveThinkHeader) _liveThinkHeader.textContent = __('chat.view_thinking', 'View thinking process');
                 if (_liveThinkSpinnerSlot) _liveThinkSpinnerSlot.remove();
                 if (_liveThinkTimerEl && _elapsedDone) {
                   _liveThinkTimerEl.textContent = _elapsedDone + 's';
@@ -1599,7 +1599,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                     accumulated = accumulated.replace(/<think>/i, '<think time="' + elapsed + '">');
                     roundText = roundText.replace(/<think>/i, '<think time="' + elapsed + '">');
                   }
-                  if (_liveThinkHeader) _liveThinkHeader.textContent = 'View thinking process';
+                  if (_liveThinkHeader) _liveThinkHeader.textContent = __('chat.view_thinking', 'View thinking process');
                   if (_liveThinkSpinnerSlot) _liveThinkSpinnerSlot.remove();
                   // Move timer to right side of header
                   if (_liveThinkTimerEl && elapsed) {
@@ -1859,8 +1859,8 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                   note.appendChild(label);
                   const contBtn = document.createElement('button');
                   contBtn.className = 'continue-btn';
-                  contBtn.title = 'Continue the task';
-                  contBtn.textContent = 'Continue ▸';
+                  contBtn.title = __('chat.continue_task', 'Continue the task');
+                  contBtn.textContent = __('chat.continue_btn', 'Continue ▸');
                   const _holder = currentHolder;
                   contBtn.addEventListener('click', () => {
                     note.remove();
@@ -1906,7 +1906,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                           if (_att.vision_model && !_existingPreview.querySelector('.attach-vision-model')) {
                             const _vl = document.createElement('div');
                             _vl.className = 'attach-vision-model';
-                            _vl.textContent = 'Vision: ' + String(_att.vision_model).split('/').pop();
+                            _vl.textContent = __('chat.vision_label', 'Vision') + ': ' + String(_att.vision_model).split('/').pop();
                             const _name = _existingPreview.querySelector('.attach-image-name');
                             if (_name) _existingPreview.insertBefore(_vl, _name);
                             else _existingPreview.appendChild(_vl);
@@ -1927,7 +1927,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                         if (_att.vision_model) {
                           const _vl = document.createElement('div');
                           _vl.className = 'attach-vision-model';
-                          _vl.textContent = 'Vision: ' + String(_att.vision_model).split('/').pop();
+                          _vl.textContent = __('chat.vision_label', 'Vision') + ': ' + String(_att.vision_model).split('/').pop();
                           _iw.appendChild(_vl);
                         }
                         if (_att.name) {
@@ -1988,7 +1988,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                   isThinking = false;
                   cancelAnimationFrame(_thinkTimerRAF);
                   var _elapsed2 = thinkingStartTime ? ((Date.now() - thinkingStartTime) / 1000).toFixed(1) : null;
-                  if (_liveThinkHeader) _liveThinkHeader.textContent = 'View thinking process';
+                  if (_liveThinkHeader) _liveThinkHeader.textContent = __('chat.view_thinking', 'View thinking process');
                   if (_liveThinkTimerEl) _liveThinkTimerEl.textContent = _elapsed2 ? _elapsed2 + 's' : '';
                   if (_liveThinkSpinnerSlot) _liveThinkSpinnerSlot.remove();
                   // Assign stable IDs
@@ -2192,7 +2192,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                       const details = document.createElement('details');
                       details.className = 'agent-tool-output';
                       const summary = document.createElement('summary');
-                      summary.textContent = 'Screenshot';
+                      summary.textContent = __('chat.screenshot', 'Screenshot');
                       const img = document.createElement('img');
                       img.src = screenshotSrc;
                       img.style.cssText = 'max-width:100%;border-radius:6px;margin-top:6px;border:1px solid var(--border)';
@@ -2391,7 +2391,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                   otherSend.type = 'button';
                   otherSend.className = 'confirm-btn confirm-btn-primary ask-user-other-send';
                   otherSend.setAttribute('aria-label', 'Send answer');
-                  otherSend.textContent = multi ? 'Send selection' : 'Send';
+                  otherSend.textContent = multi ? __('chat.send_selection', 'Send selection') : __('common.send', 'Send');
                   const _submit = () => {
                     const free = otherInput.value.trim();
                     if (multi) {
@@ -2585,11 +2585,11 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
             _stall.className = 'stopped-indicator';
             const _lbl = document.createElement('span');
             _lbl.style.cssText = 'font-style:italic;opacity:0.7;';
-            _lbl.textContent = 'Paused mid-task';
+            _lbl.textContent = __('chat.paused_mid_task', 'Paused mid-task');
             _stall.appendChild(_lbl);
             const _cont = document.createElement('button');
             _cont.className = 'continue-btn agent-continue-btn';
-            _cont.title = 'Continue — pick up where it left off';
+            _cont.title = __('chat.continue_hint', 'Continue — pick up where it left off');
             _cont.textContent = '▸';
             _cont.addEventListener('click', () => {
               _stall.remove();
@@ -2746,7 +2746,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
               ttsBtn.innerHTML = ICON_PLAY_TTS;
               ttsBtn.classList.remove('playing', 'loading');
               ttsBtn.style.color = '#6b7280';
-              ttsBtn.title = 'Read aloud';
+              ttsBtn.title = __('chat.read_aloud', 'Read aloud');
             };
             if (streamingTTS) {
               // Flush remaining partial sentence and attach the real button
@@ -2757,7 +2757,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                 ttsBtn.innerHTML = ICON_STOP_TTS;
                 ttsBtn.classList.add('playing');
                 ttsBtn.style.color = '#ccc';
-                ttsBtn.title = 'Stop';
+                ttsBtn.title = __('chat.stop_tts', 'Stop');
               }
             } else {
               // Non-streaming fallback (autoPlay toggled mid-stream, etc.)
@@ -2916,11 +2916,11 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
             const stoppedIndicator = document.createElement('div');
             stoppedIndicator.className = 'stopped-indicator';
             const stoppedLabel = document.createElement('span');
-            stoppedLabel.textContent = '[Message interrupted]';
+            stoppedLabel.textContent = __('chat.message_interrupted', '[Message interrupted]');
             stoppedIndicator.appendChild(stoppedLabel);
             const continueBtn = document.createElement('button');
             continueBtn.className = 'continue-btn';
-            continueBtn.title = 'Continue';
+            continueBtn.title = __('chat.continue', 'Continue');
             continueBtn.textContent = '\u25B8';
             continueBtn.addEventListener('click', () => {
               stoppedIndicator.remove();
@@ -3055,7 +3055,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
             if (_box && sessionModule.getCurrentSessionId() === _timeoutSessionId) {
               var _timeoutMsg = document.createElement('div');
               _timeoutMsg.className = 'msg msg-ai';
-              _timeoutMsg.innerHTML = '<div class="role">Odysseus</div><div class="body" style="opacity:0.6;font-style:italic;">Research clarification timed out. Toggle research again to start over.</div>';
+              _timeoutMsg.innerHTML = '<div class="role">Odysseus</div><div class="body" style="opacity:0.6;font-style:italic;">' + __('chat.research_timeout', 'Research clarification timed out. Toggle research again to start over.') + '</div>';
               _box.appendChild(_timeoutMsg);
               uiModule.scrollHistory();
             }
@@ -3177,8 +3177,8 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
     bar.innerHTML = `<span class="stall-banner-txt">Quiet for ${label} — still working?</span>`;
     const cont = document.createElement('button');
     cont.className = 'stall-banner-btn';
-    cont.textContent = 'Nudge it';
-    cont.title = 'Stop the stalled stream and ask it to continue';
+    cont.textContent = __('chat.nudge', 'Nudge it');
+    cont.title = __('chat.nudge_hint', 'Stop the stalled stream and ask it to continue');
     cont.addEventListener('click', () => {
       _removeStallBanner();
       const mi = uiModule.el('message');
@@ -3190,7 +3190,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
     });
     const stop = document.createElement('button');
     stop.className = 'stall-banner-btn stall-banner-stop';
-    stop.textContent = 'Stop';
+    stop.textContent = __('chat.stop', 'Stop');
     stop.addEventListener('click', () => { _removeStallBanner(); abortCurrentRequest(true); });
     bar.appendChild(cont);
     bar.appendChild(stop);
@@ -3223,7 +3223,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
       const label = document.createElement('span');
       label.style.fontStyle = 'italic';
       label.style.opacity = '0.7';
-      label.textContent = '[Cancelled by user]';
+      label.textContent = __('chat.cancelled_by_user', '[Cancelled by user]');
       indicator.appendChild(label);
       body.appendChild(indicator);
     }
@@ -3463,7 +3463,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
       if (box) {
         var errHolder = document.createElement('div');
         errHolder.className = 'msg msg-ai';
-        errHolder.innerHTML = '<div class="body"><i style="color: var(--color-error);">[Background stream encountered an error]</i></div>';
+        errHolder.innerHTML = '<div class="body"><i style="color: var(--color-error);">' + __('chat.background_error', '[Background stream encountered an error]') + '</i></div>';
         box.appendChild(errHolder);
       }
       return;
@@ -3628,7 +3628,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
         if (runBtn) runBtn.setAttribute('data-code', newCode);
         // Swap icon back to pencil
         btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
-        btn.title = 'Edit';
+        btn.title = __('chat.edit_message', 'Edit');
         btn.classList.remove('active');
       } else {
         // Enter edit mode. Firefox (especially on mobile) historically lacks
@@ -3646,7 +3646,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
         try { codeEl.focus({ preventScroll: true }); } catch (_) { codeEl.focus(); }
         // Swap icon to checkmark
         btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-        btn.title = 'Done editing';
+        btn.title = __('chat.done_editing', 'Done editing');
         btn.classList.add('active');
       }
     });
@@ -3794,10 +3794,10 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
 
     const saveBtn = document.createElement('button');
     saveBtn.className = 'edit-save-btn';
-    saveBtn.textContent = 'Send';
+    saveBtn.textContent = __('common.send', 'Send');
     const cancelBtn = document.createElement('button');
     cancelBtn.className = 'edit-cancel-btn';
-    cancelBtn.textContent = 'Cancel';
+    cancelBtn.textContent = __('common.cancel', 'Cancel');
     btnRow.appendChild(saveBtn);
     btnRow.appendChild(cancelBtn);
 
@@ -4424,7 +4424,7 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
                 }
               }
             } else {
-              bodyDiv.innerHTML = '<i style="color: var(--color-error);">[Research ' + pollData.status + ']</i>';
+              bodyDiv.innerHTML = '<i style="color: var(--color-error);">' + __('chat.research_status', '[Research]') + ' ' + pollData.status + '</i>';
             }
           }
         } catch (e) {
@@ -4591,10 +4591,10 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
     bar.className = 'msg-edit-bar';
     const saveBtn = document.createElement('button');
     saveBtn.className = 'msg-edit-save';
-    saveBtn.textContent = 'Save';
+    saveBtn.textContent = __('common.save', 'Save');
     const cancelBtn = document.createElement('button');
     cancelBtn.className = 'msg-edit-cancel';
-    cancelBtn.textContent = 'Cancel';
+    cancelBtn.textContent = __('common.cancel', 'Cancel');
     bar.appendChild(saveBtn);
     bar.appendChild(cancelBtn);
     textarea.parentNode.insertBefore(bar, textarea.nextSibling);
@@ -4637,12 +4637,12 @@ import { wireArrowUpRecall, getLastUserMessageFromChatHistory } from './composer
         if (!msgElement.querySelector('.edited-indicator')) {
           const indicator = document.createElement('div');
           indicator.className = 'edited-indicator';
-          indicator.textContent = '[Message edited]';
+          indicator.textContent = __('chat.message_edited', '[Message edited]');
           body.parentNode.insertBefore(indicator, body.nextSibling);
         }
 
         cleanup();
-        if (uiModule) uiModule.showToast('Message edited');
+        if (uiModule) uiModule.showToast(__('chat.message_edited', 'Message edited'));
       } catch (err) {
         console.error('Edit failed:', err);
         if (uiModule) uiModule.showError('Edit failed: ' + err.message);
