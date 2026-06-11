@@ -152,8 +152,10 @@ function __(key, fallback) {
   return I18N.t(key, fallback);
 }
 
-// Auto-init on import (but don't block)
-I18N.init();
+// Auto-init on import — top-level await blocks all downstream modules
+// until the locale dictionary is loaded, so __() calls never return fallback
+// on a Chinese browser.
+await I18N.init();
 
 // Expose globally so inline scripts (login.html, etc.) can use them
 window.I18N = I18N;
