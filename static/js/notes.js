@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 /**
  * Notes Module — Google Keep-style notes and todos.
  * Renders as a sidebar panel (like document editor), not a modal.

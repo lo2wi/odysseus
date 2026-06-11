@@ -483,6 +483,10 @@ else:
 # ========= IMPORT CONFIG =========
 from src.config import config
 
+# ========= I18N =========
+from src.i18n import I18N as _I18N
+_I18N.init()
+
 # ========= COMPONENT INITIALIZATION =========
 from src.app_initializer import initialize_managers
 

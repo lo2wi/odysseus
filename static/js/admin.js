@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // static/js/admin.js — Admin panel module (ES6)
 // Admin-only: users, endpoints, MCP, RAG, embeddings, tokens, webhooks, features
 

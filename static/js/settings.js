@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // static/js/settings.js — Settings panel module (ES6)
 // User-facing preferences: AI models, search, appearance
 

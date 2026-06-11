@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // Memory Management Functions
 // This module handles all memory-related operations
 

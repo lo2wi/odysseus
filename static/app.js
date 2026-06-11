@@ -2,6 +2,7 @@
 // Odysseus UI — Main Application Orchestrator
 // ES6 module — entry point, no exports (wires all modules together)
 // ============================================
+import { __ } from './js/i18n.js';
 import Storage from './js/storage.js';
 import uiModule from './js/ui.js';
 import fileHandlerModule from './js/fileHandler.js';
@@ -752,11 +753,11 @@ function initializeEventListeners() {
     if (active) {
       if (welcomeName) {
         if (!welcomeName.dataset.researchOrigHtml) welcomeName.dataset.researchOrigHtml = welcomeName.innerHTML;
-        welcomeName.innerHTML = _resIco + 'Deep Research';
+        welcomeName.innerHTML = _resIco + __('deep_research.title', 'Deep Research');
       }
       if (welcomeSub) {
         if (!welcomeSub.dataset.researchOrigText) welcomeSub.dataset.researchOrigText = welcomeSub.textContent;
-        welcomeSub.textContent = 'Deep multi-step research with source gathering and synthesis.';
+        welcomeSub.textContent = __('deep_research.description', 'Deep multi-step research with source gathering and synthesis.');
       }
       if (tipEl) {
         if (!tipEl.dataset.researchOrigTip) tipEl.dataset.researchOrigTip = tipEl.textContent;
@@ -2291,7 +2292,7 @@ function initializeEventListeners() {
       chk.checked = !chk.checked;
       incognitoBtn.classList.toggle('active', chk.checked);
       const tipEl = el('welcome-tip');
-      incognitoBtn.title = chk.checked ? 'Disable Nobody mode' : 'Enable Nobody mode — no memory, no history saved';
+      incognitoBtn.title = chk.checked ? __('app.incognito_on', 'Disable Nobody mode') : __('app.incognito_off', 'Enable Nobody mode — no memory, no history saved');
       const welcomeName = document.querySelector('.welcome-name');
       if (chk.checked) {
         incognitoBtn.innerHTML = INCOGNITO_EYE_CLOSED + '<span class="incognito-label">Nobody</span>';
@@ -3581,7 +3582,7 @@ function startOdysseusApp() {
     if (!hasText && !hasFiles && _isSttEnabled()) {
       clearTimeout(sendBtn._collapseTimer);
       sendBtn.innerHTML = _micIcon;
-      sendBtn.title = 'Record voice';
+      sendBtn.title = __('app.record_voice', 'Record voice');
       newMode = 'mic';
       sendBtn.classList.add('mic-mode');
       sendBtn.classList.remove('newchat-mode', 'newchat-expanded');
@@ -3590,7 +3591,7 @@ function startOdysseusApp() {
       // Group chat: always show send button, never newchat mode
       if (groupModule && groupModule.isActive()) {
         sendBtn.innerHTML = _sendIcon;
-        sendBtn.title = 'Send to group';
+        sendBtn.title = __('app.send_to_group', 'Send to group');
         newMode = 'idle';
         sendBtn.classList.remove('mic-mode', 'newchat-mode', 'newchat-expanded');
       } else {
@@ -3599,14 +3600,14 @@ function startOdysseusApp() {
       if (isEmptySession) {
         // Already on new chat — show arrow in muted style (ready to type)
         sendBtn.innerHTML = _sendIcon;
-        sendBtn.title = 'Send message';
+        sendBtn.title = __('app.send', 'Send message');
         newMode = 'idle';
         sendBtn.classList.add('newchat-mode'); // muted gray style
         sendBtn.classList.remove('mic-mode', 'newchat-expanded');
         clearTimeout(sendBtn._expandTimer);
       } else {
         sendBtn.innerHTML = _newChatIcon + '<span class="send-btn-label">+ New</span>';
-        sendBtn.title = 'New chat';
+        sendBtn.title = __('app.new_chat', 'New chat');
         newMode = 'newchat';
         sendBtn.classList.add('newchat-mode');
         sendBtn.classList.remove('mic-mode');
@@ -3629,14 +3630,14 @@ function startOdysseusApp() {
         setTimeout(() => {
           if (sendBtn.dataset.mode !== 'send') return;
           sendBtn.innerHTML = _sendIcon;
-          sendBtn.title = 'Send message';
+          sendBtn.title = __('app.send', 'Send message');
           sendBtn.classList.remove('mic-mode', 'newchat-mode', 'anim-spin-swap');
           sendBtn.classList.add('anim-spin');
           sendBtn.addEventListener('animationend', () => sendBtn.classList.remove('anim-spin'), { once: true });
         }, delay);
       } else {
         sendBtn.innerHTML = _sendIcon;
-        sendBtn.title = 'Send message';
+        sendBtn.title = __('app.send', 'Send message');
         sendBtn.classList.remove('mic-mode', 'newchat-mode', 'newchat-expanded', 'anim-spin', 'anim-launch', 'anim-land');
       }
     }
@@ -3689,7 +3690,7 @@ function startOdysseusApp() {
       // If input is empty and STT is enabled, start recording
       if (!hasText && !hasFiles && _isSttEnabled()) {
         sendBtn.innerHTML = _stopIcon;
-        sendBtn.title = 'Stop recording';
+        sendBtn.title = __('app.stop_recording', 'Stop recording');
         sendBtn.dataset.mode = 'recording';
         sendBtn.classList.add('recording');
         voiceRecorderModule.startRecording(
@@ -3868,7 +3869,7 @@ function startOdysseusApp() {
       _box.style.cssText = 'pointer-events:none;border:2px dashed rgba(255,255,255,0.9);' +
         'border-radius:14px;padding:20px 28px;background:rgba(0,0,0,0.4);' +
         'font:600 16px/1.4 system-ui,sans-serif;color:#fff;';
-      _box.textContent = 'Drop files to attach';
+      _box.textContent = __('app.drop_files', 'Drop files to attach');
       _cmpDropShield.appendChild(_box);
       document.body.appendChild(_cmpDropShield);
     }
@@ -3938,7 +3939,7 @@ function startOdysseusApp() {
     const hasModels = modelsBox && modelsBox.querySelector('.models-row');
     if (!hasModels) {
       const tip = document.getElementById('welcome-tip');
-      if (tip) tip.textContent = 'Add an AI endpoint from Settings in the sidebar, or paste an endpoint/API key into the chat.';
+      if (tip) tip.textContent = __('app.add_ai_endpoint', 'Add an AI endpoint from Settings in the sidebar, or paste an endpoint/API key into the chat.');
     }
   }).catch(() => {});
   modelsModule.refreshProviders();

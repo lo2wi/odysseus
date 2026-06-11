@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 /**
  * Calendar Module — CalDAV-backed month/week/year calendar.
  */

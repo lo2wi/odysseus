@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Odysseus Chat</title>
+  <title data-i18n="app.title">Odysseus Chat</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 4L16 22L6 22Z' fill='%23e06c75'/%3E%3Cpath d='M16 8L16 22L24 22Z' fill='%23e06c75' opacity='0.6'/%3E%3Cpath d='M4 24Q10 20 16 24Q22 28 28 24' stroke='%23e06c75' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="manifest" href="/static/manifest.json">
   <meta name="theme-color" content="#282c34">
@@ -266,13 +266,13 @@
             <div class="memory-toolbar">
               <div class="memory-toolbar-row">
                 <select id="memory-sort" class="memory-sort-select" aria-label="Sort memories">
-                  <option value="newest">Newest</option>
-                  <option value="oldest">Oldest</option>
-                  <option value="alpha">A-Z</option>
+                  <option value="newest" data-i18n="memory.sort_newest">Newest</option>
+                  <option value="oldest" data-i18n="memory.sort_oldest">Oldest</option>
+                  <option value="alpha" data-i18n="memory.sort_alpha">A-Z</option>
                   <option value="uses">Most used</option>
                 </select>
-                <button id="memory-select-btn" class="memory-toolbar-btn" title="Select multiple memories">Select</button>
-                <button id="memory-tidy-btn" class="memory-toolbar-btn" title="AI tidy: deduplicate and clean up memories"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px;margin-right:2px;"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z"/></svg> Tidy</button>
+                <button id="memory-select-btn" class="memory-toolbar-btn" title="Select multiple memories" data-i18n="memory.select">Select</button>
+                <button id="memory-tidy-btn" class="memory-toolbar-btn" title="AI tidy: deduplicate and clean up memories"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px;margin-right:2px;"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z"/></svg data-i18n="memory.tidy"> Tidy</button>
               </div>
               <input type="text" id="memory-search" placeholder="Search memories…" class="memory-search-input" aria-label="Search memories" />
               <div id="memory-category-filters" class="memory-category-filters">
@@ -280,7 +280,7 @@
               </div>
             </div>
             <div id="memory-bulk-bar" class="memory-bulk-bar hidden">
-              <label class="memory-bulk-check-all" style="position:relative;top:0px;"><input type="checkbox" id="memory-select-all" /> All</label>
+              <label class="memory-bulk-check-all" style="position:relative;top:0px;" data-i18n="memory.all"><input type="checkbox" id="memory-select-all" /> All</label>
               <span id="memory-selected-count">0 Selected</span>
               <button id="memory-bulk-delete" class="memory-toolbar-btn danger" disabled><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px;"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>Delete</button>
               <button id="memory-bulk-cancel" class="memory-toolbar-btn" title="Cancel (Esc)" style="margin-left:4px;padding:3px 6px;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
@@ -295,8 +295,8 @@
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;">
               <h2 style="margin:0;padding:0;line-height:1;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px"><path d="M12 2a7 7 0 0 1 7 7c0 2.4-1.2 4.5-3 5.7V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.3C6.2 13.5 5 11.4 5 9a7 7 0 0 1 7-7z"/><line x1="10" y1="22" x2="14" y2="22"/></svg>Add Memory</h2>
               <span style="flex:1"></span>
-              <button id="memory-import-btn" class="theme-io-btn" title="Import memories from a file" style="height:26px;font-size:12px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Import</button>
-              <button id="memory-export-btn" class="theme-io-btn" title="Export all memories as JSON" style="height:26px;font-size:12px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Export</button>
+              <button id="memory-import-btn" class="theme-io-btn" title="Import memories from a file" style="height:26px;font-size:12px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg data-i18n="memory.import">Import</button>
+              <button id="memory-export-btn" class="theme-io-btn" title="Export all memories as JSON" style="height:26px;font-size:12px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg data-i18n="memory.export">Export</button>
               <input type="file" id="memory-import-file" accept=".txt,.md,.pdf,.csv,.log,.json,.py,.js,.html" hidden />
             </div>
             <p class="memory-desc doclib-desc" style="margin:4px 0 6px;">
@@ -320,7 +320,7 @@
                 <input type="url" id="skill-import-url" placeholder=" " class="memory-add-input skill-hint-input" aria-label="Skill import URL" />
                 <span class="skill-rich-ph"><span class="k">Import URL</span> — e.g. GitHub tree link to a skill folder</span>
               </div>
-              <button type="button" id="skill-import-url-btn" class="theme-io-btn" title="Import skill from URL" style="flex:none;height:28px;font-size:12px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Import</button>
+              <button type="button" id="skill-import-url-btn" class="theme-io-btn" title="Import skill from URL" style="flex:none;height:28px;font-size:12px;"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:4px;" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg data-i18n="memory.import">Import</button>
             </div>
             <p class="memory-desc doclib-desc" style="margin-top:0;">Or create a skill by hand — title, what it solves, and an approach.</p>
             <div class="skill-ph-wrap" style="margin-top:4px;margin-bottom:6px;">
@@ -357,10 +357,10 @@
               <div class="memory-toolbar-row">
                 <select id="skills-sort" class="memory-sort-select">
                   <optgroup label="Sort">
-                    <option value="sort:confidence">Confidence</option>
+                    <option value="sort:confidence" data-i18n="skills.sort_confidence">Confidence</option>
                     <option value="sort:uses">Most used</option>
-                    <option value="sort:alpha">A-Z</option>
-                    <option value="sort:recent">Recent</option>
+                    <option value="sort:alpha" data-i18n="skills.sort_alpha">A-Z</option>
+                    <option value="sort:recent" data-i18n="skills.sort_recent">Recent</option>
                   </optgroup>
                   <optgroup label="Filter">
                     <option value="filter:all">All skills</option>
@@ -374,7 +374,7 @@
                     <option value="filter:conf70">Confidence ≤ 70%</option>
                   </optgroup>
                 </select>
-                <button id="skills-select-btn" class="memory-toolbar-btn" title="Select multiple skills">Select</button>
+                <button id="skills-select-btn" class="memory-toolbar-btn" title="Select multiple skills" data-i18n="memory.select">Select</button>
                 <button id="skills-audit-btn" class="memory-toolbar-btn" title="Test every skill, auto-fix the weak ones, flag what still fails"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px;margin-right:3px;"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z"/></svg>Audit all</button>
               </div>
               <input type="text" id="skills-search" placeholder="Search skills…" class="memory-search-input" aria-label="Search skills" />
@@ -446,7 +446,7 @@
       <h4><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px"><circle cx="12" cy="12" r="10"/><path d="M12 2a7 7 0 0 0 0 20 4 4 0 0 1 0-8 4 4 0 0 0 0-8"/><circle cx="8" cy="9" r="1.5" fill="currentColor"/><circle cx="15" cy="14" r="1.5" fill="currentColor"/><circle cx="9" cy="15" r="1.5" fill="currentColor"/></svg>Theme</h4>
       <button type="button" class="theme-opacity-wrap theme-opacity-toggle hidden" id="theme-opacity-wrap" title="Fade this window to preview the page behind it" aria-pressed="false">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-        <span class="theme-opacity-label">Peek</span>
+        <span class="theme-opacity-label" data-i18n="theme.peek">Peek</span>
       </button>
       <button class="close-btn" id="close-theme-popup" aria-label="Close theme">&#x2716;</button>
     </div>
@@ -459,11 +459,11 @@
     <!-- Tab: Browse themes -->
     <div id="theme-tab-browse" class="theme-tab-panel">
       <div class="admin-card">
-        <h2>Default Themes</h2>
+        <h2 data-i18n="theme.default_themes">Default Themes</h2>
         <div class="theme-grid" id="themeGrid"></div>
       </div>
       <div class="admin-card" id="themeUserCard" style="display:none">
-        <h2>Your Themes</h2>
+        <h2 data-i18n="theme.your_themes">Your Themes</h2>
         <div class="theme-grid" id="themeUserGrid"></div>
       </div>
     </div>
@@ -471,14 +471,14 @@
     <!-- Tab: Customize -->
     <div id="theme-tab-customize" class="theme-tab-panel" style="display:none">
       <div class="admin-card">
-        <h2>Colors</h2>
+        <h2 data-i18n="theme.colors">Colors</h2>
         <div class="theme-custom" id="themeCustom">
-          <div class="color-row"><label>Background</label><input type="color" id="clr-bg"><button class="color-reset-btn" data-reset="bg" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
-          <div class="color-row"><label>Text</label><input type="color" id="clr-fg"><button class="color-reset-btn" data-reset="fg" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
-          <div class="color-row"><label>Panel</label><input type="color" id="clr-panel"><button class="color-reset-btn" data-reset="panel" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
-          <div class="color-row"><label>Sidebar</label><input type="color" id="adv-sidebarBg"><button class="color-reset-btn" data-reset-adv="sidebarBg" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
-          <div class="color-row"><label>Border</label><input type="color" id="clr-border"><button class="color-reset-btn" data-reset="border" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
-          <div class="color-row"><label>Accent</label><input type="color" id="clr-red"><button class="color-reset-btn" data-reset="red" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
+          <div class="color-row"><label data-i18n="theme.background">Background</label><input type="color" id="clr-bg"><button class="color-reset-btn" data-reset="bg" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
+          <div class="color-row"><label data-i18n="theme.text">Text</label><input type="color" id="clr-fg"><button class="color-reset-btn" data-reset="fg" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
+          <div class="color-row"><label data-i18n="theme.panel">Panel</label><input type="color" id="clr-panel"><button class="color-reset-btn" data-reset="panel" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
+          <div class="color-row"><label data-i18n="theme.sidebar">Sidebar</label><input type="color" id="adv-sidebarBg"><button class="color-reset-btn" data-reset-adv="sidebarBg" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
+          <div class="color-row"><label data-i18n="theme.border">Border</label><input type="color" id="clr-border"><button class="color-reset-btn" data-reset="border" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
+          <div class="color-row"><label data-i18n="theme.accent">Accent</label><input type="color" id="clr-red"><button class="color-reset-btn" data-reset="red" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
         </div>
       </div>
       <div class="theme-adv-toggle" id="theme-adv-toggle">
@@ -486,7 +486,7 @@
       </div>
       <div class="theme-adv-section hidden" id="themeAdvanced">
         <div class="theme-adv-group">
-          <div class="theme-adv-group-label">Chat Bubbles</div>
+          <div class="theme-adv-group-label" data-i18n="theme.chat_bubbles">Chat Bubbles</div>
           <div class="theme-custom">
             <div class="color-row"><label>User Chat Bubble</label><input type="color" id="adv-userBubbleBg"><button class="color-reset-btn" data-reset-adv="userBubbleBg" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
             <div class="color-row"><label>AI Chat Bubble</label><input type="color" id="adv-aiBubbleBg"><button class="color-reset-btn" data-reset-adv="aiBubbleBg" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
@@ -501,7 +501,7 @@
           </div>
         </div>
         <div class="theme-adv-group">
-          <div class="theme-adv-group-label">Chat Input / Prompt Area</div>
+          <div class="theme-adv-group-label" data-i18n="theme.chat_input">Chat Input / Prompt Area</div>
           <div class="theme-custom">
             <div class="color-row"><label>Input Bg</label><input type="color" id="adv-inputBg"><button class="color-reset-btn" data-reset-adv="inputBg" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
             <div class="color-row"><label>Input Border</label><input type="color" id="adv-inputBorder"><button class="color-reset-btn" data-reset-adv="inputBorder" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
@@ -510,20 +510,20 @@
           </div>
         </div>
         <div class="theme-adv-group">
-          <div class="theme-adv-group-label">Code Blocks</div>
+          <div class="theme-adv-group-label" data-i18n="theme.code_blocks">Code Blocks</div>
           <div class="theme-custom">
             <div class="color-row"><label>Code Bg</label><input type="color" id="adv-codeBg"><button class="color-reset-btn" data-reset-adv="codeBg" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
             <div class="color-row"><label>Code Text</label><input type="color" id="adv-codeFg"><button class="color-reset-btn" data-reset-adv="codeFg" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
           </div>
         </div>
         <div class="theme-adv-group">
-          <div class="theme-adv-group-label">Controls</div>
+          <div class="theme-adv-group-label" data-i18n="theme.controls">Controls</div>
           <div class="theme-custom">
             <div class="color-row"><label>Toggle On</label><input type="color" id="adv-toggleActive"><button class="color-reset-btn" data-reset-adv="toggleActive" title="Reset this color" aria-label="Reset color">&#x21BA;</button></div>
           </div>
         </div>
         <div class="theme-adv-group">
-          <div class="theme-adv-group-label">Custom Fonts</div>
+          <div class="theme-adv-group-label" data-i18n="theme.custom_fonts">Custom Fonts</div>
           <div class="theme-fd-label" style="opacity:0.4;">Drop <code>.woff2</code>, <code>.ttf</code>, or <code>.otf</code> files into <code>static/fonts/custom/</code> and reload — they'll appear in the Font dropdown above.</div>
         </div>
         <button class="theme-adv-clear-btn" id="theme-adv-clear">Clear Advanced Overrides</button>
@@ -533,28 +533,28 @@
         <h2><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="19" cy="13" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="10" cy="20" r="2.5"/></svg>Color Harmony</h2>
         <div class="theme-harmony-row">
           <div class="theme-fd-group">
-            <label class="theme-fd-label">Accent Color</label>
+            <label class="theme-fd-label" data-i18n="theme.accent_color">Accent Color</label>
             <div class="color-row" style="justify-content:flex-start;gap:8px;">
               <input type="color" id="harmony-accent" value="#e06c75">
               <span id="harmony-accent-hex" style="font-size:11px;opacity:0.65;font-family:ui-monospace,monospace;letter-spacing:0.02em;">#e06c75</span>
             </div>
           </div>
           <div class="theme-fd-group">
-            <label class="theme-fd-label">Harmony</label>
+            <label class="theme-fd-label" data-i18n="theme.harmony">Harmony</label>
             <select id="harmony-type" class="theme-fd-select">
-              <option value="complementary">Complementary</option>
-              <option value="analogous">Analogous</option>
-              <option value="triadic">Triadic</option>
-              <option value="monochromatic">Monochromatic</option>
+              <option value="complementary" data-i18n="theme.complementary">Complementary</option>
+              <option value="analogous" data-i18n="theme.analogous">Analogous</option>
+              <option value="triadic" data-i18n="theme.triadic">Triadic</option>
+              <option value="monochromatic" data-i18n="theme.monochromatic">Monochromatic</option>
             </select>
           </div>
         </div>
         <div class="theme-harmony-row" style="margin-top:6px;">
           <div class="theme-fd-group">
-            <label class="theme-fd-label">Mode</label>
+            <label class="theme-fd-label" data-i18n="theme.mode">Mode</label>
             <select id="harmony-mode" class="theme-fd-select">
-              <option value="dark">Dark</option>
-              <option value="light">Light</option>
+              <option value="dark" data-i18n="theme.dark">Dark</option>
+              <option value="light" data-i18n="theme.light">Light</option>
             </select>
           </div>
           <div class="theme-fd-group" style="justify-content:flex-end;">
@@ -567,23 +567,23 @@
         <h2>Font & Layout</h2>
         <div class="theme-fd-row">
           <div class="theme-fd-group">
-            <label class="theme-fd-label">Font</label>
+            <label class="theme-fd-label" data-i18n="theme.font">Font</label>
             <select id="theme-font-select" class="theme-fd-select" aria-label="Font">
-              <option value="mono">Monospace</option>
-              <option value="sans">Sans-serif</option>
-              <option value="serif">Serif</option>
+              <option value="mono" data-i18n="theme.monospace">Monospace</option>
+              <option value="sans" data-i18n="theme.sans_serif">Sans-serif</option>
+              <option value="serif" data-i18n="theme.serif">Serif</option>
             </select>
           </div>
           <div class="theme-fd-group">
-            <label class="theme-fd-label">Density</label>
+            <label class="theme-fd-label" data-i18n="theme.density">Density</label>
             <select id="theme-density-select" class="theme-fd-select" aria-label="Density">
-              <option value="compact">Compact</option>
-              <option value="comfortable">Comfortable</option>
-              <option value="spacious">Spacious</option>
+              <option value="compact" data-i18n="theme.compact">Compact</option>
+              <option value="comfortable" data-i18n="theme.comfortable">Comfortable</option>
+              <option value="spacious" data-i18n="theme.spacious">Spacious</option>
             </select>
           </div>
           <div class="theme-fd-group" id="theme-frosted-group">
-            <label class="theme-fd-label" for="theme-frosted-toggle">Frosted</label>
+            <label class="theme-fd-label" for="theme-frosted-toggle" data-i18n="theme.frosted">Frosted</label>
             <label class="admin-switch" style="margin-top:4px;">
               <input type="checkbox" id="theme-frosted-toggle">
               <span class="admin-slider"></span>
@@ -592,17 +592,17 @@
         </div>
         <div class="theme-fd-row">
           <div class="theme-fd-group" style="flex:1 1 0;">
-            <label class="theme-fd-label">Background / Effect</label>
+            <label class="theme-fd-label" data-i18n="theme.background_effect">Background / Effect</label>
             <select id="theme-bg-pattern-select" class="theme-fd-select">
-              <option value="none">Solid</option>
-              <option value="dots">Dots</option>
-              <option value="synapse">Synapse</option>
-              <option value="rain">Rain</option>
-              <option value="constellations">Constellations</option>
-              <option value="perlin-flow">Perlin Flow</option>
-              <option value="petals">Petals</option>
-              <option value="sparkles">Sparkles</option>
-              <option value="embers">Embers</option>
+              <option value="none" data-i18n="theme.solid">Solid</option>
+              <option value="dots" data-i18n="theme.dots">Dots</option>
+              <option value="synapse" data-i18n="theme.synapse">Synapse</option>
+              <option value="rain" data-i18n="theme.rain">Rain</option>
+              <option value="constellations" data-i18n="theme.constellations">Constellations</option>
+              <option value="perlin-flow" data-i18n="theme.perlin_flow">Perlin Flow</option>
+              <option value="petals" data-i18n="theme.petals">Petals</option>
+              <option value="sparkles" data-i18n="theme.sparkles">Sparkles</option>
+              <option value="embers" data-i18n="theme.embers">Embers</option>
             </select>
           </div>
           <div class="theme-fd-group" style="flex:0 0 auto;align-items:center;">
@@ -615,20 +615,20 @@
         </div>
         <div class="theme-fd-row">
           <div class="theme-fd-group" id="theme-bg-intensity-group" style="flex:1 1 0;">
-            <label class="theme-fd-label">Intensity</label>
+            <label class="theme-fd-label" data-i18n="theme.intensity">Intensity</label>
             <input type="range" id="theme-bg-intensity" class="theme-fd-range" min="0" max="100" step="5" value="100">
           </div>
           <div class="theme-fd-group" id="theme-bg-size-group" style="flex:1 1 0;">
-            <label class="theme-fd-label">Size</label>
+            <label class="theme-fd-label" data-i18n="theme.size">Size</label>
             <input type="range" id="theme-bg-size" class="theme-fd-range" min="30" max="250" step="10" value="100">
           </div>
         </div>
       </div>
       <div class="admin-card" style="margin-top:8px;">
-        <h2>Save / Share</h2>
+        <h2 data-i18n="theme.save_share">Save / Share</h2>
         <div class="theme-save-row" id="theme-save-row">
           <input type="text" id="theme-save-name" placeholder="Theme name..." maxlength="32">
-          <button id="theme-save-go">Save</button>
+          <button id="theme-save-go" data-i18n="common.save">Save</button>
         </div>
         <div class="theme-save-error" id="theme-save-error"></div>
         <div class="theme-io-row" style="margin-top:6px;">
@@ -637,11 +637,11 @@
         </div>
         <textarea id="theme-import-area" class="theme-import-area hidden" placeholder="Paste theme JSON here..." rows="3"></textarea>
         <div class="theme-import-actions hidden" id="theme-import-actions">
-          <button id="theme-import-go" class="theme-io-btn">Apply</button>
-          <button id="theme-import-cancel" class="theme-io-btn">Cancel</button>
+          <button id="theme-import-go" class="theme-io-btn" data-i18n="theme.apply">Apply</button>
+          <button id="theme-import-cancel" class="theme-io-btn" data-i18n="common.cancel">Cancel</button>
         </div>
       </div>
-      <button id="theme-reset-btn">Reset to Default</button>
+      <button id="theme-reset-btn" data-i18n="theme.reset_default">Reset to Default</button>
     </div>
   </div>
   </div>
@@ -683,7 +683,7 @@
     <div class="sidebar-header">
       <button class="sidebar-hamburger" id="sidebar-toggle-btn" title="Toggle sidebar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       <div class="sidebar-brand" id="sidebar-brand-btn" style="cursor:pointer;" title="New chat">
-        <span class="sidebar-brand-title">Odysseus</span>
+        <span class="sidebar-brand-title" data-i18n="app.title">Odysseus</span>
       </div>
     </div>
     <div class="sidebar-inner">
@@ -722,12 +722,12 @@
               </svg>
             </button>
             <div id="session-sort-dropdown" class="dropdown sort-dropdown" style="display:none;">
-              <div class="dropdown-item sort-option sort-dropdown-item" data-sort="active">Last Active</div>
-              <div class="dropdown-item sort-option sort-dropdown-item" data-sort="newest">Newest First</div>
-              <div class="dropdown-item sort-option sort-dropdown-item" data-sort="group">By Folder</div>
+              <div class="dropdown-item sort-option sort-dropdown-item" data-sort="active" data-i18n="sessions.last_active">Last Active</div>
+              <div class="dropdown-item sort-option sort-dropdown-item" data-sort="newest" data-i18n="sessions.newest_first">Newest First</div>
+              <div class="dropdown-item sort-option sort-dropdown-item" data-sort="group" data-i18n="sessions.by_folder">By Folder</div>
               <div class="dropdown-item sort-dropdown-item sort-dropdown-sep" id="auto-sort-sessions-row" style="display:flex;align-items:center;padding:0;">
                 <span id="auto-sort-sessions-btn" style="flex:1;padding:5px 10px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;">
-                  <span class="auto-sort-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px;margin-right:2px;"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z"/></svg> Tidy</span>
+                  <span class="auto-sort-icon"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-1px;margin-right:2px;"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z"/></svg data-i18n="memory.tidy"> Tidy</span>
                   <span class="auto-sort-spinner" style="display:none;">Sorting...</span>
                 </span>
                 <button type="button" id="auto-sort-sessions-more" title="Tidy options" aria-label="Tidy options" style="background:none;border:none;border-left:1px solid var(--border);color:inherit;cursor:pointer;padding:5px 8px;font-size:9px;opacity:0.7;"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>
@@ -757,15 +757,15 @@
       <!-- Hidden dropdown for session actions -->
       <div id="session-actions-dropdown" class="dropdown hidden">
         <div class="dropdown-item" id="rename-session-option">
-          <h4>Rename</h4>
-          <p>Change the session name</p>
+          <h4 data-i18n="common.rename">Rename</h4>
+          <p><span data-i18n="sessions.change_name">Change the session name</p>
         </div>
         <div class="dropdown-item" id="delete-session-option">
-          <h4>Delete</h4>
-          <p>Remove this session permanently</p>
+          <h4 data-i18n="common.delete">Delete</h4>
+          <p><span data-i18n="sessions.remove_permanently">Remove this session permanently</p>
         </div>
         <div class="dropdown-item" id="memory-session-option">
-          <h4>Memory</h4>
+          <h4 data-i18n="sessions.memory">Memory</h4>
           <p>Extract memories from this session</p>
         </div>
       </div>
@@ -798,7 +798,7 @@
               </svg>
             </button>
             <div id="model-sort-dropdown" class="dropdown sort-dropdown" style="display:none;">
-              <div class="dropdown-item sort-option sort-dropdown-item" data-sort="alpha">A-Z</div>
+              <div class="dropdown-item sort-option sort-dropdown-item" data-sort="alpha" data-i18n="sessions.a_z">A-Z</div>
               <div class="dropdown-item sort-option sort-dropdown-item" data-sort="last-used">Last used</div>
               <div class="dropdown-item sort-option sort-dropdown-item" data-sort="most-used">Most used</div>
               <div class="dropdown-item rearrange-toggle sort-dropdown-item sort-dropdown-sep" id="model-rearrange-toggle">
@@ -827,7 +827,7 @@
             <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/>
             <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/>
           </svg>
-          <span class="grow">Brain</span>
+          <span class="grow" data-i18n="memory.title">Brain</span>
         </div>
         <div class="list-item" id="tool-calendar-btn">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -838,11 +838,11 @@
             <line x1="8" y1="2" x2="8" y2="6"/>
             <line x1="3" y1="10" x2="21" y2="10"/>
           </svg>
-          <span class="grow">Calendar</span>
+          <span class="grow" data-i18n="calendar.title">Calendar</span>
         </div>
         <div class="list-item" id="tool-compare-btn">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;opacity:0.5;"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><path d="M11 18H8a2 2 0 0 1-2-2V9"/></svg>
-          <span class="grow">Compare</span>
+          <span class="grow" data-i18n="compare.title">Compare</span>
         </div>
         <div class="list-item" id="tool-cookbook-btn">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -851,13 +851,13 @@
             <path d="M12 7v14"/>
             <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>
           </svg>
-          <span class="grow">Cookbook</span>
+          <span class="grow" data-i18n="cookbook.title">Cookbook</span>
           <span id="cookbook-bg-status" style="display:none;font-size:9px;opacity:0.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-right:12px;flex-shrink:1;min-width:0;position:relative;top:-1px;"></span>
           <span class="cookbook-notif-dot" id="cookbook-notif-dot" style="display:none;margin-left:6px;margin-right:4px;position:relative;top:-1px;left:0px;"></span>
         </div>
         <div class="list-item" id="tool-research-btn">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;opacity:0.5;"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-          <span class="grow">Deep Research</span>
+          <span class="grow" data-i18n="deep_research.title">Deep Research</span>
         </div>
         <div class="list-item" id="tool-gallery-btn">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -867,13 +867,13 @@
             <circle cx="8.5" cy="8.5" r="1.5"/>
             <path d="M21 15l-5-5L5 21"/>
           </svg>
-          <span class="grow">Gallery</span>
+          <span class="grow" data-i18n="gallery.title">Gallery</span>
         </div>
         <div class="list-item" id="tool-library-btn">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;opacity:0.5;">
             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M9 7h6M9 11h4"/>
           </svg>
-          <span class="grow">Library</span>
+          <span class="grow" data-i18n="document.library">Library</span>
           <button type="button" class="list-item-plus-btn" id="library-new-doc-btn" title="New document">
             <svg class="list-item-plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             <span class="list-item-plus-label">new</span>
@@ -887,7 +887,7 @@
             <path d="M15 3v5h5"/>
             <path d="M8 17.5 15.5 10l2.5 2.5L10.5 20H8z"/>
           </svg>
-          <span class="grow">Notes</span>
+          <span class="grow" data-i18n="notes.title">Notes</span>
         </div>
         <div class="list-item" id="tool-tasks-btn">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -899,7 +899,7 @@
             <line x1="3" y1="10" x2="21" y2="10"/>
             <path d="M9 16l2 2 4-4"/>
           </svg>
-          <span class="grow">Tasks</span>
+          <span class="grow" data-i18n="tasks.title">Tasks</span>
           <span id="assistant-notif-dot" class="sidebar-notif-dot" style="display:none"></span>
         </div>
 
@@ -913,7 +913,7 @@
             <circle cx="15" cy="14" r="1.5" fill="currentColor"/>
             <circle cx="9" cy="15" r="1.5" fill="currentColor"/>
           </svg>
-          <span class="grow">Theme</span>
+          <span class="grow" data-i18n="theme.title">Theme</span>
         </div>
       </div>
     </div>
@@ -950,7 +950,7 @@
         <svg class="eye-blinded" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
           <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><line x1="8" y1="16" x2="16" y2="8"/><line x1="8" y1="8" x2="16" y2="16"/>
         </svg>
-        <span class="incognito-label">Nobody</span>
+        <span class="incognito-label" data-i18n="app.incognito">Nobody</span>
       </button>
       <div id="welcome-setup" style="display:none"></div>
     </div>
@@ -996,7 +996,7 @@
     <div class="chat-input-bar">
       <div class="chat-input-top">
         <div id="message-ghost" class="ghost-text-overlay" aria-hidden="true"></div>
-        <textarea id="message" placeholder="Message Odysseus..." required autocomplete="off" aria-label="Message input" rows="1" autofocus></textarea>
+        <textarea id="message" data-i18n-placeholder="app.message_placeholder" placeholder="Message Odysseus..." required autocomplete="off" aria-label="Message input" rows="1" autofocus></textarea>
         <!-- Model picker (inside chatbox, top-right) -->
         <div class="model-picker-wrap" id="model-picker-wrap">
           <button type="button" class="model-picker-btn" id="model-picker-btn" title="Switch model"><span id="model-picker-label">Select model</span> <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"/></svg></button>
@@ -1025,7 +1025,7 @@
             <div id="overflow-menu" class="overflow-menu hidden">
               <button type="button" class="overflow-menu-item" id="overflow-attach-btn">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
-                <span>Attach files</span>
+                <span data-i18n="app.attach_files">Attach files</span>
               </button>
               <button type="button" class="overflow-menu-item" id="overflow-doc-btn">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1108,8 +1108,8 @@
         <div class="chat-input-right">
           <!-- Agent / Chat mode toggle -->
           <div class="mode-toggle">
-            <button type="button" class="mode-toggle-btn active" id="mode-agent-btn" aria-pressed="true">Agent</button>
-            <button type="button" class="mode-toggle-btn" id="mode-chat-btn" aria-pressed="false">Chat</button>
+            <button type="button" class="mode-toggle-btn active" id="mode-agent-btn" aria-pressed="true" data-i18n="app.agent">Agent</button>
+            <button type="button" class="mode-toggle-btn" id="mode-chat-btn" aria-pressed="false" data-i18n="app.chat">Chat</button>
           </div>
           <button type="submit" form="chat-form" class="send-btn newchat-mode" data-mode="newchat" aria-label="New chat">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg><span class="send-btn-label">+ New</span>
@@ -1138,9 +1138,9 @@
             </div>
             <!-- Inject tab (also holds model tuning: temperature + max tokens) -->
             <div class="preset-chartab" data-chartab-panel="inject">
-              <label for="inject-prefix">Prefix</label>
+              <label for="inject-prefix" data-i18n="model.prefix">Prefix</label>
               <textarea id="inject-prefix" rows="2" placeholder="Added before your message" style="margin-bottom:8px"></textarea>
-              <label for="inject-suffix">Suffix</label>
+              <label for="inject-suffix" data-i18n="model.suffix">Suffix</label>
               <textarea id="inject-suffix" rows="2" placeholder="Added after your message" style="margin-bottom:12px"></textarea>
               <div class="preset-slider-row">
                 <label>Temperature <span class="preset-hint-icon" title="Controls randomness. Lower values give focused, deterministic answers (good for code). Higher values give more creative, varied responses.">?</span></label>
@@ -1148,9 +1148,9 @@
               </div>
               <input type="range" class="preset-range" id="custom-temperature" min="0" max="2" step="0.1" value="1.0">
               <div class="preset-temp-hints">
-                <span>Precise / Code</span>
-                <span>Balanced</span>
-                <span>Creative</span>
+                <span data-i18n="model.precise_code">Precise / Code</span>
+                <span data-i18n="model.balanced">Balanced</span>
+                <span data-i18n="model.creative">Creative</span>
               </div>
               <div class="preset-slider-row">
                 <label>Max Tokens <span class="preset-hint-icon" title="Maximum length of the AI response. 'No limit' lets the model decide when to stop.">?</span></label>
@@ -1160,10 +1160,10 @@
             </div>
             <!-- Prompt (character/persona) tab -->
             <div class="preset-chartab" data-chartab-panel="character" style="display:none">
-              <label>Persona</label>
+              <label data-i18n="model.persona">Persona</label>
               <div class="char-name-combo">
                 <select id="char-template-select" class="char-template-select">
-                  <option value="">Select persona...</option>
+                  <option value="" data-i18n="model.select_persona">Select persona...</option>
                 </select>
                 <button type="button" id="char-new-btn" class="char-action-btn" title="Create a new persona">+ New</button>
               </div>
@@ -1199,7 +1199,7 @@
         </div>
         <div class="modal-footer">
           <div style="flex:1"></div>
-          <button type="button" id="cancel-custom-preset" style="margin-right:8px;display:none;">Cancel</button>
+          <button type="button" id="cancel-custom-preset" style="margin-right:8px;display:none;" data-i18n="common.cancel">Cancel</button>
           <button type="button" id="save-custom-preset">Start</button>
         </div>
       </div>
@@ -1287,8 +1287,8 @@
           />
         </div>
         <div style="display: flex; justify-content: flex-end; gap: 8px;">
-          <button id="cancel-rename-session" style="padding: 6px 12px;">Cancel</button>
-          <button id="save-session-name" style="padding: 6px 12px; background: var(--fg); color: var(--bg);">Save</button>
+          <button id="cancel-rename-session" style="padding: 6px 12px;" data-i18n="common.cancel">Cancel</button>
+          <button id="save-session-name" style="padding: 6px 12px; background: var(--fg); color: var(--bg);" data-i18n="common.save">Save</button>
         </div>
       </div>
     </div>
@@ -1313,7 +1313,7 @@
         <h4><span style="vertical-align:-1px;margin-right:6px;font-size:15px">&#x2699;</span>Settings</h4>
         <button type="button" class="theme-opacity-wrap theme-opacity-toggle hidden" id="settings-opacity-wrap" title="Fade this window to preview the page behind it" aria-pressed="false">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-          <span class="theme-opacity-label">Peek</span>
+          <span class="theme-opacity-label" data-i18n="theme.peek">Peek</span>
         </button>
         <button class="close-btn" aria-label="Close settings">✖</button>
       </div>
@@ -1905,7 +1905,7 @@
               <div class="settings-row" style="margin-top:4px">
                 <span id="set-email-style-msg" style="font-size:11px;"></span>
                 <button class="admin-btn-add" id="set-email-style-extract" style="margin-left:auto;">Extract from Sent (15 emails)</button>
-                <button class="admin-btn-add" id="set-email-style-save">Save</button>
+                <button class="admin-btn-add" id="set-email-style-save" data-i18n="common.save">Save</button>
               </div>
             </div>
           </div>
@@ -2120,7 +2120,7 @@
                   <button class="admin-btn-sm" id="adm-epApiTestBtn" style="min-width:55px;text-align:center;display:inline-flex;align-items:center;justify-content:center;gap:4px;">
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Test
                   </button>
-                  <button class="admin-btn-sm hidden" id="adm-epApiCancelTestBtn" style="width:62px;text-align:center;">Cancel</button>
+                  <button class="admin-btn-sm hidden" id="adm-epApiCancelTestBtn" style="width:62px;text-align:center;" data-i18n="common.cancel">Cancel</button>
                   <button class="admin-btn-add" id="adm-epAddBtn" style="min-width:55px;text-align:center;display:inline-flex;align-items:center;justify-content:center;gap:4px;">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Add
                   </button>
@@ -2207,7 +2207,7 @@
           </div>
           <div class="admin-card" style="margin-bottom:12px;">
             <h2 style="display:flex;align-items:center;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:1px;opacity:0.6;flex-shrink:0"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Agent loop<span style="flex:1"></span><label class="admin-switch" title="On a failing effectful turn, climb verify → different-method → teacher → stop-and-summarize instead of silently quitting." style="flex-shrink:0"><input type="checkbox" id="set-agentSupervisorLadder"><span class="admin-slider"></span></label></h2>
-            <div class="admin-toggle-sub" style="margin-bottom:8px">Supervisor ladder. When on, every effectful agent turn that claims done is verified; on FAIL the ladder escalates verify → different method → teacher → stop-with-blocker, each rung visible in chat. Teacher rung requires <code>teacher_model</code> to be set.</div>
+            <div class="admin-toggle-sub" style="margin-bottom:8px"><span data-i18n="admin.agent_supervisor_ladder_desc">Supervisor ladder. When on, every effectful agent turn that claims done is verified; on FAIL the ladder escalates verify → different method → teacher → stop-with-blocker, each rung visible in chat. Teacher rung requires <code>teacher_model</code> to be set.</div>
           </div>
           <div class="admin-card" style="margin-bottom:12px;">
             <h2><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;opacity:0.6"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Built-in Tools</h2>
@@ -2221,37 +2221,37 @@
 
           <div class="admin-card">
             <h2><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:5px;opacity:0.6"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Data Backup</h2>
-            <div class="admin-toggle-sub" style="margin-bottom:8px">Export or import your user data (memories, presets, settings, skills, preferences) as a JSON file.</div>
+            <div class="admin-toggle-sub" style="margin-bottom:8px">data-i18n="admin.backup_desc">Export or import your user data (memories, presets, settings, skills, preferences) as a JSON file.</div>
             <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <button class="admin-btn-add" id="adm-exportDataBtn">Export Data</button>
-              <button class="admin-btn-add" id="adm-importDataBtn">Import Data</button>
+              <button class="admin-btn-add" id="adm-exportDataBtn" data-i18n="admin.export_data">Export Data</button>
+              <button class="admin-btn-add" id="adm-importDataBtn" data-i18n="admin.import_data">Import Data</button>
               <input type="file" id="adm-importFile" accept=".json" style="display:none;">
             </div>
             <div id="adm-backupMsg" style="margin-top:6px;"></div>
           </div>
           <div class="admin-card admin-danger-card">
-            <h2 style="color:#e55;">Danger Zone</h2>
-            <div class="admin-toggle-sub" style="margin-bottom:8px">Irreversible. Each wipe targets one category — pick exactly what you want gone.</div>
+            <h2 style="color:#e55;" data-i18n="admin.danger_zone">Danger Zone</h2>
+            <div class="admin-toggle-sub" style="margin-bottom:8px">data-i18n="admin.danger_zone_desc">Irreversible. Each wipe targets one category — pick exactly what you want gone.</div>
 
             <div style="display:flex;justify-content:space-between;align-items:center;">
               <div>
-                <div class="admin-toggle-label">Wipe all chats</div>
-                <div class="admin-toggle-sub">Every session, message, and chat history. Documents/notes/etc. stay.</div>
+                <div class="admin-toggle-label" data-i18n="admin.wipe_chats">Wipe all chats</div>
+                <div class="admin-toggle-sub"><span data-i18n="admin.wipe_chats_desc">Every session, message, and chat history. Documents/notes/etc. stay.</span></div>
               </div>
               <button class="admin-btn-delete" data-wipe-kind="chats" style="white-space:nowrap;">Wipe</button>
             </div>
 
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
               <div>
-                <div class="admin-toggle-label">Wipe all memory</div>
-                <div class="admin-toggle-sub">Clears `memory.json`, the Memory table, and the vector store. Skills not affected.</div>
+                <div class="admin-toggle-label" data-i18n="admin.wipe_memory">Wipe all memory</div>
+                <div class="admin-toggle-sub"><span data-i18n="admin.wipe_memory_desc">Clears memory.json, the Memory table, and the vector store. Skills not affected.</span></div>
               </div>
               <button class="admin-btn-delete" data-wipe-kind="memory" style="white-space:nowrap;">Wipe</button>
             </div>
 
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
               <div>
-                <div class="admin-toggle-label">Wipe all skills</div>
+                <div class="admin-toggle-label" data-i18n="admin.wipe_skills">Wipe all skills</div>
                 <div class="admin-toggle-sub">Drops `data/skills/` (all SKILL.md files). Memory not affected.</div>
               </div>
               <button class="admin-btn-delete" data-wipe-kind="skills" style="white-space:nowrap;">Wipe</button>
@@ -2259,40 +2259,40 @@
 
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
               <div>
-                <div class="admin-toggle-label">Wipe all notes</div>
-                <div class="admin-toggle-sub">Every note, todo, and checklist.</div>
+                <div class="admin-toggle-label" data-i18n="admin.wipe_notes">Wipe all notes</div>
+                <div class="admin-toggle-sub"><span data-i18n="admin.wipe_notes_desc">Every note, todo, and checklist.</span></div>
               </div>
               <button class="admin-btn-delete" data-wipe-kind="notes" style="white-space:nowrap;">Wipe</button>
             </div>
 
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
               <div>
-                <div class="admin-toggle-label">Wipe all tasks</div>
-                <div class="admin-toggle-sub">Every scheduled task and its run history (Tasks tool).</div>
+                <div class="admin-toggle-label" data-i18n="admin.wipe_tasks">Wipe all tasks</div>
+                <div class="admin-toggle-sub"><span data-i18n="admin.wipe_tasks_desc">Every scheduled task and its run history (Tasks tool).</span></div>
               </div>
               <button class="admin-btn-delete" data-wipe-kind="tasks" style="white-space:nowrap;">Wipe</button>
             </div>
 
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
               <div>
-                <div class="admin-toggle-label">Wipe all documents</div>
-                <div class="admin-toggle-sub">Every document and version. Drafts, exports, library — all gone.</div>
+                <div class="admin-toggle-label" data-i18n="admin.wipe_documents">Wipe all documents</div>
+                <div class="admin-toggle-sub"><span data-i18n="admin.wipe_documents_desc">Every document and version. Drafts, exports, library — all gone.</div>
               </div>
               <button class="admin-btn-delete" data-wipe-kind="documents" style="white-space:nowrap;">Wipe</button>
             </div>
 
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
               <div>
-                <div class="admin-toggle-label">Wipe all gallery</div>
-                <div class="admin-toggle-sub">Every image record and the upload directory on disk.</div>
+                <div class="admin-toggle-label" data-i18n="admin.wipe_gallery">Wipe all gallery</div>
+                <div class="admin-toggle-sub"><span data-i18n="admin.wipe_gallery_desc">Every image record and the upload directory on disk.</span></div>
               </div>
               <button class="admin-btn-delete" data-wipe-kind="gallery" style="white-space:nowrap;">Wipe</button>
             </div>
 
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;">
               <div>
-                <div class="admin-toggle-label">Wipe all calendar</div>
-                <div class="admin-toggle-sub">Every event and every calendar (incl. CalDAV-synced ones; resync to restore).</div>
+                <div class="admin-toggle-label" data-i18n="admin.wipe_calendar">Wipe all calendar</div>
+                <div class="admin-toggle-sub"><span data-i18n="admin.wipe_calendar_desc">Every event and every calendar (incl. CalDAV-synced ones; resync to restore).</span></div>
               </div>
               <button class="admin-btn-delete" data-wipe-kind="calendar" style="white-space:nowrap;">Wipe</button>
             </div>
@@ -2309,7 +2309,7 @@
   <!-- Search overlay (Ctrl+K command palette) -->
   <div class="search-overlay hidden" id="search-overlay">
     <div class="search-popup">
-      <input type="text" id="search-input" placeholder="Search conversations..." autocomplete="off" />
+      <input type="text" id="search-input" data-i18n-placeholder="app.search_conversations" placeholder="Search conversations..." autocomplete="off" />
       <div class="search-results" id="search-results"></div>
     </div>
   </div>
@@ -2321,6 +2321,7 @@
 
 <!-- Load modules in this order -->
 <script type="module" src="/static/js/storage.js"></script>
+	<script type="module" src="/static/js/i18n.js"></script>
 <script type="module" src="/static/js/ui.js"></script>
 <script type="module" src="/static/js/markdown.js"></script>
 <script type="module" src="/static/js/dragSort.js"></script>

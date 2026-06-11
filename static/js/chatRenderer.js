@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // static/js/chatRenderer.js
 // Extracted from chat.js — message rendering, sources, images, metrics
 

@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 /**
  * Tasks Module — scheduled recurring LLM prompts.
  */

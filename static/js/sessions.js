@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // Session Management Functions
 // This module handles all session-related operations
 

@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // static/js/document.js
 /**
  * Document editor module — multi-document tabbed panel alongside chat.

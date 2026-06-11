@@ -1,3 +1,4 @@
+import { __ } from './i18n.js';
 // skills.js — Skills tab in the Memory modal.
 //
 // Skills are SKILL.md files (frontmatter + body) under data/skills/.
