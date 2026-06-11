@@ -5,7 +5,6 @@
     "description": "Odysseus 简体中文翻译。专业术语保留英文原文。",
     "translators": "Community translation"
   },
-
   "app": {
     "title": "Odysseus — AI 工作空间",
     "chat": "对话",
@@ -31,10 +30,9 @@
     "sorted": "已排序",
     "models_sorted": "已排序模型"
   },
-
   "chat": {
     "send": "发送消息",
-    "stop": "停止",
+    "stop": "停止生成",
     "stop_gen": "停止生成",
     "continue": "继续",
     "continue_btn": "继续 ▸",
@@ -56,7 +54,7 @@
     "send_selection": "发送选择",
     "role_chat": "对话",
     "role_agent": "Agent",
-    "model_fallback": "(回退)",
+    "model_fallback": "(fallback)",
     "vision_label": "Vision",
     "paused_mid_task": "任务中途暂停",
     "read_aloud": "朗读",
@@ -90,7 +88,6 @@
     "compaction_failed": "压缩失败",
     "doc_edit": "文档编辑"
   },
-
   "sessions": {
     "title": "会话",
     "new": "新建",
@@ -123,7 +120,6 @@
     "archived": "会话已归档",
     "archive_failed": "归档会话失败"
   },
-
   "settings": {
     "title": "设置",
     "models": "模型",
@@ -163,7 +159,6 @@
     "active_provider": "当前",
     "results": "条结果"
   },
-
   "model": {
     "temperature": "温度",
     "max_tokens": "最大 Token 数",
@@ -183,8 +178,21 @@
     "stop_sequences": "停止序列",
     "custom": "自定义"
   },
-
   "memory": {
+    "save_pref_failed": "保存偏好失败",
+    "skill_confidence_all": "技能置信度：全部",
+    "skill_confidence": "技能置信度",
+    "no_skills_injected": "未注入技能",
+    "max_injected": "最大注入技能数",
+    "deleted": "已删除",
+    "deleted_one": "条记忆",
+    "deleted_many": "条记忆",
+    "already_clean": "已经是最新的",
+    "tidy_failed": "整理失败 — 查看控制台",
+    "pinned": "已置顶",
+    "updated": "记忆已更新",
+    "update_failed": "更新记忆失败",
+    "text_empty": "记忆文本不能为空",
     "title": "Brain（记忆）",
     "search": "搜索记忆…",
     "new": "新建记忆",
@@ -202,8 +210,25 @@
     "search_hint": "搜索记忆…",
     "include_in_context": "将记忆包含在对话上下文中"
   },
-
   "skills": {
+    "restore_original": "恢复原始内置指令",
+    "load_failed": "加载失败。",
+    "load_skill_failed": "加载 SKILL.md 失败",
+    "capability_updated": "内置能力已更新",
+    "save_failed": "保存失败",
+    "reverted": "已恢复默认",
+    "revert_failed": "恢复失败",
+    "move_to_draft": "移回草稿",
+    "publish": "发布 — 显示在技能索引中",
+    "test": "测试此技能 — 运行 + AI 评判",
+    "deleted": "技能已删除",
+    "delete_failed": "删除失败",
+    "approved": "技能已批准",
+    "moved_to_draft": "技能已移回草稿",
+    "update_failed": "更新失败",
+    "audited": "已审核",
+    "no_selected": "没有选中要审核的技能",
+    "no_visible": "没有可见的技能可审核",
     "title": "Skills（技能）",
     "search": "搜索技能…",
     "sort_confidence": "置信度",
@@ -225,7 +250,6 @@
     "cancel": "取消",
     "include_in_context": "将相关技能注入对话上下文"
   },
-
   "theme": {
     "title": "主题",
     "peek": "预览",
@@ -283,8 +307,22 @@
     "apply": "应用",
     "reset_default": "恢复默认"
   },
-
   "document": {
+    "email_receive_only": "选中的邮件账户只能接收；将使用你的 SMTP 账户。",
+    "export_failed": "导出失败",
+    "jump_to_signature": "跳转到最后一页（签名栏通常在此处）",
+    "remove_signature": "移除此处的签名",
+    "change": "更改",
+    "sign_here": "在此签名",
+    "today": "今天",
+    "building_pdf": "正在生成 PDF…",
+    "delete_annotation": "删除批注",
+    "drag_move": "拖拽移动",
+    "drag_resize": "拖拽调整大小",
+    "annotation_options": "文本批注选项",
+    "thinking": "思考中…",
+    "ai_nothing_to_fill": "AI 未找到需要填写的内容",
+    "ai_fill": "AI 填写",
     "title": "文档",
     "library": "文档库",
     "new": "新建",
@@ -294,38 +332,112 @@
     "search": "搜索文档…",
     "untitled": "未命名"
   },
-
   "gallery": {
+    "cant_read_folders": "浏览器无法读取从原生文件管理器拖放的文件夹。请使用 Albums 标签中的 \"上传相册\"。",
+    "no_images_drop": "拖放内容中未找到图片",
+    "select_albums_first": "请先选择相册",
+    "album_renamed": "相册已重命名",
+    "rename_failed": "重命名失败",
+    "album_deleted": "相册已删除",
+    "delete_failed": "删除失败",
+    "no_images_folder": "该文件夹中没有图片或视频",
+    "cant_create_album": "无法创建相册",
+    "deleted_albums": "已删除",
+    "albums": "个相册",
+    "album": "个相册",
     "title": "图库"
   },
-
   "tasks": {
+    "deleted_count": "已删除",
+    "tasks": "个任务",
+    "task": "个任务",
+    "run_now": "立即运行",
+    "full_history": "打开完整历史",
+    "day_of_week": "星期几",
+    "day_of_month": "几号",
+    "date": "日期",
+    "cron_expr": "Cron 表达式",
+    "cron_hint": "分 时 日 月 星期 — 例如 \"0 */2 * * *\" = 每2小时",
+    "prompt_required": "提示词不能为空",
+    "select_action": "请选择操作",
+    "urgency_save_failed": "保存紧急规则失败",
+    "cron_required": "Cron 表达式不能为空",
+    "select_event": "请选择事件",
+    "updated": "任务已更新",
+    "created": "任务已创建",
+    "paused": "任务已暂停",
     "title": "任务"
   },
-
   "notes": {
+    "undo_failed": "撤销失败",
+    "no_past_reminders": "没有过期的提醒需要清除",
+    "cleared_reminders": "已清除",
+    "reminder": "条过期提醒",
+    "reminders": "条过期提醒",
+    "pin_failed": "置顶失败",
+    "color_failed": "更新颜色失败",
+    "archived": "已归档",
+    "archive_failed": "归档失败",
+    "unarchived": "已取消归档",
+    "unarchive_failed": "取消归档失败",
+    "deleted": "已删除",
+    "delete_failed": "删除失败",
+    "copy_failed": "复制失败",
     "title": "笔记"
   },
-
   "calendar": {
+    "create_failed": "创建事件失败",
+    "update_failed": "更新事件失败",
+    "delete_failed": "删除事件失败",
+    "reminder_failed": "创建提醒失败",
+    "parsing": "解析中…",
+    "quick_add": "快速添加",
+    "quick_add_failed": "快速添加失败",
+    "refreshed": "日历已刷新",
+    "moved": "已移动",
+    "calendar_create_failed": "创建日历失败",
+    "saved_calendar": "已保存",
+    "importing": "导入中...",
+    "syncing": "同步中…",
+    "title_required": "标题不能为空",
+    "save_failed": "保存失败",
     "title": "日历"
   },
-
   "compare": {
     "title": "对比"
   },
-
   "cookbook": {
+    "loading_packages": "加载包信息…",
+    "install_failed": "安装失败",
+    "updating": "更新",
+    "installing": "安装",
+    "on_host": "到",
+    "clearing": "清理中...",
+    "rebuild_failed": "重建失败",
+    "enter_repo_id": "请输入完整的 HuggingFace 仓库 ID，格式如 \"org/model-name\"，或 Ollama 名称如 \"qwen2.5:14b\"。",
+    "scanning": "正在扫描模型…",
+    "token_stored": "Token 已保存",
     "title": "Cookbook"
   },
-
   "deep_research": {
     "title": "深度研究",
     "description": "多步骤深度研究，收集和综合来源信息。",
     "toggle": "深度研究"
   },
-
   "email": {
+    "copied": "邮件已复制",
+    "copy": "复制邮件",
+    "copy_failed": "复制失败",
+    "restore": "恢复邮件",
+    "accounts": "账户",
+    "accounts_dot": "账户...",
+    "delete_failed": "删除邮件失败",
+    "moved_to_trash": "已移到废纸篓",
+    "drafting_reply": "正在用 AI 起草回复",
+    "reply_failed": "AI 回复失败",
+    "draft_failed": "创建回复草稿失败",
+    "no_session": "无法创建新邮件（无会话）",
+    "create_failed": "创建新邮件失败",
     "title": "邮件",
     "inbox": "收件箱",
     "compose": "写邮件",
@@ -337,8 +449,22 @@
     "sent": "已发送",
     "drafts": "草稿"
   },
-
   "admin": {
+    "privilege_failed": "更新权限失败",
+    "rename_failed": "重命名用户失败",
+    "delete_user_failed": "删除用户失败",
+    "username_required": "用户名不能为空",
+    "password_short": "密码至少需要8个字符",
+    "user_created": "用户已创建",
+    "request_failed": "请求失败",
+    "online_no_models": "在线 — 未找到模型",
+    "select_provider_url": "选择提供商或输入 Base URL",
+    "api_key_required": "云服务提供商需要 API 密钥",
+    "test_canceled": "测试已取消",
+    "test_failed": "测试失败",
+    "test_sent": "测试已发送！",
+    "test": "测试",
+    "adding": "添加中…",
     "title": "管理",
     "users": "用户",
     "wipe": "清除",
@@ -370,7 +496,6 @@
     "max_steps_per_message": "每条消息最大步数",
     "data_backup": "数据备份"
   },
-
   "auth": {
     "login_title": "Odysseus — 登录",
     "login": "登录",
@@ -399,7 +524,6 @@
     "login_failed": "登录失败",
     "invalid_code": "验证码无效"
   },
-
   "common": {
     "ok": "确定",
     "cancel": "取消",
@@ -442,183 +566,7 @@
     "less": "收起",
     "expand": "展开",
     "collapse": "折叠",
-    "loading": "加载中…",
     "add": "添加",
-    "actions": "操作",
-    "error": "错误"
-  },
-
-  "memory": {
-    "save_pref_failed": "保存偏好失败",
-    "skill_confidence_all": "技能置信度：全部",
-    "skill_confidence": "技能置信度",
-    "no_skills_injected": "未注入技能",
-    "max_injected": "最大注入技能数",
-    "deleted": "已删除",
-    "deleted_one": "条记忆",
-    "deleted_many": "条记忆",
-    "already_clean": "已经是最新的",
-    "tidy_failed": "整理失败 — 查看控制台",
-    "pinned": "已置顶",
-    "updated": "记忆已更新",
-    "update_failed": "更新记忆失败",
-    "text_empty": "记忆文本不能为空"
-  },
-
-  "skills": {
-    "restore_original": "恢复原始内置指令",
-    "load_failed": "加载失败。",
-    "load_skill_failed": "加载 SKILL.md 失败",
-    "capability_updated": "内置能力已更新",
-    "save_failed": "保存失败",
-    "reverted": "已恢复默认",
-    "revert_failed": "恢复失败",
-    "move_to_draft": "移回草稿",
-    "publish": "发布 — 显示在技能索引中",
-    "test": "测试此技能 — 运行 + AI 评判",
-    "deleted": "技能已删除",
-    "delete_failed": "删除失败",
-    "approved": "技能已批准",
-    "moved_to_draft": "技能已移回草稿",
-    "update_failed": "更新失败",
-    "audited": "已审核",
-    "no_selected": "没有选中要审核的技能",
-    "no_visible": "没有可见的技能可审核"
-  },
-
-  "admin": {
-    "privilege_failed": "更新权限失败",
-    "rename_failed": "重命名用户失败",
-    "delete_user_failed": "删除用户失败",
-    "username_required": "用户名不能为空",
-    "password_short": "密码至少需要8个字符",
-    "user_created": "用户已创建",
-    "request_failed": "请求失败",
-    "online_no_models": "在线 — 未找到模型",
-    "select_provider_url": "选择提供商或输入 Base URL",
-    "api_key_required": "云服务提供商需要 API 密钥",
-    "test_canceled": "测试已取消",
-    "test_failed": "测试失败",
-    "test_sent": "测试已发送！",
-    "test": "测试",
-    "adding": "添加中…"
-  },
-
-  "tasks": {
-    "deleted_count": "已删除",
-    "tasks": "个任务",
-    "task": "个任务",
-    "run_now": "立即运行",
-    "full_history": "打开完整历史",
-    "day_of_week": "星期几",
-    "day_of_month": "几号",
-    "date": "日期",
-    "cron_expr": "Cron 表达式",
-    "cron_hint": "分 时 日 月 星期 — 例如 \"0 */2 * * *\" = 每2小时",
-    "prompt_required": "提示词不能为空",
-    "select_action": "请选择操作",
-    "urgency_save_failed": "保存紧急规则失败",
-    "cron_required": "Cron 表达式不能为空",
-    "select_event": "请选择事件",
-    "updated": "任务已更新",
-    "created": "任务已创建",
-    "paused": "任务已暂停"
-  },
-
-  "notes": {
-    "undo_failed": "撤销失败",
-    "no_past_reminders": "没有过期的提醒需要清除",
-    "cleared_reminders": "已清除",
-    "reminder": "条过期提醒",
-    "reminders": "条过期提醒",
-    "pin_failed": "置顶失败",
-    "color_failed": "更新颜色失败",
-    "archived": "已归档",
-    "archive_failed": "归档失败",
-    "unarchived": "已取消归档",
-    "unarchive_failed": "取消归档失败",
-    "deleted": "已删除",
-    "delete_failed": "删除失败",
-    "copy_failed": "复制失败"
-  },
-
-  "calendar": {
-    "create_failed": "创建事件失败",
-    "update_failed": "更新事件失败",
-    "delete_failed": "删除事件失败",
-    "reminder_failed": "创建提醒失败",
-    "parsing": "解析中…",
-    "quick_add": "快速添加",
-    "quick_add_failed": "快速添加失败",
-    "refreshed": "日历已刷新",
-    "moved": "已移动",
-    "calendar_create_failed": "创建日历失败",
-    "saved_calendar": "已保存",
-    "importing": "导入中...",
-    "syncing": "同步中…",
-    "title_required": "标题不能为空",
-    "save_failed": "保存失败"
-  },
-
-  "document": {
-    "email_receive_only": "选中的邮件账户只能接收；将使用你的 SMTP 账户。",
-    "export_failed": "导出失败",
-    "jump_to_signature": "跳转到最后一页（签名栏通常在此处）",
-    "remove_signature": "移除此处的签名",
-    "change": "更改",
-    "sign_here": "在此签名",
-    "today": "今天",
-    "building_pdf": "正在生成 PDF…",
-    "delete_annotation": "删除批注",
-    "drag_move": "拖拽移动",
-    "drag_resize": "拖拽调整大小",
-    "annotation_options": "文本批注选项",
-    "thinking": "思考中…",
-    "ai_nothing_to_fill": "AI 未找到需要填写的内容",
-    "ai_fill": "AI 填写"
-  },
-
-  "cookbook": {
-    "loading_packages": "加载包信息…",
-    "install_failed": "安装失败",
-    "updating": "更新",
-    "installing": "安装",
-    "on_host": "到",
-    "clearing": "清理中...",
-    "rebuild_failed": "重建失败",
-    "enter_repo_id": "请输入完整的 HuggingFace 仓库 ID，格式如 \"org/model-name\"，或 Ollama 名称如 \"qwen2.5:14b\"。",
-    "scanning": "正在扫描模型…",
-    "token_stored": "Token 已保存"
-  },
-
-  "gallery": {
-    "cant_read_folders": "浏览器无法读取从原生文件管理器拖放的文件夹。请使用 Albums 标签中的 \"上传相册\"。",
-    "no_images_drop": "拖放内容中未找到图片",
-    "select_albums_first": "请先选择相册",
-    "album_renamed": "相册已重命名",
-    "rename_failed": "重命名失败",
-    "album_deleted": "相册已删除",
-    "delete_failed": "删除失败",
-    "no_images_folder": "该文件夹中没有图片或视频",
-    "cant_create_album": "无法创建相册",
-    "deleted_albums": "已删除",
-    "albums": "个相册",
-    "album": "个相册"
-  },
-
-  "email": {
-    "copied": "邮件已复制",
-    "copy": "复制邮件",
-    "copy_failed": "复制失败",
-    "restore": "恢复邮件",
-    "accounts": "账户",
-    "accounts_dot": "账户...",
-    "delete_failed": "删除邮件失败",
-    "moved_to_trash": "已移到废纸篓",
-    "drafting_reply": "正在用 AI 起草回复",
-    "reply_failed": "AI 回复失败",
-    "draft_failed": "创建回复草稿失败",
-    "no_session": "无法创建新邮件（无会话）",
-    "create_failed": "创建新邮件失败"
+    "actions": "操作"
   }
 }
