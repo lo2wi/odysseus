@@ -543,7 +543,7 @@ function _taskEnterSelect() {
   _taskSelectMode = true; _taskSelected.clear();
   document.getElementById('tasks-bulk-bar')?.classList.remove('hidden');
   const _sb = document.getElementById('tasks-select-btn');
-  if (_sb) { _sb.classList.add('active'); _sb.textContent = __('common.cancel', 'Cancel'); }
+  if (_sb) { _sb.classList.add('active'); _sb.textContent = __('common.cancel', __('tasks.cancel', 'Cancel')); }
   _taskUpdateBulkCount();
   _renderList();
 }
@@ -551,7 +551,7 @@ function _taskExitSelect() {
   _taskSelectMode = false; _taskSelected.clear();
   document.getElementById('tasks-bulk-bar')?.classList.add('hidden');
   const _sb = document.getElementById('tasks-select-btn');
-  if (_sb) { _sb.classList.remove('active'); _sb.textContent = __('common.select', 'Select'); }
+  if (_sb) { _sb.classList.remove('active'); _sb.textContent = __('common.select', __('tasks.select', 'Select')); }
   const sa = document.getElementById('tasks-select-all'); if (sa) sa.checked = false;
   _renderList();
 }
@@ -696,7 +696,7 @@ function _renderList() {
     actionsWrap.className = 'memory-item-actions';
     const menuBtn = document.createElement('button');
     menuBtn.className = 'memory-item-btn';
-    menuBtn.title = __('common.actions', 'Actions');
+    menuBtn.title = __('common.actions', __('tasks.actions', 'Actions'));
     menuBtn.style.position = 'relative';
     menuBtn.style.top = '4px';
     menuBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>';
@@ -705,7 +705,7 @@ function _renderList() {
       const items = [];
       // Run now stays in the kebab too (alongside the new Run button on the
       // card) for users coming from muscle-memory / mobile long-press.
-      if (task.status !== 'completed') items.push({ label: 'Run now', icon: '<polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>', action: () => _doRunNow(task.id) });
+      if (task.status !== 'completed') items.push({ label: __('tasks.run_now', 'Run now'), icon: '<polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>', action: () => _doRunNow(task.id) });
       items.push({ label: 'Edit', icon: '<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>', action: () => _showForm(task) });
       if (task.status === 'active') items.push({ label: 'Pause', icon: '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>', action: () => _doPause(task.id) });
       else if (task.status === 'paused') items.push({ label: 'Resume', icon: '<polygon points="5 3 19 12 5 21 5 3"/>', action: () => _doResume(task.id) });
@@ -725,7 +725,7 @@ function _renderList() {
     if (task.status !== 'completed') {
       const runBtn = document.createElement('button');
       runBtn.className = 'task-status-badge task-run-now-badge task-card-run-btn';
-      runBtn.title = __('tasks.run_now', 'Run now');
+      runBtn.title = __('tasks.run_now', __('tasks.run_now', 'Run now'));
       runBtn.style.cssText = 'position:relative;top:1px;margin-right:4px;';
       runBtn.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span>Run</span>';
       runBtn.addEventListener('click', (e) => { e.stopPropagation(); _doRunNow(task.id); });
@@ -780,7 +780,7 @@ function _renderList() {
       const lr = document.createElement('div');
       lr.style.cssText = `font-size:11px;margin-bottom:6px;padding:4px 8px;border-left:2px solid ${color};background:color-mix(in srgb, ${color} 8%, transparent);border-radius:2px;line-height:1.4;cursor:pointer;`;
       lr.innerHTML = `<span style="font-weight:600;color:${color};">${isErr ? '✗' : '✓'}</span> <span style="opacity:0.9;">${_esc(prev) || (isErr ? 'Failed (no detail)' : 'Success (no output)')}</span>`;
-      lr.title = __('tasks.full_history', 'Open full history');
+      lr.title = __('tasks.full_history', __('tasks.full_history', 'Open full history'));
       lr.addEventListener('click', (e) => { e.stopPropagation(); _showRunHistory(task.id, task.name); });
       detail.appendChild(lr);
     }
@@ -1184,7 +1184,7 @@ function _showForm(existing, initTaskType, initTriggerType) {
         if (sched === 'weekly') {
           const label = document.createElement('label');
           label.className = 'task-form-label';
-          label.textContent = __('tasks.day_of_week', 'Day of week');
+          label.textContent = __('tasks.day_of_week', __('tasks.day_of_week', 'Day of week'));
           schedOpts.appendChild(label);
           const sel = document.createElement('select');
           sel.id = 'task-form-day';
@@ -1200,7 +1200,7 @@ function _showForm(existing, initTaskType, initTriggerType) {
         } else if (sched === 'monthly') {
           const label = document.createElement('label');
           label.className = 'task-form-label';
-          label.textContent = __('tasks.day_of_month', 'Day of month');
+          label.textContent = __('tasks.day_of_month', __('tasks.day_of_month', 'Day of month'));
           schedOpts.appendChild(label);
           const inp = document.createElement('input');
           inp.type = 'number';
@@ -1212,7 +1212,7 @@ function _showForm(existing, initTaskType, initTriggerType) {
         } else if (sched === 'once') {
           const label = document.createElement('label');
           label.className = 'task-form-label';
-          label.textContent = __('tasks.date', 'Date');
+          label.textContent = __('tasks.date', __('tasks.date', 'Date'));
           schedOpts.appendChild(label);
           const dateWrap = document.createElement('div');
           dateWrap.className = 'task-date-picker';
@@ -1222,7 +1222,7 @@ function _showForm(existing, initTaskType, initTriggerType) {
         } else if (sched === 'cron') {
           const label = document.createElement('label');
           label.className = 'task-form-label';
-          label.textContent = __('tasks.cron_expr', 'Cron expression');
+          label.textContent = __('tasks.cron_expr', __('tasks.cron_expr', 'Cron expression'));
           schedOpts.appendChild(label);
           const inp = document.createElement('input');
           inp.type = 'text';

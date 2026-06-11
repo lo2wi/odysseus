@@ -691,7 +691,7 @@ async function _fetchDependencies() {
     list.appendChild(_spin.element);
     const label = document.createElement('div');
     label.className = 'hwfit-loading';
-    label.textContent = __('cookbook.loading_packages', 'Loading packages…');
+    label.textContent = __('cookbook.loading_packages', __('cookbook.loading_packages', 'Loading packages…'));
     label.style.cssText = 'text-align:center;opacity:0.5;font-size:11px;margin-top:6px;';
     list.appendChild(label);
   } catch {
@@ -1165,7 +1165,7 @@ function _wireTabEvents(body) {
       if (!confirm(`Rebuild the llama.cpp engine on ${where}?\n\nThis clears the cached llama-server build so the next serve recompiles from source (with CUDA/HIP if a toolchain is present). It does not download or install anything.`)) return;
       const _label = rebuildBtn.textContent;
       rebuildBtn.disabled = true;
-      rebuildBtn.textContent = __('cookbook.clearing', 'Clearing...');
+      rebuildBtn.textContent = __('cookbook.clearing', __('cookbook.clearing', 'Clearing...'));
       try {
         const res = await fetch('/api/cookbook/rebuild-engine', {
           method: 'POST', credentials: 'same-origin',
@@ -1242,7 +1242,7 @@ function _wireTabEvents(body) {
   if (selectBtn && bulkBar) {
     selectBtn.addEventListener('click', () => {
       const active = selectBtn.classList.toggle('active');
-      selectBtn.textContent = active ? 'Cancel' : 'Select';
+      selectBtn.textContent = active ? 'Cancel' : __('cookbook.select', 'Select');
       bulkBar.classList.toggle('hidden', !active);
       document.querySelectorAll('.serve-select-cb').forEach(dot => {
         dot.style.display = active ? '' : 'none';
@@ -1271,7 +1271,7 @@ function _wireTabEvents(body) {
 
     document.getElementById('serve-bulk-cancel')?.addEventListener('click', () => {
       selectBtn.classList.remove('active');
-      selectBtn.textContent = __('common.select', 'Select');  // reset label so the button doesn't stay reading "Cancel" after exit
+      selectBtn.textContent = __('common.select', __('cookbook.select', 'Select'));  // reset label so the button doesn't stay reading "Cancel" after exit
       bulkBar.classList.add('hidden');
       document.querySelectorAll('.serve-select-cb').forEach(dot => { dot.style.display = 'none'; dot.classList.remove('selected'); });
     });
@@ -1290,7 +1290,7 @@ function _wireTabEvents(body) {
         if (item) await _deleteCachedModel(repo, item, true);
       }
       selectBtn.classList.remove('active');
-      selectBtn.textContent = __('common.select', 'Select');  // same reset as bulk-cancel
+      selectBtn.textContent = __('common.select', __('cookbook.select', 'Select'));  // same reset as bulk-cancel
       bulkBar.classList.add('hidden');
       document.querySelectorAll('.serve-select-cb').forEach(dot => { dot.style.display = 'none'; dot.classList.remove('selected'); });
     });
@@ -1472,7 +1472,7 @@ function _wireTabEvents(body) {
         hfList.appendChild(_spin.element);
         const lbl = document.createElement('div');
         lbl.className = 'hwfit-loading';
-        lbl.textContent = __('cookbook.scanning', 'Scanning models…');
+        lbl.textContent = __('cookbook.scanning', __('cookbook.scanning', 'Scanning models…'));
         lbl.style.cssText = 'text-align:center;opacity:0.5;font-size:11px;margin-top:6px;';
         hfList.appendChild(lbl);
       } catch {
@@ -1671,7 +1671,7 @@ function _wireTabEvents(body) {
         if (!check) {
           check = document.createElement('span');
           check.className = 'hwfit-hf-check';
-          check.title = __('cookbook.token_stored', 'Token stored');
+          check.title = __('cookbook.token_stored', __('cookbook.token_stored', 'Token stored'));
           check.textContent = '✓';
           check.style.cssText = 'font-weight:800;color:var(--green,#50fa7b);font-size:15px;line-height:1;flex-shrink:0;position:relative;top:2px;';
           hfInput.parentNode.insertBefore(check, hfInput);

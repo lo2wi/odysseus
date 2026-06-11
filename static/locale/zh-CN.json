@@ -422,7 +422,9 @@
     "export": "导出",
     "import": "导入",
     "search": "搜索文档…",
-    "untitled": "未命名"
+    "untitled": "未命名",
+    "jump_signature": "跳转到最后一页（签名栏通常在此处）",
+    "ai_nothing": "AI 未找到需要填写的内容"
   },
   "gallery": {
     "cant_read_folders": "浏览器无法读取从原生文件管理器拖放的文件夹。请使用 Albums 标签中的 \"上传相册\"。",
@@ -458,7 +460,11 @@
     "updated": "任务已更新",
     "created": "任务已创建",
     "paused": "任务已暂停",
-    "title": "任务"
+    "title": "任务",
+    "delete_confirm": "删除 {n} 个任务？",
+    "actions": "操作",
+    "select": "选择",
+    "cancel": "取消"
   },
   "notes": {
     "undo_failed": "撤销失败",
@@ -495,23 +501,27 @@
     "syncing": "同步中…",
     "title_required": "标题不能为空",
     "save_failed": "保存失败",
-    "title": "日历"
+    "title": "日历",
+    "create_event_failed": "创建事件失败",
+    "update_event_failed": "更新事件失败",
+    "delete_event_failed": "删除事件失败"
   },
   "compare": {
     "title": "对比"
   },
   "cookbook": {
-    "loading_packages": "加载包信息…",
+    "loading_packages": "正在加载包信息…",
     "install_failed": "安装失败",
-    "updating": "更新",
-    "installing": "安装",
+    "updating": "更新中",
+    "installing": "安装中",
     "on_host": "到",
-    "clearing": "清理中...",
+    "clearing": "清理中…",
     "rebuild_failed": "重建失败",
     "enter_repo_id": "请输入完整的 HuggingFace 仓库 ID，格式如 \"org/model-name\"，或 Ollama 名称如 \"qwen2.5:14b\"。",
     "scanning": "正在扫描模型…",
-    "token_stored": "Token 已保存",
-    "title": "Cookbook"
+    "token_stored": "令牌已保存",
+    "title": "Cookbook",
+    "select": "选择"
   },
   "deep_research": {
     "title": "深度研究",

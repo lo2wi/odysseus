@@ -729,7 +729,7 @@ import * as Modals from './modalManager.js';
       jumpBar.appendChild(topBtn);
       const botBtn = document.createElement('button');
       botBtn.textContent = '↓ Bottom';
-      botBtn.title = __('document.jump_to_signature', 'Jump to the last page (signature fields are usually here)');
+      botBtn.title = __('document.jump_to_signature', __('document.jump_signature', 'Jump to the last page (signature fields are usually here)'));
       botBtn.className = _smallBtnClass;
       botBtn.style.cssText = _smallBtnStyle;
       botBtn.addEventListener('click', () => body.scrollTo({ top: body.scrollHeight, behavior: 'smooth' }));
@@ -763,7 +763,7 @@ import * as Modals from './modalManager.js';
             thumb.style.cssText = 'max-height:32px;max-width:140px;object-fit:contain;border:1px solid var(--border);border-radius:3px;background:#fff;display:none;';
             const clearBtn = document.createElement('button');
             clearBtn.textContent = '×';
-            clearBtn.title = __('document.remove_signature', 'Remove signature from this field');
+            clearBtn.title = __('document.remove_signature', __('document.remove_signature', 'Remove signature from this field'));
             clearBtn.className = 'confirm-btn confirm-btn-secondary';
             clearBtn.style.cssText = 'padding:0 8px;font-size:0.85rem;line-height:1;display:none;';
             const apply = (sig) => {
@@ -771,16 +771,16 @@ import * as Modals from './modalManager.js';
               thumb.src = sig.dataUrl;
               thumb.style.display = '';
               clearBtn.style.display = '';
-              btn.textContent = __('document.change', 'Change');
+              btn.textContent = __('document.change', __('document.change', 'Change'));
             };
             const clear = () => {
               delete wrap.dataset.signatureId;
               thumb.removeAttribute('src');
               thumb.style.display = 'none';
               clearBtn.style.display = 'none';
-              btn.textContent = __('document.sign_here', 'Sign here');
+              btn.textContent = __('document.sign_here', __('document.sign_here', 'Sign here'));
             };
-            btn.textContent = __('document.sign_here', 'Sign here');
+            btn.textContent = __('document.sign_here', __('document.sign_here', 'Sign here'));
             btn.addEventListener('click', async () => {
               const sig = await signatureModule.pick();
               if (sig) apply(sig);
@@ -805,7 +805,7 @@ import * as Modals from './modalManager.js';
             ti.dataset.fieldName = f.name;
             ti.dataset.fieldType = f.type;
             const today = document.createElement('button');
-            today.textContent = __('document.today', 'Today');
+            today.textContent = __('document.today', __('document.today', 'Today'));
             today.title = "Set to today's date";
             today.className = 'confirm-btn confirm-btn-secondary';
             today.style.cssText = 'padding:3px 8px;font-size:0.72rem;';
@@ -870,7 +870,7 @@ import * as Modals from './modalManager.js';
           }
         }
         downloadBtn.disabled = true;
-        overlay.querySelector('#pdf-export-status').textContent = __('document.building_pdf', 'Building PDF…');
+        overlay.querySelector('#pdf-export-status').textContent = __('document.building_pdf', __('document.building_pdf', 'Building PDF…'));
         try {
           const r = await fetch(`${API_BASE}/api/document/${activeDocId}/export-pdf`, {
             method: 'POST',
@@ -1225,7 +1225,7 @@ import * as Modals from './modalManager.js';
               el.style.background = 'color-mix(in srgb, var(--accent, var(--red)) 10%, transparent)';
               const span = document.createElement('span');
               span.style.cssText = 'color:var(--accent, var(--red));font-size:11px;';
-              span.textContent = __('document.sign_here', 'Sign here');
+              span.textContent = __('document.sign_here', __('document.sign_here', 'Sign here'));
               el.appendChild(span);
             }
           };
@@ -1283,7 +1283,7 @@ import * as Modals from './modalManager.js';
         if (isDate) {
           const today = document.createElement('button');
           today.type = 'button';
-          today.textContent = __('document.today', 'Today');
+          today.textContent = __('document.today', __('document.today', 'Today'));
           today.title = "Set to today's date";
           today.style.cssText = `position:absolute;left:calc(${lPct}% + ${wPct}%);top:${tPct}%;height:${hPct}%;margin-left:4px;padding:0 6px;border:1px solid color-mix(in srgb, var(--accent, var(--red)) 55%, transparent);background:rgba(255,255,255,0.95);color:var(--accent, var(--red));border-radius:3px;cursor:pointer;font-size:10px;line-height:1;white-space:nowrap;`;
           today.addEventListener('click', () => {
@@ -1379,7 +1379,7 @@ import * as Modals from './modalManager.js';
     } else if (kind === 'signature') {
       input = document.createElement('div');
       input.style.cssText = `width:100%;height:100%;box-sizing:border-box;border:1px dashed color-mix(in srgb, var(--accent, var(--red)) 65%, transparent);background:color-mix(in srgb, var(--accent, var(--red)) 10%, transparent);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;font-size:10px;color:var(--accent, var(--red));`;
-      input.textContent = (ann.value && ann.value.startsWith('signature:')) ? '' : 'Sign here';
+      input.textContent = (ann.value && ann.value.startsWith('signature:')) ? '' : __('document.sign_here', 'Sign here');
       input.dataset.signatureId = (ann.value && ann.value.startsWith('signature:')) ? ann.value.slice(10) : '';
     } else {
       // Multi-line text input. Browser resize disabled — we use the custom
@@ -1411,18 +1411,18 @@ import * as Modals from './modalManager.js';
     const del = document.createElement('button');
     del.type = 'button';
     del.textContent = '✖';
-    del.title = __('document.delete_annotation', 'Delete annotation');
+    del.title = __('document.delete_annotation', __('document.delete_annotation', 'Delete annotation'));
     del.style.cssText = `position:absolute;top:${OFF}px;right:${OFF}px;width:${HS}px;height:${HS}px;padding:0 0 0 1px;border:1px solid var(--accent, var(--red));background:#fff;color:var(--accent, var(--red));border-radius:50%;cursor:pointer;font-size:11px;line-height:1;display:${HIDE};font-weight:bold;touch-action:none;`;
 
     // ☰ drag handle — same size as the × button.
     const grip = document.createElement('div');
-    grip.title = __('document.drag_move', 'Drag to move');
+    grip.title = __('document.drag_move', __('document.drag_move', 'Drag to move'));
     grip.textContent = '☰';
     grip.style.cssText = `position:absolute;top:${OFF}px;left:${OFF}px;width:${HS}px;height:${HS}px;border:1px solid color-mix(in srgb, var(--accent, var(--red)) 65%, transparent);background:#fff;color:var(--accent, var(--red));border-radius:3px;cursor:move;font-size:11px;line-height:${HS - 2}px;text-align:center;display:${HIDE};touch-action:none;`;
 
     // ↘ resize handle — same size as the × button.
     const resize = document.createElement('div');
-    resize.title = __('document.drag_resize', 'Drag to resize');
+    resize.title = __('document.drag_resize', __('document.drag_resize', 'Drag to resize'));
     resize.style.cssText = `position:absolute;bottom:${OFF}px;right:${OFF}px;width:${HS}px;height:${HS}px;border:1px solid color-mix(in srgb, var(--accent, var(--red)) 65%, transparent);background:#fff;color:var(--accent, var(--red));border-radius:3px;cursor:nwse-resize;display:${HIDE};touch-action:none;`;
     resize.innerHTML = '<svg width="14" height="14" viewBox="0 0 10 10" style="display:block;margin:auto;height:100%;"><path d="M2 8 L8 2 M5 8 L8 5" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg>';
 
@@ -1431,7 +1431,7 @@ import * as Modals from './modalManager.js';
       menuBtn = document.createElement('button');
       menuBtn.type = 'button';
       menuBtn.textContent = '…';
-      menuBtn.title = __('document.annotation_options', 'Text annotation options');
+      menuBtn.title = __('document.annotation_options', __('document.annotation_options', 'Text annotation options'));
       menuBtn.style.cssText = `position:absolute;bottom:${OFF}px;left:${OFF}px;width:${HS}px;height:${HS}px;padding:0;border:1px solid color-mix(in srgb, var(--accent, var(--red)) 65%, transparent);background:#fff;color:var(--accent, var(--red));border-radius:50%;cursor:pointer;font-size:15px;line-height:0.8;display:${HIDE};font-weight:bold;touch-action:none;`;
     }
 
@@ -1468,7 +1468,7 @@ import * as Modals from './modalManager.js';
           input.style.background = 'color-mix(in srgb, var(--accent, var(--red)) 10%, transparent)';
           input.style.border = '1px dashed color-mix(in srgb, var(--accent, var(--red)) 65%, transparent)';
           const span = document.createElement('span');
-          span.textContent = __('document.sign_here', 'Sign here');
+          span.textContent = __('document.sign_here', __('document.sign_here', 'Sign here'));
           input.appendChild(span);
           return;
         }
@@ -1760,7 +1760,7 @@ import * as Modals from './modalManager.js';
 
     _setPdfSaveStatus('saving');
     const btn = document.getElementById('doc-pdf-ai-fill-btn');
-    if (btn) { btn.disabled = true; btn.textContent = __('document.thinking', 'Thinking…'); }
+    if (btn) { btn.disabled = true; btn.textContent = __('document.thinking', __('document.thinking', 'Thinking…')); }
     try {
       const res = await fetch(`${API_BASE}/api/document/${docId}/ai-fill-annotations`, {
         method: 'POST',
@@ -1775,7 +1775,7 @@ import * as Modals from './modalManager.js';
       const proposed = (data && data.annotations) || [];
       if (!proposed.length) {
         _setPdfSaveStatus('idle');
-        if (uiModule && uiModule.showToast) uiModule.showToast(__('document.ai_nothing_to_fill', 'AI found nothing to fill'));
+        if (uiModule && uiModule.showToast) uiModule.showToast(__('document.ai_nothing_to_fill', __('document.ai_nothing', 'AI found nothing to fill')));
         return;
       }
       // Merge into markdown via the same _writeAnnotations path: parse current,
@@ -1813,7 +1813,7 @@ import * as Modals from './modalManager.js';
       console.error('AI fill failed:', e);
       _setPdfSaveStatus('error', `AI fill failed: ${e.message || e}`);
     } finally {
-      if (btn) { btn.disabled = false; btn.textContent = __('document.ai_fill', 'AI fill'); }
+      if (btn) { btn.disabled = false; btn.textContent = __('document.ai_fill', __('document.ai_fill', 'AI fill')); }
     }
   }
 
