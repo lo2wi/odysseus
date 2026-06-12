@@ -143,14 +143,14 @@ function _initGroupTab() {
     const picked = _groupParticipants.map(p => {
       let m = p.model ? { ...p.model } : (_defaultModel ? { ..._defaultModel } : null);
       if (!m || !m.url) {
-        console.warn('[group] Participant has no valid model:', p);
+        console.warn(__('group.no_valid_model', '[group] Participant has no valid model') + ':', p);
         return null;
       }
       if (p.character) m.character = { characterId: p.character.id, characterName: p.character.name, characterPrompt: p.character.prompt };
       return m;
     }).filter(Boolean);
 
-    if (picked.length < 2) { uiModule.showToast('Need at least 2 participants — add models or characters'); return; }
+    if (picked.length < 2) { uiModule.showToast(__('group.need_participants', 'Need at least 2 participants — add models or characters')); return; }
 
     const modal = document.getElementById('custom-preset-modal');
     if (modal) modal.classList.add('hidden');
@@ -272,7 +272,7 @@ function _initGroupTab() {
         });
         presetsDiv.appendChild(chip);
       });
-    } catch (e) { console.warn('[group] Failed to load presets:', e); }
+    } catch (e) { console.warn(__('group.failed_load_presets', '[group] Failed to load presets') + ':', e); }
   }
   // Restore button text when switching away from Group tab
   document.querySelectorAll('.preset-tab[data-chartab]').forEach(tab => {
@@ -400,7 +400,7 @@ export async function showModelPicker() {
           const res = await fetch(API_BASE + '/api/models', { credentials: 'same-origin' });
           const data = await res.json();
           items = data.items || [];
-        } catch (e) { console.warn('[group] Failed to fetch models:', e); }
+        } catch (e) { console.warn(__('group.failed_fetch_models', '[group] Failed to fetch models') + ':', e); }
       }
       const result = [];
       const seen = new Set();
@@ -556,7 +556,7 @@ export async function startGroup(models, parentSessionId) {
       if (!gids.includes(_parentSessionId)) { gids.push(_parentSessionId); localStorage.setItem('odysseus-group-sessions', JSON.stringify(gids)); }
     } catch (e) {}
   } catch (e) {
-    console.error('[group] Failed to create parent session:', e);
+    console.error(__('group.failed_parent', '[group] Failed to create parent session') + ':', e);
     _parentSessionId = parentSessionId || 'group-' + Date.now();
   }
 
@@ -611,7 +611,7 @@ export async function startGroup(models, parentSessionId) {
         body: JSON.stringify({ messages: [{ role: 'system', content: sysPrompt }]}),
       }).catch(() => {});
     } catch (e) {
-      console.error('[group] Failed to create participant session:', m.display, e);
+      console.error(__('group.failed_participant', '[group] Failed to create participant session') + ':', m.display, e);
       _participantSessions.push(null);
     }
   }

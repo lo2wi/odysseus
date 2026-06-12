@@ -169,7 +169,7 @@ function handleInput(e) {
       const data = await res.json();
       renderResults(data, query);
     } catch (err) {
-      console.error('Search error:', err);
+      console.error(__('search.error', 'Search error') + ':', err);
     }
   }, 300);
 }

@@ -437,7 +437,7 @@ function initPersistentChat() {
       btn.textContent = 'Created!';
       setTimeout(() => { btn.textContent = 'Create Persistent Chat'; }, 1500);
     } catch (e) {
-      console.error('Failed to create persistent chat:', e);
+      console.error(__('presets.failed_create', 'Failed to create persistent chat') + ':', e);
       btn.textContent = 'Error';
       setTimeout(() => { btn.textContent = 'Create Persistent Chat'; }, 2000);
     }
@@ -987,7 +987,7 @@ function _syncCharIndicator() {
       // window identity, no persona name.
       if (iconEl) iconEl.innerHTML = _SYRINGE;
       if (nameSpan) nameSpan.textContent = 'Prompt';
-      btn.title = 'Custom settings active — click to configure';
+      btn.title = __('presets.custom_active', 'Custom settings active — click to configure');
     }
     // Hide X in persistent chats
     const xIcon = btn.querySelector('.tool-indicator-x');

@@ -90,7 +90,7 @@ export function renderAttachStrip() {
     const x = document.createElement('button');
     x.className = 'thumb-collapsed-x';
     x.textContent = '\u00d7';
-    x.title = 'Remove all';
+    x.title = __('file.remove_all', 'Remove all');
     x.addEventListener('click', (e) => { e.stopPropagation(); clearPending(); });
     badge.appendChild(x);
     strip.appendChild(badge);
@@ -121,7 +121,7 @@ function _createChip(f, idx) {
   }
   const x = document.createElement('button');
   x.textContent = '\u00d7';
-  x.setAttribute('aria-label', 'Remove attachment');
+  x.setAttribute('aria-label', __('file.remove_attachment', 'Remove attachment'));
   x.addEventListener('click', (e) => { e.stopPropagation(); removePending(idx); });
   chip.appendChild(x);
   return chip;

@@ -25,7 +25,7 @@ export async function openAssistantChat() {
   try {
     const info = await _fetchJSON(`${API}/session`);
     if (!info?.session_id) {
-      uiModule.showToast('Assistant session unavailable');
+      uiModule.showToast(__('assistant.session_unavailable', 'Assistant session unavailable'));
       return;
     }
     await selectSession(info.session_id);
@@ -33,7 +33,7 @@ export async function openAssistantChat() {
     _cachedSettings = null;
   } catch (e) {
     console.error('openAssistantChat failed:', e);
-    uiModule.showToast('Could not open assistant');
+    uiModule.showToast(__('assistant.could_not_open', 'Could not open assistant'));
   }
 }
 
@@ -70,10 +70,10 @@ async function _runCheckInNow(taskId) {
       method: 'POST',
       credentials: 'same-origin',
     });
-    uiModule.showToast('Check-in running…');
+    uiModule.showToast(__('assistant.checkin_running', 'Check-in running…'));
   } catch (e) {
     console.error(e);
-    uiModule.showToast('Could not run check-in');
+    uiModule.showToast(__('assistant.could_not_checkin', 'Could not run check-in'));
   }
 }
 
@@ -360,7 +360,7 @@ function _renderSettingsBody(body, data, tzList) {
     };
     try {
       await _saveSettings(payload);
-      uiModule.showToast('Assistant settings saved');
+      uiModule.showToast(__('assistant.settings_saved', 'Assistant settings saved'));
       _closeModal();
     } catch (e) {
       console.error(e);
@@ -433,7 +433,7 @@ async function _ensureHeaderAffordances(sessionId) {
   const gear = document.createElement('button');
   gear.id = 'assistant-header-gear';
   gear.type = 'button';
-  gear.title = 'Assistant settings';
+  gear.title = __('assistant.settings', 'Assistant settings');
   gear.className = 'chat-header-btn';
   gear.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
   gear.addEventListener('click', openAssistantSettings);

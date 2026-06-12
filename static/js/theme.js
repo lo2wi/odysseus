@@ -895,7 +895,7 @@ export function initThemeUI() {
       if (hasAdv) colors.advanced = adv;
       const opts = _getOpts();
       const result = saveCustomTheme(slug, colors, opts);
-      if (result === 'limit') { saveError.textContent = 'Max ' + MAX_CUSTOM_THEMES + ' custom themes. Delete one first.'; saveError.style.display = 'block'; return; }
+      if (result === 'limit') { saveError.textContent = 'Max ' + MAX_CUSTOM_THEMES + console.warn(__('theme.max_themes', ' custom themes. Delete one first.')); saveError.style.display = 'block'; return; }
       save(slug, colors, opts);
       newNameInput.value = '';
       _flashAutosaved('Theme saved');
@@ -1122,7 +1122,7 @@ export function initThemeUI() {
         // Restore saved value after options are populated
         nf.value = _initFont;
       })
-      .catch(e => console.warn('Custom fonts fetch failed:', e));
+      .catch(e => console.warn(__('theme.fonts_failed', 'Custom fonts fetch failed') + ':', e));
   }
   if (densitySelect) {
     const nd = densitySelect.cloneNode(true); densitySelect.parentNode.replaceChild(nd, densitySelect);
@@ -1304,7 +1304,7 @@ export function initThemeUI() {
       if (parsed.bgPattern) opts.bgPattern = parsed.bgPattern;
       if (parsed.bgEffectColor) opts.bgEffectColor = parsed.bgEffectColor;
       const result = saveCustomTheme(slug, colorData, opts);
-      if (result === 'limit') { saveError.textContent = 'Max ' + MAX_CUSTOM_THEMES + ' custom themes. Delete one first.'; saveError.style.display = 'block'; return; }
+      if (result === 'limit') { saveError.textContent = 'Max ' + MAX_CUSTOM_THEMES + console.warn(__('theme.max_themes', ' custom themes. Delete one first.')); saveError.style.display = 'block'; return; }
       save(slug, colorData, opts);
       applyColors(colorData);
       applyFontDensity(opts.font || DEFAULT_FONT, opts.density || DEFAULT_DENSITY);
@@ -2076,7 +2076,7 @@ async function _initWithSync() {
       }
       if (changed) _saveCustomThemes(local);
     }
-  } catch (e) { console.warn('Custom theme server sync failed:', e); }
+  } catch (e) { console.warn(__('theme.sync_failed', 'Custom theme server sync failed') + ':', e); }
   initThemeUI();
 }
 

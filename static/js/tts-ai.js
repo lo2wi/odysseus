@@ -106,13 +106,13 @@ class AITTSManager {
 
     async synthesize(text, onProgress = null) {
         if (!this.available) {
-            throw new Error('AI TTS service not available');
+            throw new Error(__('tts.service_unavailable', 'AI TTS service not available'));
         }
 
         const plainText = this.extractPlainText(text);
 
         if (!plainText) {
-            throw new Error('No text to synthesize');
+            throw new Error(__('tts.no_text', 'No text to synthesize'));
         }
 
         // Browser TTS doesn't use synthesize — handled directly in play()
@@ -193,7 +193,7 @@ class AITTSManager {
             // to reset button state when audio finishes
 
         } catch (error) {
-            console.error('Failed to play audio:', error);
+            console.error(__('tts.playback_failed', 'Failed to play audio') + ': ', error);
             throw error;
         }
     }

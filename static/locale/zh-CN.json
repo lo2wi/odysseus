@@ -404,7 +404,10 @@
     "export_theme": "导出主题",
     "import_theme": "导入主题",
     "reset_theme": "重置主题",
-    "system": "系统"
+    "system": "系统",
+    "sync_failed": "自定义主题服务器同步失败",
+    "fonts_failed": "自定义字体获取失败",
+    "max_themes": "已达到最大自定义主题数量。请先删除一个。"
   },
   "document": {
     "email_receive_only": "选中的邮件账户只能接收；将使用你的 SMTP 账户。",
@@ -625,7 +628,16 @@
     "download_stopped": "下载已停止",
     "starting_service": "正在启动服务",
     "service_ready": "服务就绪",
-    "service_failed": "服务启动失败"
+    "service_failed": "服务启动失败",
+    "choose_gguf": "选择要从此缓存模型文件夹提供的具体 GGUF 文件。",
+    "micro_batch": "llama.cpp 物理微批次大小。留空使用默认值。",
+    "prompt_batch": "llama.cpp 提示批次大小。留空使用默认值。",
+    "separate_gpu": "img2img/harmonize 的独立 GPU。留空使用同一 GPU。",
+    "inference_engine": "推理引擎: vLLM, SGLang, llama.cpp, Ollama, 或 Diffusers",
+    "precision": "精度。Flux 推荐 bfloat16，SD 推荐 float16",
+    "steps": "默认推理步数。更多 = 更好质量，更慢",
+    "confirmed_working": "已验证可用 — 此配置已启动并注册了端点",
+    "model_not_cached": "缓存中未找到模型 — 手动切换到 Serve 标签"
   },
   "deep_research": {
     "title": "深度研究",
@@ -906,7 +918,9 @@
     "select_preset": "选择预设",
     "default_preset": "默认预设",
     "persona": "角色",
-    "custom": "自定义"
+    "custom": "自定义",
+    "custom_active": "自定义设置已激活 — 点击配置",
+    "failed_create": "创建持久聊天失败"
   },
   "group": {
     "create_group": "创建群组",
@@ -916,7 +930,13 @@
     "group_settings": "群组设置",
     "leave_group": "退出群组",
     "delete_group": "删除群组",
-    "label": "群组"
+    "label": "群组",
+    "need_participants": "至少需要 2 个参与者 — 添加模型或角色",
+    "failed_participant": "创建参与者会话失败",
+    "failed_parent": "创建父会话失败",
+    "no_valid_model": "参与者没有有效模型",
+    "failed_fetch_models": "获取模型失败",
+    "failed_load_presets": "加载预设失败"
   },
   "tts": {
     "play": "播放",
@@ -924,14 +944,28 @@
     "select_voice": "选择语音",
     "voice_speed": "语速",
     "test_voice": "测试语音",
-    "not_available": "TTS 不可用"
+    "not_available": "TTS 不可用",
+    "not_supported": "TTS: 浏览器模式已选择但不支持 speechSynthesis",
+    "no_text": "没有可合成的文本",
+    "playback_failed": "音频播放失败",
+    "service_unavailable": "AI TTS 服务不可用"
   },
   "voice": {
     "start_recording": "开始录音",
     "stop_recording": "停止录音",
     "microphone_access": "麦克风权限",
-    "no_microphone": "未检测到麦克风",
-    "recording_failed": "录音失败"
+    "no_microphone": "未检测到麦克风。",
+    "recording_failed": "录音失败",
+    "https_required": "麦克风需要 HTTPS。请使用带 SSL 的反向代理或通过 localhost 访问。",
+    "access_denied": "麦克风权限被拒绝。请检查浏览器权限设置。",
+    "not_supported": "此浏览器不支持麦克风。",
+    "stt_error": "STT 转录错误",
+    "transcription_failed": "转录失败",
+    "microphone_error": "麦克风错误",
+    "no_speech": "未检测到语音",
+    "transcribing": "转录中…",
+    "recording": "录音中…",
+    "transcribed": "已转录"
   },
   "rag": {
     "add_document": "添加文档",
@@ -952,7 +986,8 @@
     "api_key": "API 密钥",
     "test_connection": "测试连接",
     "connection_successful": "连接成功",
-    "connection_failed": "连接失败"
+    "connection_failed": "连接失败",
+    "cognitive": "Cognitive Computations"
   },
   "file": {
     "drop_files": "拖放文件",
@@ -960,7 +995,9 @@
     "upload_complete": "上传完成",
     "upload_failed": "上传失败",
     "file_too_large": "文件过大",
-    "unsupported_format": "不支持的格式"
+    "unsupported_format": "不支持的格式",
+    "remove_attachment": "移除附件",
+    "remove_all": "移除全部"
   },
   "code": {
     "running": "运行中…",
@@ -970,13 +1007,19 @@
     "clear_output": "清空输出",
     "copy": "复制",
     "clear": "清除",
-    "run": "运行"
+    "run": "运行",
+    "popup_blocked": "弹窗被阻止 — 请允许此网站弹出窗口。",
+    "running_server": "服务器上运行中…",
+    "opened_new_window": "已在新窗口打开",
+    "copy_failed": "复制失败",
+    "exit_code": "退出码"
   },
   "search": {
     "searching": "搜索中…",
     "no_results": "无结果",
     "search_hint": "搜索…",
-    "label": "搜索"
+    "label": "搜索",
+    "error": "搜索错误"
   },
   "markdown": {
     "copy_code": "复制代码",
@@ -1013,7 +1056,15 @@
     "previous_message": "上一条消息"
   },
   "assistant": {
-    "title": "助手"
+    "title": "助手",
+    "settings_saved": "助手设置已保存",
+    "could_not_open": "无法打开助手",
+    "session_unavailable": "助手会话不可用",
+    "could_not_checkin": "无法执行签到",
+    "checkin_running": "签到执行中…",
+    "settings": "助手设置",
+    "calendar_notes": "日历与笔记",
+    "ai_models": "AI 与模型"
   },
   "censor": {
     "label": "已过滤"
@@ -1154,6 +1205,20 @@
     "Task updated": "任务已更新",
     "Task created": "任务已创建",
     "Task paused": "任务已暂停",
+    "Transcription failed": "转录失败",
+    "Transcribed": "已转录",
+    "Microphone requires HTTPS. Use a reverse proxy with SSL or access via localhost.": "麦克风需要 HTTPS。请使用带 SSL 的反向代理或通过 localhost 访问。",
+    "Microphone not supported in this browser.": "此浏览器不支持麦克风。",
+    "No speech detected": "未检测到语音",
+    "Transcribing...": "转录中…",
+    "STT transcription error": "STT 转录错误",
+    "Recording...": "录音中…",
+    "Microphone access denied. Check browser permissions.": "麦克风权限被拒绝。请检查浏览器权限设置。",
+    "No microphone found.": "未检测到麦克风。",
+    "Microphone error": "麦克风错误",
+    " custom themes. Delete one first.": "已达到最大自定义主题数量。请先删除一个。",
+    "Custom fonts fetch failed": "自定义字体获取失败",
+    "Custom theme server sync failed": "自定义主题服务器同步失败",
     "Remove fallback": "移除回退",
     "Saved": "已保存",
     "Failed to save": "保存失败",
@@ -1251,6 +1316,8 @@
     "Settings": "设置",
     "Productivity": "效率工具",
     "AI Tools": "AI 工具",
+    "Remove all": "移除全部",
+    "Remove attachment": "移除附件",
     "No images found in that drop": "拖放内容中未找到图片",
     "Select albums first": "请先选择相册",
     "Album renamed": "相册已重命名",
@@ -1293,7 +1360,13 @@
     "Failed to add memory": "添加记忆失败",
     "Pinned — always in context": "已置顶 — 始终在上下文中",
     "Unpinned — RAG only": "已取消置顶 — 仅 RAG",
+    "[group] Participant has no valid model": "参与者没有有效模型",
+    "Need at least 2 participants — add models or characters": "至少需要 2 个参与者 — 添加模型或角色",
     "Group": "群组",
+    "[group] Failed to load presets": "加载预设失败",
+    "[group] Failed to fetch models": "获取模型失败",
+    "[group] Failed to create parent session": "创建父会话失败",
+    "[group] Failed to create participant session": "创建参与者会话失败",
     "Upload failed": "上传失败",
     "Undo": "撤销",
     "Connection failed": "连接失败",
@@ -1335,6 +1408,13 @@
     "Unarchived": "已取消归档",
     "Failed to unarchive": "取消归档失败",
     "Copy failed": "复制失败",
+    "Copy output": "复制输出",
+    "Running...": "运行中…",
+    "Running on server...": "服务器上运行中…",
+    "Exit code": "退出码",
+    "Execution failed": "执行失败",
+    "Popup blocked — please allow popups for this site.": "弹窗被阻止 — 请允许此网站弹出窗口。",
+    "Opened in new window": "已在新窗口打开",
     "View / edit OCR text": "查看/编辑 OCR 文本",
     "Caption": "描述",
     "Failed to load full-resolution image.": "全分辨率图片加载失败。",
@@ -1374,6 +1454,9 @@
     "No selected skills to audit": "没有选中要审核的技能",
     "No visible skills to audit": "没有可见的技能可审核",
     "TTS: not available": "TTS 不可用",
+    "AI TTS service not available": "AI TTS 服务不可用",
+    "No text to synthesize": "没有可合成的文本",
+    "Failed to play audio": "音频播放失败",
     "Agent mode": "Agent 模式",
     "Browser automation": "浏览器自动化",
     "Shell / Python / Files": "Shell / Python / 文件",
@@ -1412,7 +1495,9 @@
     "Reply failed": "AI 回复失败",
     "Could not start a new email (no session).": "无法创建新邮件（无会话）",
     "Failed to create new email": "创建新邮件失败",
+    "Failed to create persistent chat": "创建持久聊天失败",
     "Custom": "自定义",
+    "Custom settings active — click to configure": "自定义设置已激活 — 点击配置",
     "Email copied": "邮件已复制",
     "Copy email": "复制邮件",
     "Restore Email": "恢复邮件",
@@ -1425,6 +1510,7 @@
     "Save sender to contacts": "保存发件人到通讯录",
     "Remind to reply": "提醒回复",
     "Move to Spam": "移到垃圾邮件",
+    "Search error": "搜索错误",
     "Email": "邮件",
     "Prompt": "角色",
     "Research": "深度研究",
@@ -1445,6 +1531,12 @@
     "Thinking…": "思考中…",
     "AI found nothing to fill": "AI 未找到需要填写的内容",
     "AI fill": "AI 填写",
+    "Assistant session unavailable": "助手会话不可用",
+    "Could not open assistant": "无法打开助手",
+    "Check-in running…": "签到执行中…",
+    "Could not run check-in": "无法执行签到",
+    "Assistant settings saved": "助手设置已保存",
+    "Assistant settings": "助手设置",
     "Stop generation": "停止生成",
     "stopped": "已停止",
     "[Message interrupted]": "[消息中断]",
